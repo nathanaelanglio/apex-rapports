@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Audit — {{BOUTIQUE}}</title>
+<meta name="description" content="Rapport d'audit e-commerce établi le {{DATE}} par APEX Automation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@300;400;500;600;700&display=swap">
+<style>
+  /* --marine = SURFACE (bandeau, boutons) : reste sombre dans les deux themes.
+     --accent = ENCRE (chiffres, liens) : s'eclaircit en sombre. */
+  :root {
+    --paper:#ffffff; --bg:#eef0f3; --ink:#141a24; --ink-soft:#4d5866; --ink-faint:#5d6875;
+    --line:#d5dae1; --line-firm:#8b95a2;
+    --marine:#1b365d; --on-marine:#f5f2ea; --marine-soft:#e7ecf3;
+    --accent:#1b365d; --or:#8a6412; --or-soft:#faf3e2;
+    --crit:#a8281c; --crit-soft:#fbebe8;
+    --warn:#a35a09; --warn-soft:#fdf2e4;
+    --ok:#1f6b46; --ok-soft:#e8f2ec;
+    --lift:0 1px 2px rgba(20,26,36,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#161c26; --bg:#0d1219; --ink:#e9eaec; --ink-soft:#a7b1bd; --ink-faint:#98a3af;
+      --line:#28313d; --line-firm:#5b6672;
+      --marine:#14294a; --on-marine:#f5f2ea; --marine-soft:#152437;
+      --accent:#8fb4e0; --or:#e0b866; --or-soft:#2a2317;
+      --crit:#eda49a; --crit-soft:#2c1815;
+      --warn:#e5b06a; --warn-soft:#2b2013;
+      --ok:#84c3a0; --ok-soft:#15271d;
+      --lift:0 1px 2px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#161c26; --bg:#0d1219; --ink:#e9eaec; --ink-soft:#a7b1bd; --ink-faint:#98a3af;
+    --line:#28313d; --line-firm:#5b6672;
+    --marine:#14294a; --on-marine:#f5f2ea; --marine-soft:#152437;
+    --accent:#8fb4e0; --or:#e0b866; --or-soft:#2a2317;
+    --crit:#eda49a; --crit-soft:#2c1815;
+    --warn:#e5b06a; --warn-soft:#2b2013;
+    --ok:#84c3a0; --ok-soft:#15271d;
+    --lift:0 1px 2px rgba(0,0,0,.5);
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:16px; line-height:1.6; overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:880px; margin:0 auto; padding:0 20px 90px; display:flex; flex-direction:column; gap:22px; }
+
+  /* Bandeau */
+  .flag { background:var(--marine); color:var(--on-marine); padding:38px 30px 32px; border-bottom:4px solid var(--or); }
+  .eyebrow { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--or); }
+  h1 { font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:clamp(2rem,5.5vw,3rem); line-height:1.05; margin:12px 0 8px; letter-spacing:-.01em; text-wrap:balance; color:var(--on-marine); }
+  .flag p { margin:0; color:var(--on-marine); opacity:.85; font-size:1rem; max-width:52ch; }
+
+  /* Scores */
+  .scores { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  .score { background:var(--paper); padding:18px 14px; text-align:center; }
+  .score .n { font-family:"Newsreader",Georgia,serif; font-size:2.3rem; line-height:1; font-variant-numeric:tabular-nums; }
+  .score .n small { font-size:.9rem; color:var(--ink-faint); }
+  .score .l { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-top:6px; }
+  .s-crit .n { color:var(--crit); } .s-warn .n { color:var(--warn); } .s-ok .n { color:var(--ok); }
+
+  .card { background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:24px 26px; box-shadow:var(--lift); }
+  .card > :first-child { margin-top:0; } .card > :last-child { margin-bottom:0; }
+  h2 { font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:clamp(1.4rem,3.2vw,1.85rem); line-height:1.15; margin:0 0 6px; text-wrap:balance; }
+  h3 { font-size:1.02rem; font-weight:600; margin:20px 0 6px; }
+  p { margin:10px 0; max-width:66ch; }
+  .lede { font-size:1.05rem; color:var(--ink-soft); max-width:58ch; }
+  .fine { font-size:.85rem; color:var(--ink-faint); }
+  a { color:var(--accent); text-underline-offset:2px; }
+
+  /* Un defaut */
+  .defaut { border:1px solid var(--line); border-left:4px solid var(--line-firm); border-radius:4px; padding:18px 20px; margin:14px 0; background:var(--paper); }
+  .defaut.critique { border-left-color:var(--crit); background:var(--crit-soft); }
+  .defaut.important { border-left-color:var(--warn); background:var(--warn-soft); }
+  .badge { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:3px 9px; border-radius:3px; }
+  .badge.critique { background:var(--crit); color:var(--paper); }
+  .badge.important { background:var(--warn); color:var(--paper); }
+  .defaut h3 { margin:10px 0 6px; font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:1.25rem; }
+  .preuve { font-size:.86rem; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:10px; margin-top:12px; }
+  .prix { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; margin-top:12px; }
+  .prix .montant { font-family:"Newsreader",Georgia,serif; font-size:1.6rem; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .prix .quoi { font-size:.9rem; color:var(--ink-soft); }
+
+  /* Recapitulatif */
+  .scroll { overflow-x:auto; margin:14px 0 4px; border:1px solid var(--line); border-radius:4px; background:var(--paper); }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; min-width:460px; }
+  th, td { padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); }
+  thead th { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600; color:var(--ink-soft); background:var(--marine-soft); }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  tbody tr:last-child td { border-bottom:none; }
+  tfoot td { font-weight:700; background:var(--or-soft); border-top:2px solid var(--or); }
+
+  /* Bouton */
+  .cta { background:var(--marine-soft); border:1px solid var(--line); border-left:4px solid var(--or); border-radius:4px; padding:24px 26px; }
+  .bouton { display:inline-block; background:var(--marine); color:var(--on-marine); text-decoration:none; font-weight:600; font-size:1rem; padding:14px 28px; border-radius:4px; margin-top:12px; border:2px solid var(--marine); }
+  .bouton:hover, .bouton:focus-visible { background:transparent; color:var(--accent); border-color:var(--accent); }
+  a:focus-visible, .scroll:focus-visible { outline:2px solid var(--or); outline-offset:2px; }
+
+  .pied { font-size:.8rem; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; margin-top:8px; max-width:72ch; }
+
+  @media (max-width:560px) {
+    .flag { padding:30px 20px 26px; }
+    .card, .cta { padding:18px 17px; }
+    .sheet { padding:0 13px 64px; }
+  }
+  @media print {
+    :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+      --paper:#fff; --bg:#fff; --ink:#111; --ink-soft:#3a3a3a; --ink-faint:#555;
+      --line:#c9ced4; --line-firm:#8b95a2;
+      --marine:#fff; --on-marine:#1b365d; --marine-soft:#eef2f7;
+      --accent:#1b365d; --or:#8a6412; --or-soft:#f9f3e5;
+      --crit:#8f2118; --crit-soft:#fbeeec; --warn:#8a4c07; --warn-soft:#fdf4e8;
+      --ok:#1a5c3c; --ok-soft:#eaf3ee; --lift:none;
+    }
+    @page { size:A4; margin:14mm; }
+    body { font-size:11pt; background:#fff; }
+    .flag { padding:0 0 16px; border-bottom:3px solid var(--or); }
+    .sheet { padding:18px 0 0; gap:16px; max-width:none; }
+    .card, .cta, .defaut, .scroll, .scores { break-inside:avoid; box-shadow:none; }
+    .bouton { border:1.5px solid var(--accent); color:var(--accent); background:#fff; }
+    .scroll { overflow:visible; } table { min-width:0; }
+    a { text-decoration:underline; }
+    a[href^="http"]::after { content:" (" attr(href) ")"; font-size:.8em; color:#555; word-break:break-all; }
+  }
+</style>
+</head>
+<body>
+
+<header class="flag">
+  <div class="eyebrow">Audit e-commerce &middot; {{DATE}}</div>
+  <h1>{{BOUTIQUE}}</h1>
+  <p>{{PHRASE_ACCROCHE}}</p>
+</header>
+
+<main class="sheet">
+
+  <section class="card">
+    <div class="scores">
+      <div class="score s-{{CLASSE_SEO}}"><div class="n">{{SCORE_SEO}}<small>/10</small></div><div class="l">Référencement</div></div>
+      <div class="score s-{{CLASSE_CONF}}"><div class="n">{{SCORE_CONF}}<small>/10</small></div><div class="l">Conformité</div></div>
+      <div class="score s-{{CLASSE_PERF}}"><div class="n">{{SCORE_PERF}}<small>/10</small></div><div class="l">Performance</div></div>
+      <div class="score s-{{CLASSE_UX}}"><div class="n">{{SCORE_UX}}<small>/10</small></div><div class="l">Parcours</div></div>
+    </div>
+    <p class="lede" style="margin-top:18px">{{SYNTHESE}}</p>
+    <p class="fine">Chaque constat ci-dessous a été vérifié sur votre boutique le {{DATE}}, et porte le lien exact de la page où il se voit. Rien n'est déduit, rien n'est supposé.</p>
+  </section>
+
+  <!-- ═══ UN BLOC PAR DÉFAUT — dupliquer autant que nécessaire ═══ -->
+  <section class="card">
+    <h2>Ce qui a été relevé</h2>
+
+    <div class="defaut critique">
+      <span class="badge critique">Critique</span>
+      <h3>{{DEFAUT_TITRE}}</h3>
+      <p>{{DEFAUT_EXPLICATION}}</p>
+      <div class="prix">
+        <span class="montant">{{DEFAUT_PRIX}} €</span>
+        <span class="quoi">— {{DEFAUT_OFFRE}}, {{DEFAUT_DELAI}}</span>
+      </div>
+      <p class="preuve">Constaté ici : <a href="{{DEFAUT_URL}}">{{DEFAUT_URL_LIBELLE}}</a></p>
+    </div>
+
+    <div class="defaut important">
+      <span class="badge important">Important</span>
+      <h3>{{DEFAUT_TITRE_2}}</h3>
+      <p>{{DEFAUT_EXPLICATION_2}}</p>
+      <div class="prix">
+        <span class="montant">{{DEFAUT_PRIX_2}} €</span>
+        <span class="quoi">— {{DEFAUT_OFFRE_2}}, {{DEFAUT_DELAI_2}}</span>
+      </div>
+      <p class="preuve">Constaté ici : <a href="{{DEFAUT_URL_2}}">{{DEFAUT_URL_LIBELLE_2}}</a></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Ce que ça coûte de tout reprendre</h2>
+    <div class="scroll" tabindex="0" role="region" aria-label="Récapitulatif chiffré">
+      <table>
+        <thead><tr><th>Prestation</th><th>Délai</th><th class="num">Prix</th></tr></thead>
+        <tbody>
+          <tr><td>{{LIGNE_1}}</td><td>{{DELAI_1}}</td><td class="num">{{PRIX_1}} €</td></tr>
+          <tr><td>{{LIGNE_2}}</td><td>{{DELAI_2}}</td><td class="num">{{PRIX_2}} €</td></tr>
+        </tbody>
+        <tfoot><tr><td>Ensemble — Pack Reboot Complet</td><td>{{DELAI_PACK}}</td><td class="num">{{PRIX_PACK}} €</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="fine">Le pack revient moins cher que la somme des prestations prises séparément, et il inclut {{PACK_EN_PLUS}}.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Pour lancer</h2>
+    <p>Tout est réglé en ligne, sans rendez-vous et sans devis à signer. Le travail démarre à réception du paiement, et vous recevez un compte rendu de ce qui a été corrigé, point par point.</p>
+    <a class="bouton" href="{{LIEN_PAIEMENT}}">{{LIBELLE_BOUTON}}</a>
+    <p class="fine" style="margin-top:16px">Vous préférez en parler d'abord ? Répondez simplement au message, je vous propose un créneau. Ce n'est pas nécessaire pour avancer.</p>
+  </section>
+
+  <p class="pied">
+    Rapport établi le {{DATE}} par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET {{SIRET}}. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
+  </p>
+
+</main>
+</body>
+</html>

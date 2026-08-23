@@ -4,3 +4,7 @@ _maquettes/systeme-apex.css
 _maquettes/palette-apex-violet.css
 _maquettes/logo-apex-oeil.svg
 _maquettes/apercu-offres-autonome.html
+
+# Les maquettes de travail ne sont plus servies : le site les remplace.
+# Elles restent dans l historique Git si besoin de les relire.
+_maquettes/

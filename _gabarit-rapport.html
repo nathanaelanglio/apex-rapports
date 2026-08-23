@@ -6,139 +6,322 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Audit — {{BOUTIQUE}}</title>
 <meta name="description" content="Rapport d'audit e-commerce établi le {{DATE}} par APEX Automation.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@300;400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%230EA5E9'/%3E%3C/linearGradient%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M17 6 8 18h6l-1 8 9-12h-6l1-8Z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-  /* --marine = SURFACE (bandeau, boutons) : reste sombre dans les deux themes.
-     --accent = ENCRE (chiffres, liens) : s'eclaircit en sombre. */
+  /* ==========================================================================
+     RAPPORT D'AUDIT — APEX AUTOMATION
+     Refait le 22/08/2026 par l'agent design, sur accord explicite du Président.
+     Remplace la version marine et or, qui portait la charte de BackOffice
+     Martinique : un rapport signé APEX Automation n'a rien à y faire.
+
+     ⚑ POURQUOI LE CSS EST INTÉGRÉ ICI ET NON IMPORTÉ.
+     La consigne du système est d'importer apex-automation-tokens.css plutôt
+     que de le recopier. Elle vaut pour le site, qui a plusieurs pages servies
+     depuis un même hébergement. Elle ne vaut pas pour ce fichier-ci, et c'est
+     un choix, pas un oubli : un rapport d'audit est transféré à un associé,
+     enregistré sur un bureau, rouvert hors ligne, imprimé, converti en PDF.
+     Une feuille de style externe ne survit à aucun de ces gestes. Le rapport
+     doit rester UN fichier qui se suffit — c'est ce qui faisait la solidité
+     de la version précédente, et ça ne se sacrifie pas à une règle de site.
+     Les valeurs ci-dessous sont reprises de
+     livrables/apex-automation/identite/apex-automation-tokens.css (22/08/2026).
+     Toute correction se fait LÀ-BAS d'abord, puis se reporte ici.
+
+     ⚑ CE QUI A ÉTÉ CONSERVÉ DE LA VERSION VALIDÉE, ET QUI NE DOIT PAS SE
+     PERDRE DANS UN CHANGEMENT D'HABILLAGE : chaque défaut en face de son prix
+     avec le lien de preuve, les scores en tête, la synthèse, le récapitulatif
+     chiffré, le bouton de commande, la feuille d'impression, la mention de
+     TVA. L'habillage change ; la mécanique qui fait décider, non.
+
+     ⚑ LA POLICE CHANGE, et je le signale plutôt que de le glisser.
+     La version précédente composait en Newsreader et Public Sans. Le système
+     officiel impose la pile système, sans police téléchargée. Je m'y range :
+     un arbitrage d'agent ne prime pas sur un système en place et diffusé.
+     Effet secondaire heureux — le rapport ne dépend plus d'un aller-retour
+     réseau vers Google, sur un lecteur qui est le plus souvent au téléphone.
+     ========================================================================== */
+
   :root {
-    --paper:#ffffff; --bg:#eef0f3; --ink:#141a24; --ink-soft:#4d5866; --ink-faint:#5d6875;
-    --line:#d5dae1; --line-firm:#8b95a2;
-    --marine:#1b365d; --on-marine:#f5f2ea; --marine-soft:#e7ecf3;
-    --accent:#1b365d; --or:#8a6412; --or-soft:#faf3e2;
-    --crit:#a8281c; --crit-soft:#fbebe8;
-    --warn:#a35a09; --warn-soft:#fdf2e4;
-    --ok:#1f6b46; --ok-soft:#e8f2ec;
-    --lift:0 1px 2px rgba(20,26,36,.07);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper:#161c26; --bg:#0d1219; --ink:#e9eaec; --ink-soft:#a7b1bd; --ink-faint:#98a3af;
-      --line:#28313d; --line-firm:#5b6672;
-      --marine:#14294a; --on-marine:#f5f2ea; --marine-soft:#152437;
-      --accent:#8fb4e0; --or:#e0b866; --or-soft:#2a2317;
-      --crit:#eda49a; --crit-soft:#2c1815;
-      --warn:#e5b06a; --warn-soft:#2b2013;
-      --ok:#84c3a0; --ok-soft:#15271d;
-      --lift:0 1px 2px rgba(0,0,0,.5);
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper:#161c26; --bg:#0d1219; --ink:#e9eaec; --ink-soft:#a7b1bd; --ink-faint:#98a3af;
-    --line:#28313d; --line-firm:#5b6672;
-    --marine:#14294a; --on-marine:#f5f2ea; --marine-soft:#152437;
-    --accent:#8fb4e0; --or:#e0b866; --or-soft:#2a2317;
-    --crit:#eda49a; --crit-soft:#2c1815;
-    --warn:#e5b06a; --warn-soft:#2b2013;
-    --ok:#84c3a0; --ok-soft:#15271d;
-    --lift:0 1px 2px rgba(0,0,0,.5);
+    color-scheme: dark;
+
+    /* ---- Fonds ---- */
+    --ink:      #0B0F19;
+    --ink-deep: #070B14;
+    --ink-1:    #0E1424;
+    --ink-2:    #131B2E;
+
+    /* ---- Marque ---- */
+    --violet:     #8B5CF6;
+    --violet-300: #A78BFA;
+    --cyan:       #0EA5E9;
+    --cyan-300:   #38BDF8;
+    --green-300:  #4ADE80;
+    --white:      #FFFFFF;
+
+    /* ---- Texte ---- */
+    --text:        #FFFFFF;
+    --text-strong: #E7ECF6;
+    --text-body:   #D6DEEC;
+    --muted:       #93A0BC;
+    /* --faint #66748F est volontairement absent : 4,05:1 sur --ink, sous le
+       plancher. Il ne porte pas de texte, et ce rapport n'a que du texte. */
+
+    /* ---- Traits ---- */
+    --line:      rgba(255,255,255,.10);
+    --line-soft: rgba(255,255,255,.06);
+    --veil:      rgba(255,255,255,.04);
+    --veil-2:    rgba(255,255,255,.02);
+
+    /* ---- Dégradés ---- */
+    --grad-brand:      linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
+    --grad-brand-soft: linear-gradient(135deg, rgba(139,92,246,.16), rgba(14,165,233,.14));
+    --grad-line:       linear-gradient(90deg, var(--violet), var(--cyan));
+    /* ⛔ --grad-brand NE PORTE JAMAIS DE TEXTE (blanc : 4,23:1 au début,
+       2,77:1 à la fin). Tout ce qui porte un mot prend la version profonde :
+       7,1:1 et 5,9:1. C'est le bouton qui encaisse. */
+    --grad-brand-deep: linear-gradient(135deg, #6D28D9 0%, #0369A1 100%);
+
+    --bg-page:
+      radial-gradient(90% 60% at 15% -5%,   rgba(139,92,246,.16) 0%, transparent 55%),
+      radial-gradient(80% 55% at 100% 0%,   rgba(14,165,233,.14) 0%, transparent 50%),
+      radial-gradient(120% 90% at 50% 118%, rgba(14,165,233,.06) 0%, transparent 60%),
+      var(--ink);
+
+    /* ---- SÉVÉRITÉS — extension déclarée du système ----
+       Les tokens officiels n'ont qu'une couleur d'état (--green). Un rapport
+       d'audit en exige trois. Dérivées sur le même principe que --violet-300
+       et --cyan-300 : la nuance 300, celle qui reste lisible sur fond sombre.
+       Mesurées sur --ink-1 #0E1424, et chaque sévérité porte AUSSI son mot
+       écrit — une couleur seule ne dit rien à l'impression en niveaux de gris
+       ni à un daltonien. */
+    --crit:      #FCA5A5;   /* 9,4:1  sur --ink-1 */
+    --crit-bg:   rgba(248,113,113,.13);
+    --crit-line: rgba(248,113,113,.45);
+    --warn:      #FCD34D;   /* 12,7:1 sur --ink-1 */
+    --warn-bg:   rgba(251,191,36,.13);
+    --warn-line: rgba(251,191,36,.45);
+    --ok:        #4ADE80;   /* 11,1:1 sur --ink-1 */
+    --ok-bg:     rgba(74,222,128,.12);
+    --ok-line:   rgba(74,222,128,.42);
+
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+                 "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+
+    --fs-display: clamp(2.1rem, 1.4rem + 3.4vw, 3.2rem);
+    --fs-h2:      clamp(1.45rem, 1.15rem + 1.5vw, 1.95rem);
+    --fs-h3:      clamp(1.1rem, 1rem + .5vw, 1.3rem);
+    --fs-lead:    clamp(1.02rem, .95rem + .4vw, 1.15rem);
+    --fs-body:    1rem;
+    --fs-sm:      .875rem;
+    --fs-xs:      .75rem;
+
+    --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-black:800;
+    --tracking-word:.26em; --tracking-caps:.16em;
+
+    --space-4:16px; --space-5:24px; --space-6:32px;
+    --r-xs:8px; --r-sm:12px; --r-md:16px; --r-pill:999px;
+
+    --shadow-card: 0 20px 50px rgba(0,0,0,.45);
+    --glow-violet: 0 0 34px rgba(139,92,246,.45);
+    --focus-ring:  0 0 0 3px rgba(139,92,246,.50);
+
+    --maxw: 880px;
+    --gutter: clamp(16px, 4.5vw, 32px);
   }
 
-  * { box-sizing:border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
   body {
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
-    font-size:16px; line-height:1.6; overflow-wrap:break-word;
-    -webkit-font-smoothing:antialiased;
+    margin: 0;
+    background: var(--bg-page) fixed;   /* fond explicite : jamais celui de l'hôte */
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
   }
-  .sheet { max-width:880px; margin:0 auto; padding:0 20px 90px; display:flex; flex-direction:column; gap:22px; }
 
-  /* Bandeau */
-  .flag { background:var(--marine); color:var(--on-marine); padding:38px 30px 32px; border-bottom:4px solid var(--or); }
-  .eyebrow { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--or); }
-  h1 { font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:clamp(2rem,5.5vw,3rem); line-height:1.05; margin:12px 0 8px; letter-spacing:-.01em; text-wrap:balance; color:var(--on-marine); }
-  .flag p { margin:0; color:var(--on-marine); opacity:.85; font-size:1rem; max-width:52ch; }
+  h1, h2, h3 { color: var(--text); margin: 0 0 12px; text-wrap: balance; }
+  h1 { font-size: var(--fs-display); line-height: 1.05; font-weight: var(--fw-black); letter-spacing: -.02em; }
+  h2 { font-size: var(--fs-h2); line-height: 1.2; font-weight: var(--fw-bold); letter-spacing: -.01em; }
+  h3 { font-size: var(--fs-h3); line-height: 1.3; font-weight: var(--fw-bold); }
 
-  /* Scores */
-  .scores { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
-  .score { background:var(--paper); padding:18px 14px; text-align:center; }
-  .score .n { font-family:"Newsreader",Georgia,serif; font-size:2.3rem; line-height:1; font-variant-numeric:tabular-nums; }
-  .score .n small { font-size:.9rem; color:var(--ink-faint); }
-  .score .l { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-top:6px; }
-  .s-crit .n { color:var(--crit); } .s-warn .n { color:var(--warn); } .s-ok .n { color:var(--ok); }
+  p { margin: 12px 0; max-width: 66ch; }
+  p:first-child { margin-top: 0; }
+  p:last-child  { margin-bottom: 0; }
 
-  .card { background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:24px 26px; box-shadow:var(--lift); }
-  .card > :first-child { margin-top:0; } .card > :last-child { margin-bottom:0; }
-  h2 { font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:clamp(1.4rem,3.2vw,1.85rem); line-height:1.15; margin:0 0 6px; text-wrap:balance; }
-  h3 { font-size:1.02rem; font-weight:600; margin:20px 0 6px; }
-  p { margin:10px 0; max-width:66ch; }
-  .lede { font-size:1.05rem; color:var(--ink-soft); max-width:58ch; }
-  .fine { font-size:.85rem; color:var(--ink-faint); }
-  a { color:var(--accent); text-underline-offset:2px; }
+  a { color: var(--cyan-300); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
+  :focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--r-xs); }
 
-  /* Un defaut */
-  .defaut { border:1px solid var(--line); border-left:4px solid var(--line-firm); border-radius:4px; padding:18px 20px; margin:14px 0; background:var(--paper); }
-  .defaut.critique { border-left-color:var(--crit); background:var(--crit-soft); }
-  .defaut.important { border-left-color:var(--warn); background:var(--warn-soft); }
-  .badge { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:3px 9px; border-radius:3px; }
-  .badge.critique { background:var(--crit); color:var(--paper); }
-  .badge.important { background:var(--warn); color:var(--paper); }
-  .defaut h3 { margin:10px 0 6px; font-family:"Newsreader",Georgia,serif; font-weight:500; font-size:1.25rem; }
-  .preuve { font-size:.86rem; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:10px; margin-top:12px; }
-  .prix { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; margin-top:12px; }
-  .prix .montant { font-family:"Newsreader",Georgia,serif; font-size:1.6rem; color:var(--ink); font-variant-numeric:tabular-nums; }
-  .prix .quoi { font-size:.9rem; color:var(--ink-soft); }
-
-  /* Recapitulatif */
-  .scroll { overflow-x:auto; margin:14px 0 4px; border:1px solid var(--line); border-radius:4px; background:var(--paper); }
-  table { width:100%; border-collapse:collapse; font-size:.92rem; min-width:460px; }
-  th, td { padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); }
-  thead th { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600; color:var(--ink-soft); background:var(--marine-soft); }
-  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
-  tbody tr:last-child td { border-bottom:none; }
-  tfoot td { font-weight:700; background:var(--or-soft); border-top:2px solid var(--or); }
-
-  /* Bouton */
-  .cta { background:var(--marine-soft); border:1px solid var(--line); border-left:4px solid var(--or); border-radius:4px; padding:24px 26px; }
-  .bouton { display:inline-block; background:var(--marine); color:var(--on-marine); text-decoration:none; font-weight:600; font-size:1rem; padding:14px 28px; border-radius:4px; margin-top:12px; border:2px solid var(--marine); }
-  .bouton:hover, .bouton:focus-visible { background:transparent; color:var(--accent); border-color:var(--accent); }
-  a:focus-visible, .scroll:focus-visible { outline:2px solid var(--or); outline-offset:2px; }
-
-  .pied { font-size:.8rem; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; margin-top:8px; max-width:72ch; }
-
-  @media (max-width:560px) {
-    .flag { padding:30px 20px 26px; }
-    .card, .cta { padding:18px 17px; }
-    .sheet { padding:0 13px 64px; }
+  /* ---- Le logo. Le nom de la maison est du TEXTE : il reste sélectionnable,
+          il ne pixellise pas, et il survit à un blocage d'images. ---- */
+  .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo__mark {
+    width: 38px; height: 38px; border-radius: 11px; flex: none;
+    display: grid; place-items: center;
+    background: var(--grad-brand);      /* aucun texte dessus : --grad-brand admis */
+    box-shadow: var(--glow-violet);
   }
+  .logo__mark svg { width: 20px; height: 20px; display: block; }
+  .logo__word {
+    font-weight: var(--fw-black); font-size: .92rem;
+    letter-spacing: var(--tracking-word); text-transform: uppercase;
+    color: var(--white); white-space: nowrap;
+  }
+  /* Variante canonique : APEX blanc, AUTOMATION cyan clair. */
+  .logo__word span { color: var(--cyan-300); }
+
+  /* ---- Bandeau ---- */
+  .flag { padding: var(--space-6) 0 var(--space-6); position: relative; }
+  .flag::after { content:""; position:absolute; left:var(--gutter); right:var(--gutter); bottom:0; height:2px; background:var(--grad-line); }
+  .flag .inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+  .eyebrow { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; font-weight: var(--fw-bold); color: var(--cyan-300); margin: var(--space-6) 0 10px; }
+  .flag h1 { margin-bottom: 14px; }
+  .flag .accroche { color: var(--muted); font-size: var(--fs-lead); max-width: 54ch; margin: 0; }
+
+  .sheet { max-width: var(--maxw); margin: 0 auto; padding: var(--space-6) var(--gutter) 88px; display: flex; flex-direction: column; gap: var(--space-5); }
+
+  /* ---- Scores ---- */
+  .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .score { background: var(--ink-1); padding: 20px 14px; text-align: center; }
+  .score .n { font-size: 2.4rem; line-height: 1; font-weight: var(--fw-black); font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--text); }
+  .score .n small { font-size: .85rem; font-weight: var(--fw-semibold); color: var(--muted); letter-spacing: 0; }
+  .score .l { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--muted); margin-top: 8px; font-weight: var(--fw-semibold); }
+  .s-crit .n { color: var(--crit); } .s-warn .n { color: var(--warn); } .s-ok .n { color: var(--ok); }
+
+  .card { background: var(--ink-1); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--space-5); box-shadow: var(--shadow-card); }
+  .card > :first-child { margin-top: 0; } .card > :last-child { margin-bottom: 0; }
+  .lede { font-size: var(--fs-lead); color: var(--text-body); max-width: 60ch; }
+  .fine { font-size: var(--fs-sm); color: var(--muted); }
+
+  /* ---- Un défaut ----
+     La couleur ne porte jamais seule la sévérité : le badge l'écrit en toutes
+     lettres. Le liseré de gauche double l'information pour la lecture rapide. */
+  .defaut { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--r-sm); padding: 18px 20px; margin: 16px 0; background: var(--veil-2); }
+  .defaut.critique  { border-left-color: var(--crit); background: var(--crit-bg); border-color: var(--crit-line); }
+  .defaut.important { border-left-color: var(--warn); background: var(--warn-bg); border-color: var(--warn-line); }
+  .badge { display: inline-block; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--tracking-caps); text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-pill); border: 1px solid currentColor; }
+  .badge.critique  { color: var(--crit); }
+  .badge.important { color: var(--warn); }
+  .defaut h3 { margin: 12px 0 8px; }
+  .preuve { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 14px; }
+  .prix { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-top: 14px; }
+  .prix .montant { font-size: 1.7rem; font-weight: var(--fw-black); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .prix .quoi { font-size: var(--fs-sm); color: var(--muted); }
+
+  /* ---- Récapitulatif ----
+     Sur téléphone le tableau déborde : il défile DANS son bloc, jamais la page.
+     Le conteneur est focalisable, sinon ce qui dépasse est inatteignable
+     sans souris. */
+  .scroll { overflow-x: auto; margin: 16px 0 4px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--ink-1); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); min-width: 480px; }
+  th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--line-soft); }
+  thead th { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; font-weight: var(--fw-bold); color: var(--muted); background: var(--veil-2); }
+  tbody th { font-weight: var(--fw-semibold); color: var(--text); }
+  tbody td { color: var(--text-body); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td, tbody tr:last-child th { border-bottom: none; }
+  tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background: var(--grad-brand-soft); border-top: 1px solid var(--violet-300); border-bottom: none; }
+
+  /* ---- Bouton ---- */
+  .cta { background: var(--grad-brand-soft), var(--ink-1); border: 1px solid var(--violet-300); border-radius: var(--r-md); padding: var(--space-6); }
+  .bouton {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 14px 30px; margin-top: 16px;
+    background: var(--grad-brand-deep);   /* JAMAIS --grad-brand : c'est le bouton qui encaisse */
+    color: var(--white); border: 1px solid transparent; border-radius: var(--r-sm);
+    font: inherit; font-weight: var(--fw-bold); text-decoration: none; text-align: center;
+    box-shadow: var(--glow-violet); cursor: pointer;
+    transition: filter .18s ease, box-shadow .18s ease;
+  }
+  /* Le survol ÉCLAIRE, il ne vide pas. Un bouton qui devient transparent au
+     moment où l'on pointe dessus ressemble à un bouton désactivé. */
+  .bouton:hover { filter: brightness(1.12); box-shadow: 0 0 44px rgba(139,92,246,.6); }
+  /* L'adresse du lien en clair sous le bouton : si le lien tombe, le rapport
+     reste utilisable, et le lecteur voit où il va avant de cliquer. */
+  .sous-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; max-width: 52ch; }
+
+  .pied { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; max-width: 74ch; }
+
+  @media (max-width: 560px) {
+    .sheet { gap: var(--space-4); padding-bottom: 64px; }
+    .card, .cta { padding: var(--space-4); }
+    .defaut { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==========================================================================
+     IMPRESSION
+     L'écran est sombre, le papier ne l'est pas. Un e-commerçant imprime ce
+     rapport pour le montrer à son associé ou le classer : il sort noir sur
+     blanc, sans avaler une cartouche, et reste lisible en niveaux de gris.
+     Les sévérités passent à des teintes foncées ET gardent leur contour —
+     une imprimante peut refuser les fonds, jamais les traits.
+     ========================================================================== */
   @media print {
-    :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
-      --paper:#fff; --bg:#fff; --ink:#111; --ink-soft:#3a3a3a; --ink-faint:#555;
-      --line:#c9ced4; --line-firm:#8b95a2;
-      --marine:#fff; --on-marine:#1b365d; --marine-soft:#eef2f7;
-      --accent:#1b365d; --or:#8a6412; --or-soft:#f9f3e5;
-      --crit:#8f2118; --crit-soft:#fbeeec; --warn:#8a4c07; --warn-soft:#fdf4e8;
-      --ok:#1a5c3c; --ok-soft:#eaf3ee; --lift:none;
+    :root {
+      --bg-page:#fff; --ink:#fff; --ink-deep:#fff; --ink-1:#fff; --ink-2:#fff;
+      --text:#111; --text-strong:#111; --text-body:#1a1a1a; --muted:#3a3a3a;
+      --line:#c9ced4; --line-soft:#dfe3e8; --veil:#fff; --veil-2:#fff;
+      --violet-300:#5B21B6; --cyan-300:#075985;
+      --grad-brand:none; --grad-brand-soft:none; --grad-line:none; --grad-brand-deep:none;
+      --shadow-card:none; --glow-violet:none;
+      --crit:#8F2118; --crit-bg:#fbeeec; --crit-line:#8F2118;
+      --warn:#8A4C07; --warn-bg:#fdf4e8; --warn-line:#8A4C07;
+      --ok:#1A5C3C;   --ok-bg:#eaf3ee;   --ok-line:#1A5C3C;
     }
-    @page { size:A4; margin:14mm; }
-    body { font-size:11pt; background:#fff; }
-    .flag { padding:0 0 16px; border-bottom:3px solid var(--or); }
-    .sheet { padding:18px 0 0; gap:16px; max-width:none; }
-    .card, .cta, .defaut, .scroll, .scores { break-inside:avoid; box-shadow:none; }
-    .bouton { border:1.5px solid var(--accent); color:var(--accent); background:#fff; }
-    .scroll { overflow:visible; } table { min-width:0; }
-    a { text-decoration:underline; }
-    a[href^="http"]::after { content:" (" attr(href) ")"; font-size:.8em; color:#555; word-break:break-all; }
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff; color: #1a1a1a; font-size: 11pt; }
+
+    .flag { padding: 0 0 14px; }
+    .flag::after { display: none; }
+    .flag .inner, .sheet { padding-left: 0; padding-right: 0; max-width: none; }
+    .flag { border-bottom: 2px solid #5B21B6; }
+    .eyebrow { color: #3a3a3a; margin-top: 12px; }
+    .sheet { padding-top: 18px; gap: 14px; }
+
+    /* Le carré du logo perd son dégradé : il devient un contour, et l'éclair
+       passe en encre. Sans cela, un aplat violet sort en gris sale. */
+    .logo__mark { background: #fff; border: 1.5px solid #5B21B6; box-shadow: none; }
+    .logo__mark svg path { fill: #5B21B6; }
+    .logo__word { color: #111; }
+    .logo__word span { color: #3a3a3a; }
+
+    .card, .cta, .defaut, .scroll, .scores { break-inside: avoid; box-shadow: none; border: 1px solid #8b95a2; }
+    .score { border: none; }
+    .scores { background: #fff; gap: 0; }
+    .score + .score { border-left: 1px solid #c9ced4; }
+    .defaut.critique  { border-left: 4px solid #8F2118; }
+    .defaut.important { border-left: 4px solid #8A4C07; }
+    .badge { border: 1px solid currentColor; }
+    tfoot th, tfoot td { background: #f2f0fb; }
+
+    .bouton { display: none; }   /* un bouton ne se clique pas sur papier */
+    .scroll { overflow: visible; } table { min-width: 0; }
+    a { color: #111; text-decoration: underline; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
   }
 </style>
 </head>
 <body>
 
 <header class="flag">
-  <div class="eyebrow">Audit e-commerce &middot; {{DATE}}</div>
-  <h1>{{BOUTIQUE}}</h1>
-  <p>{{PHRASE_ACCROCHE}}</p>
+  <div class="inner">
+    <span class="logo">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </span>
+
+    <p class="eyebrow">Audit e-commerce &middot; {{DATE}}</p>
+    <h1>{{BOUTIQUE}}</h1>
+    <p class="accroche">{{PHRASE_ACCROCHE}}</p>
+  </div>
 </header>
 
 <main class="sheet">
@@ -150,7 +333,7 @@
       <div class="score s-{{CLASSE_PERF}}"><div class="n">{{SCORE_PERF}}<small>/10</small></div><div class="l">Performance</div></div>
       <div class="score s-{{CLASSE_UX}}"><div class="n">{{SCORE_UX}}<small>/10</small></div><div class="l">Parcours</div></div>
     </div>
-    <p class="lede" style="margin-top:18px">{{SYNTHESE}}</p>
+    <p class="lede" style="margin-top:20px">{{SYNTHESE}}</p>
     <p class="fine">Chaque constat ci-dessous a été vérifié sur votre boutique le {{DATE}}, et porte le lien exact de la page où il se voit. Rien n'est déduit, rien n'est supposé.</p>
   </section>
 
@@ -185,12 +368,12 @@
     <h2>Ce que ça coûte de tout reprendre</h2>
     <div class="scroll" tabindex="0" role="region" aria-label="Récapitulatif chiffré">
       <table>
-        <thead><tr><th>Prestation</th><th>Délai</th><th class="num">Prix</th></tr></thead>
+        <thead><tr><th scope="col">Prestation</th><th scope="col">Délai</th><th scope="col" class="num">Prix</th></tr></thead>
         <tbody>
-          <tr><td>{{LIGNE_1}}</td><td>{{DELAI_1}}</td><td class="num">{{PRIX_1}} €</td></tr>
-          <tr><td>{{LIGNE_2}}</td><td>{{DELAI_2}}</td><td class="num">{{PRIX_2}} €</td></tr>
+          <tr><th scope="row">{{LIGNE_1}}</th><td>{{DELAI_1}}</td><td class="num">{{PRIX_1}} €</td></tr>
+          <tr><th scope="row">{{LIGNE_2}}</th><td>{{DELAI_2}}</td><td class="num">{{PRIX_2}} €</td></tr>
         </tbody>
-        <tfoot><tr><td>Ensemble — Pack Reboot Complet</td><td>{{DELAI_PACK}}</td><td class="num">{{PRIX_PACK}} €</td></tr></tfoot>
+        <tfoot><tr><th scope="row">Ensemble — Pack Reboot Complet</th><td>{{DELAI_PACK}}</td><td class="num">{{PRIX_PACK}} €</td></tr></tfoot>
       </table>
     </div>
     <p class="fine">Le pack revient moins cher que la somme des prestations prises séparément, et il inclut {{PACK_EN_PLUS}}.</p>
@@ -200,6 +383,7 @@
     <h2>Pour lancer</h2>
     <p>Tout est réglé en ligne, sans rendez-vous et sans devis à signer. Le travail démarre à réception du paiement, et vous recevez un compte rendu de ce qui a été corrigé, point par point.</p>
     <a class="bouton" href="{{LIEN_PAIEMENT}}">{{LIBELLE_BOUTON}}</a>
+    <p class="sous-bouton">Lien de paiement : {{LIEN_PAIEMENT}}<br>Paiement par carte sur une page sécurisée Stripe. Facture envoyée dans la foulée, avant tout travail.</p>
     <p class="fine" style="margin-top:16px">Vous préférez en parler d'abord ? Répondez simplement au message, je vous propose un créneau. Ce n'est pas nécessaire pour avancer.</p>
   </section>
 

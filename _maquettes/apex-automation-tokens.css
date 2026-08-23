@@ -1,8 +1,20 @@
 /* ============================================================================
-   COPIE DE TRAVAIL — NE PAS ÉDITER ICI.
-   Source : APEX/livrables/apex-automation/identite/apex-automation-tokens.css
-   Copiée littéralement le 22/08/2026 pour que la maquette puisse être servie.
-   Toute correction se fait dans la source, puis se recopie ici.
+   COPIE DE PUBLICATION — NE PAS ÉDITER ICI.
+
+   Source unique : APEX/livrables/apex-automation/identite/apex-automation-tokens.css
+   Recopiée le 22/08/2026 (avec les correctifs --grad-brand-deep, la variante
+   canonique du mot-symbole, et la limite de --faint).
+
+   POURQUOI UNE COPIE PLUTÔT QU'UN IMPORT, ici et seulement ici :
+   ce dossier est publié sur un hébergement séparé (nathanaelanglio.github.io/
+   apex-rapports/) qui n'a pas accès au dépôt APEX. Un `@import` vers un fichier
+   hors hébergement ne se résoudrait pas — la page arriverait sans style chez le
+   prospect. C'est exactement la panne du 19/08 sur l'aperçu Peach Banana : une
+   page nue qu'on croit mal conçue alors qu'elle est seulement privée de sa
+   feuille.
+
+   RÈGLE : toute correction se fait dans la SOURCE d'abord, puis se reporte ici
+   dans le même mouvement. Un écart entre les deux fichiers est un défaut.
    ============================================================================ */
 
 :root {
@@ -27,8 +39,13 @@
   --text:        #FFFFFF;
   --text-strong: #E7ECF6;
   --text-body:   #D6DEEC;
-  --muted:       #93A0BC;
-  --faint:       #66748F;
+  --muted:       #93A0BC;   /* 7,0:1 sur --ink-1 — porte du texte sans réserve */
+  --faint:       #66748F;   /* ⛔ 4,05:1 sur --ink : SOUS le plancher de 4,5.
+                               Mesuré au navigateur le 22/08/2026. Ce jeton ne
+                               porte PAS de texte courant — ni mention légale,
+                               ni note de bas de carte, ni libellé. Réservé aux
+                               traits et pictogrammes décoratifs. Pour une
+                               mention fine, --muted. */
 
   /* ---- Traits et voiles ---- */
   --line:      rgba(255,255,255,.10);
@@ -40,6 +57,25 @@
   --grad-brand:      linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
   --grad-brand-soft: linear-gradient(135deg, rgba(139,92,246,.16), rgba(14,165,233,.14));
   --grad-line:       linear-gradient(90deg, var(--violet), var(--cyan));
+
+  /* ⛔ --grad-brand NE PORTE JAMAIS DE TEXTE. Mesuré le 22/08/2026, aux deux
+     extrémités du dégradé, texte 16 px graisse 700 :
+         blanc sur #8B5CF6 (début) → 4,23:1   ÉCHEC
+         blanc sur #0EA5E9 (fin)   → 2,77:1   ÉCHEC FRANC
+         encre #1A1D26 sur #8B5CF6 → 3,97:1   ÉCHEC
+     Aucune couleur de texte ne rattrape ce dégradé. Le libellé du bouton
+     « Commander — 850 € » était illisible sur sa moitié droite : le SEUL
+     élément de la page qui encaisse. Le défaut ne se voit pas sur une capture,
+     le blanc sur cyan PARAÎT net.
+
+     C'est la même règle que l'or #C8941E chez BackOffice : une couleur de
+     marque n'est pas une couleur de fond de texte.
+
+     Pour tout élément qui porte un mot — bouton, pastille, badge plein —
+     utiliser la version profonde ci-dessous : 7,1:1 au début, 5,9:1 à la fin.
+     --grad-brand reste en vigueur partout où il ne porte rien : carré du
+     logo, filet de bandeau, liseré de carte, ligne de total. */
+  --grad-brand-deep: linear-gradient(135deg, #6D28D9 0%, #0369A1 100%);
 
   /* ---- Fond de page : trois halos sur l'encre ---- */
   --bg-page:
@@ -85,9 +121,17 @@
   --dur: .18s; --ease: cubic-bezier(.4, 0, .2, 1);
 }
 
+/* L'identité est sombre par construction : elle ne bascule pas avec le thème
+   du lecteur. C'est un parti pris, pas un oubli. */
 :root[data-theme="light"], :root[data-theme="dark"] { color-scheme: dark; }
 
-/* ---- LE LOGO ---- */
+/* ============================================================================
+   LE LOGO — mot-symbole + éclair
+   ----------------------------------------------------------------------------
+   Le tracé de l'éclair, à ne jamais redessiner :
+   <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+   ============================================================================ */
+
 .logo { display: inline-flex; align-items: center; gap: 12px; }
 
 .logo__mark {
@@ -104,6 +148,21 @@
   color: var(--white); white-space: nowrap;
 }
 .logo__word span { color: var(--cyan-300); }
+
+/* ✅ VARIANTE CANONIQUE, tranchée le 22/08/2026 par l'agent design :
+   « APEX » en BLANC, « AUTOMATION » en CYAN CLAIR #38BDF8. C'est celle
+   codée ci-dessus. Trois raisons, par ordre de poids :
+     1. Sur #0B0F19, le violet #8B5CF6 donne 4,52:1 — il franchit le plancher
+        de deux centièmes. Le nom de la marque est le premier mot que lit
+        quelqu'un à qui on demande 850 € : il ne frôle pas un seuil.
+     2. Dans l'autre variante, « APEX » est le mot le MOINS contrasté et
+        « AUTOMATION », simple qualificatif, le plus fort — la hiérarchie du
+        sens est inversée.
+     3. Le carré du logo est déjà violet ; un « APEX » violet collé dessus
+        efface le carré.
+   ⚠️ La bannière LinkedIn porte l'autre variante (APEX violet, AUTOMATION
+   blanc). Elle est antérieure à cette décision. À reprendre au prochain
+   remaniement de la bannière — pas à recopier. */
 
 .logo--lg .logo__mark { width: 52px; height: 52px; border-radius: 14px; }
 .logo--lg .logo__mark svg { width: 27px; height: 27px; }

@@ -24,12 +24,19 @@
       </span>
       <span class="logo__word">APEX <span>Automation</span></span>
     </a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="../">Accueil</a>
-      <a href="../offres/">Offres et tarifs</a>
-      <a href="../contact/">Contact</a>
-      <a href="../mentions-legales/" aria-current="page">Mentions légales</a>
-    </nav>
+    <!-- Menu natif <details> : fonctionne sans JavaScript. Voir assets/site.css. -->
+    <details class="menu">
+      <summary class="menu__bouton">
+        <span class="menu__barres" aria-hidden="true"></span>
+        <span class="menu__mot">Menu</span>
+      </summary>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="../">Accueil</a>
+        <a href="../offres/">Offres et tarifs</a>
+        <a href="../contact/">Contact</a>
+        <a href="../mentions-legales/" aria-current="page">Mentions légales</a>
+      </nav>
+    </details>
   </div>
 </header>
 
@@ -37,13 +44,20 @@
 
   <section class="section">
     <div class="enveloppe">
-      <p class="surtitre">Informations légales</p>
-      <h1>Mentions légales, conditions de vente et confidentialité</h1>
-      <p class="appel">
+      <div class="accroche">
+        <p class="surtitre">Informations légales</p>
+        <h1>Mentions légales, conditions de vente et confidentialité</h1>
+      </div>
+      <!-- Les trois ancres tiennent désormais sur une seule ligne centrée.
+           « CGV » remplace « Conditions générales de vente » : à 284 px de
+           large, ce libellé à lui seul interdisait la ligne unique demandée.
+           Le sens n'est pas perdu — le titre de section juste dessous l'écrit
+           en toutes lettres — et l'aria-label le donne aux lecteurs d'écran. -->
+      <nav class="appel actions actions--ancres" aria-label="Sections de cette page">
         <a class="bouton secondaire" href="#mentions-legales">Mentions légales</a>
-        <a class="bouton secondaire" href="#cgv">Conditions générales de vente</a>
+        <a class="bouton secondaire" href="#cgv" aria-label="Aller aux conditions générales de vente">CGV</a>
         <a class="bouton secondaire" href="#confidentialite">Confidentialité</a>
-      </p>
+      </nav>
     </div>
   </section>
 
@@ -169,6 +183,24 @@
     <p>Contact : <a href="mailto:backoffice.martinique@gmail.com">backoffice.martinique@gmail.com</a> — <a href="../">Accueil</a> — <a href="../offres/">Offres et tarifs</a></p>
   </div>
 </footer>
+
+<!-- Voir index.html : le menu marche sans ce script. -->
+<script>
+(function () {
+  var m = document.querySelector('.menu');
+  if (!m) return;
+  var s = m.querySelector('summary');
+  var etat = function () { s.setAttribute('aria-expanded', m.open ? 'true' : 'false'); };
+  etat();
+  m.addEventListener('toggle', etat);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; s.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (m.open && !m.contains(e.target)) m.open = false;
+  });
+})();
+</script>
 
 </body>
 </html>

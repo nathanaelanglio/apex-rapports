@@ -23,20 +23,29 @@
       </span>
       <span class="logo__word">APEX <span>Automation</span></span>
     </a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="../">Accueil</a>
-      <a href="../offres/" aria-current="page">Offres et tarifs</a>
-      <a href="../contact/">Contact</a>
-      <a href="../mentions-legales/">Mentions légales</a>
-    </nav>
+    <!-- Menu natif <details> : fonctionne sans JavaScript. Voir assets/site.css. -->
+    <details class="menu">
+      <summary class="menu__bouton">
+        <span class="menu__barres" aria-hidden="true"></span>
+        <span class="menu__mot">Menu</span>
+      </summary>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="../">Accueil</a>
+        <a href="../offres/" aria-current="page">Offres et tarifs</a>
+        <a href="../contact/">Contact</a>
+        <a href="../mentions-legales/">Mentions légales</a>
+      </nav>
+    </details>
   </div>
 </header>
 
 <div class="bandeau">
   <div class="enveloppe">
-    <p class="surtitre">Offres et tarifs</p>
-    <h1>Chaque prestation a un prix. Il est écrit ici.</h1>
-    <p class="chapo">Pas de devis à attendre, pas de rendez-vous à caler pour connaître un montant. Vous lisez, vous choisissez, vous réglez en ligne. Le travail démarre à réception.</p>
+    <div class="accroche">
+      <p class="surtitre">Offres et tarifs</p>
+      <h1>Chaque prestation a un prix. Il est écrit ici.</h1>
+      <p class="chapo">Pas de devis à attendre, pas de rendez-vous à caler pour connaître un montant. Vous lisez, vous choisissez, vous réglez en ligne. Le travail démarre à réception.</p>
+    </div>
   </div>
 </div>
 
@@ -316,14 +325,14 @@
   <!-- ══ APPEL FINAL ══ -->
   <section class="section">
     <div class="enveloppe">
-      <div class="appel appel--fort">
+      <div class="appel appel--fort appel--centre">
         <p class="surtitre">Pour commencer</p>
         <h2>Vous savez déjà ce qu'il vous faut ?</h2>
         <p>Commandez directement la prestation concernée. Si vous hésitez entre deux, le rapport d'audit gratuit vous dira laquelle passe en premier, et pourquoi.</p>
-        <p style="display:flex;gap:16px;flex-wrap:wrap;margin-top:28px">
+        <div class="actions">
           <a class="bouton" href="{{LIEN_STRIPE_REBOOT}}">Commander le Pack Reboot — 850 €</a>
           <a class="bouton secondaire" href="#">Demander le rapport d'audit</a>
-        </p>
+        </div>
         <p class="apres-bouton">Le rapport est gratuit et sans engagement. Il vous est envoyé par courriel sous 48 heures.</p>
       </div>
     </div>
@@ -344,6 +353,24 @@
       <a href="../mentions-legales/">Mentions légales</a> — <a href="../mentions-legales/#cgv">Conditions générales de vente</a></p>
   </div>
 </footer>
+
+<!-- Voir index.html : le menu marche sans ce script. -->
+<script>
+(function () {
+  var m = document.querySelector('.menu');
+  if (!m) return;
+  var s = m.querySelector('summary');
+  var etat = function () { s.setAttribute('aria-expanded', m.open ? 'true' : 'false'); };
+  etat();
+  m.addEventListener('toggle', etat);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; s.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (m.open && !m.contains(e.target)) m.open = false;
+  });
+})();
+</script>
 
 </body>
 </html>

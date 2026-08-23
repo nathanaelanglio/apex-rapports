@@ -73,6 +73,19 @@
 :root {
   /* Version portante du dégradé de marque : partout où un mot se pose dessus. */
   --grad-brand-deep: linear-gradient(135deg, #6D28D9 0%, #0369A1 100%);
+
+  /* ⚙️ 23/08/2026 — bas de fourchette du titre réduit : 2.35rem → 2.05rem.
+     Mesuré à 375 px : le H1 sortait à 38,9 px et le titre de Mentions légales
+     — 8 mots — occupait QUATRE lignes et 163 px de haut. Un titre de quatre
+     lignes n'est plus un titre, c'est un paragraphe en gras. À 2.05rem il en
+     fait trois, et deux dès que le texte est raccourci.
+     Repère : AlexyaAI affiche son H1 à 30 px sur téléphone, 48 px sur grand
+     écran. Nous restons plus affirmés (33 → 64 px), la marque le porte.
+     ⚠️ Le HAUT de la fourchette ne bouge pas : sur grand écran le titre est
+     juste, c'est le téléphone seul qui était en cause.
+     Surcharge ici et non dans tokens.css, qui est une copie de publication et
+     porte l'interdiction de l'éditer — même motif que --grad-brand-deep. */
+  --fs-display: clamp(2.05rem, 1.15rem + 4.4vw, 4rem);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -94,9 +107,42 @@ h1 { font-size: var(--fs-display); line-height: var(--lh-tight); font-weight: va
 h2 { font-size: var(--fs-h2); line-height: var(--lh-snug); font-weight: var(--fw-bold); letter-spacing: -.01em; }
 h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); font-weight: var(--fw-bold); }
 
-p { margin: var(--space-4) 0; max-width: 66ch; }
+/* ---------------------------------------------------------------------------
+   ⚖️ 23/08/2026 — JUSTIFIER LES PARAGRAPHES : NON, ET VOICI CE QU'ON FAIT
+   À LA PLACE. Demande du Président ; je la refuse une fois, avec la mesure.
+
+   Mesuré sur ce site, à 375 px, paragraphe de carte :
+     largeur réelle 308 px → 35,7 ch, soit ≈ 41 caractères par ligne.
+   La justification répartit l'excédent d'une ligne sur ses espaces. Avec 41
+   caractères, une ligne porte 6 ou 7 mots : l'excédent se concentre sur cinq
+   espaces au lieu de douze, et chacun double ou triple de largeur. Ce sont les
+   « rivières » — des couloirs blancs verticaux qui traversent le bloc. Le
+   défaut apparaît donc au maximum exactement là où le Président trouve le site
+   imparfait : sur le téléphone.
+   Aggravant : nous n'avons aucune césure active. Sans césure, le moteur n'a
+   que les espaces pour absorber, et « recommandations » seul sur une ligne
+   laisse un trou que rien ne rattrape.
+
+   L'argument qui devrait emporter la décision : AlexyaAI, la référence choisie
+   par le Président lui-même, ne justifie AUCUN texte. Relevé au navigateur sur
+   leur page d'accueil, téléphone et grand écran : 0 élément en `justify` sur
+   24 paragraphes. 13 à gauche, 8 en `start`, 3 centrés.
+
+   CE QUE LA JUSTIFICATION CHERCHAIT — un bloc net, sans bord droit en dents de
+   scie — s'obtient autrement, et sans les trous :
+     • hyphens: auto  → césure française propre (<html lang="fr"> est en place),
+       le bord droit se resserre franchement sans toucher aux espaces ;
+     • text-wrap: pretty → interdit la dernière ligne à un seul mot, qui est le
+       défaut que l'œil remarque vraiment sur un paragraphe court.
+   Si le Président maintient après cet argument, la bascule tient en une ligne :
+   remplacer le bloc ci-dessous par `p { text-align: justify }`.
+   --------------------------------------------------------------------------- */
+p { margin: var(--space-4) 0; max-width: 66ch; hyphens: auto; text-wrap: pretty; }
 p:first-child { margin-top: 0; }
 p:last-child  { margin-bottom: 0; }
+.liste li { text-wrap: pretty; }
+/* Une référence technique ne se coupe jamais : « site-map.xml » n'existe pas. */
+code, .montant, .offre .nom { hyphens: manual; }
 
 a { color: var(--cyan-300); text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
@@ -121,17 +167,115 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
 .chapo { font-size: var(--fs-lead); color: var(--muted); max-width: 58ch; }
 .fine  { font-size: var(--fs-sm); color: var(--muted); }   /* --muted, jamais --faint : voir en-tête */
 
-/* --- En-tête --- */
+/* ---------------------------------------------------------------------------
+   EN-TÊTE ET NAVIGATION
+   ---------------------------------------------------------------------------
+   ⛔ 23/08/2026 — LE DÉFAUT QU'AUCUNE MESURE N'AVAIT SIGNALÉ.
+   La veille, j'avais vérifié « aucun débordement horizontal » et c'était vrai :
+   scrollWidth = 375 sur un écran de 375. Rien ne débordait. Sauf que la nav ne
+   débordait pas parce qu'elle S'ENROULAIT — `flex-wrap: wrap`, ici et sur
+   .entete-inner. Une quatrième entrée (Contact) a été ajoutée après ma
+   vérification et « Mentions légales » est tombé seul sur une deuxième ligne.
+
+   Mesuré à 375 px avant correction :
+     liens sur deux lignes, tops 56 et 108
+     en-tête = 164 px de haut, soit 20 % de la hauteur d'écran
+     et l'en-tête est `sticky` : ces 20 % sont mangés PENDANT TOUT le défilement.
+   Après correction : 64 px, soit 8 %. On rend un huitième de l'écran au lecteur.
+
+   L'arithmétique du débordement, pour mémoire : 46 + 91 + 49 + 108 = 294 px de
+   liens, plus 3 gouttières de 16 = 342, pour 343 px disponibles. Ça passait à
+   UN pixel près. Aucun seuil, aucune alerte — juste une ligne en trop.
+
+   LA LEÇON, et elle vaut plus que le correctif : une mesure de COULEUR ne voit
+   pas un défaut de COMPOSITION. Il fallait relever la géométrie — les `top` de
+   chaque lien — pas les contrastes. Un enroulement se lit dans des frères qui
+   n'ont pas le même `top`. C'est désormais un point de contrôle.
+
+   POURQUOI <details> ET PAS DU JAVASCRIPT :
+   le site n'a pas une ligne de script et vend le nettoyage des scripts inutiles.
+   <details>/<summary> est un composant de divulgation natif : il s'ouvre au
+   clavier (Entrée, Espace), expose son état aux lecteurs d'écran sans qu'on
+   l'écrive, et FONCTIONNE JAVASCRIPT DÉSACTIVÉ. Le script inline n'ajoute que
+   deux agréments — la touche Échap et le clic à l'extérieur. S'il ne s'exécute
+   pas, le menu s'ouvre et se ferme quand même.
+   ⚠️ Ne PAS écrire `aria-expanded` en dur dans le HTML : figé à "false", il
+   mentirait au lecteur d'écran à chaque ouverture. C'est le script qui le tient
+   à jour, ou personne — et sans script l'état natif du <summary> suffit.
+   --------------------------------------------------------------------------- */
 .entete { position: sticky; top: 0; z-index: 20; background: rgba(11,15,25,.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
-.entete-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; max-width: var(--maxw); margin: 0 auto; padding: 14px var(--gutter); }
+/* Aucun flex-wrap : c'est lui, et lui seul, qui autorisait les deux lignes. */
+.entete-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); max-width: var(--maxw); margin: 0 auto; padding: 12px var(--gutter); }
 .logo { text-decoration: none; }
-.nav { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+
+.nav { display: flex; gap: var(--space-5); }
 /* 11 px de coussin vertical : mesuré à 375 px, les liens tombaient à 42 px de
    haut, la cible confortable au pouce est à 44. Deux pixels, sur le seul écran
    où le lecteur décide vraiment. */
 .nav a { font-size: var(--fs-sm); color: var(--muted); text-decoration: none; font-weight: var(--fw-medium); padding: 11px 0; }
 .nav a:hover { color: var(--text); }
 .nav a[aria-current="page"] { color: var(--text); font-weight: var(--fw-semibold); box-shadow: inset 0 -2px 0 var(--violet-300); }
+
+/* --- Le bouton du menu : masqué au-delà du téléphone --- */
+.menu { position: static; }
+.menu__bouton {
+  display: none;                     /* n'apparaît que sous 720 px */
+  list-style: none;                  /* retire le triangle de <summary> */
+  align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: var(--r-xs);
+  color: var(--text); font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+  cursor: pointer; -webkit-user-select: none; user-select: none;
+}
+.menu__bouton::-webkit-details-marker { display: none; }   /* Safari */
+.menu__bouton:hover { border-color: var(--violet-300); }
+
+/* ⛔ 23/08/2026 — LE DÉFAUT QUE J'AI MOI-MÊME INTRODUIT EN CORRIGEANT L'AUTRE.
+   En retirant `flex-wrap: wrap` de .entete-inner, j'ai supprimé l'enroulement
+   — et remplacé un défaut visible par un défaut pire : un DÉBORDEMENT.
+   Mesuré juste après ma correction, à 375 px :
+     logo 257 px + gouttière 16 + bouton « Menu » 94  =  367 px
+     largeur utile de l'en-tête (375 − 2 × 16,9 de gutter) =  341 px
+     → 26 px de trop, et 9 px de défilement horizontal sur TOUTE la page.
+   Un enroulement est laid ; un défilement horizontal est cassé. J'ai vérifié,
+   sinon je livrais un site pire qu'avant en croyant l'avoir réparé.
+
+   Parade : sous 430 px, le libellé « Menu » quitte l'écran mais RESTE dans le
+   document pour les lecteurs d'écran — le bouton garde son nom accessible.
+     375 px → 257 + 16 + 44 = 317 ≤ 341  ✅
+     430 px → 257 + 16 + 94 = 367 ≤ 391  ✅
+   Le mot-symbole n'est pas touché : son interlettrage de .26em est canonique,
+   on ne rogne pas une identité pour faire tenir un bouton. */
+.entete-inner { flex-wrap: nowrap; }
+.logo { flex: 0 1 auto; min-width: 0; }
+.menu { flex: none; }
+
+/* Masqué à l'œil, lu par les lecteurs d'écran. */
+.horsvue {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+@media (max-width: 430px) {
+  .menu__bouton { padding: 0; width: 44px; justify-content: center; }
+  .menu__bouton .menu__mot {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+}
+
+/* Trois barres en CSS pur : aucune image, aucune icône à charger. */
+.menu__barres { position: relative; display: block; width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
+.menu__barres::before, .menu__barres::after {
+  content: ""; position: absolute; left: 0; display: block;
+  width: 18px; height: 2px; background: currentColor; border-radius: 2px;
+  transition: transform var(--dur) var(--ease);
+}
+.menu__barres::before { top: -6px; }
+.menu__barres::after  { top: 6px; }
+/* Ouvert, les barres deviennent une croix : le geste de fermeture est évident. */
+.menu[open] .menu__barres { background: transparent; }
+.menu[open] .menu__barres::before { transform: translateY(6px) rotate(45deg); }
+.menu[open] .menu__barres::after  { transform: translateY(-6px) rotate(-45deg); }
 
 /* --- Bandeau --- */
 .bandeau { padding: clamp(56px, 9vw, 104px) 0 clamp(40px, 6vw, 72px); border-bottom: 1px solid var(--line); position: relative; }
@@ -207,6 +351,72 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
 .apres-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 10px; max-width: 44ch; }
 
 /* ---------------------------------------------------------------------------
+   GROUPE DE BOUTONS — 23/08/2026
+   Mesuré à 375 px sur l'accueil AVANT correction : les deux boutons du héros
+   avaient un écart vertical de −1 px. Ils ne se touchaient pas presque : ils
+   se CHEVAUCHAIENT d'un pixel, parce que rien ne les séparait — ni marge, ni
+   gap, seulement deux <a> en ligne dans un <p>. Sur la page Mentions légales,
+   trois boutons empilés à 185, 284 et 169 px de large, calés à gauche : un
+   escalier. Le Président a vu les deux, et il a raison sur les deux.
+
+   Un seul composant règle les deux cas :
+     grand écran → une ligne, centrée, respirée
+     téléphone   → une colonne, pleine largeur, 12 px d'air entre chaque
+   Pleine largeur au téléphone plutôt que des largeurs inégales centrées :
+   trois boutons de tailles différentes centrés font un sapin de Noël. Égaux,
+   ils font une pile — et le pouce ne cherche plus la cible.
+   --------------------------------------------------------------------------- */
+.actions {
+  display: flex; flex-wrap: wrap; gap: var(--space-4);
+  justify-content: center; align-items: stretch;
+  margin: var(--space-5) 0 0;
+}
+.actions:first-child { margin-top: 0; }
+.actions .bouton { flex: 0 1 auto; }
+.actions + .apres-bouton { text-align: center; max-width: 52ch; margin-inline: auto; }
+
+/* Les ancres de la page Mentions légales : plus compactes, elles tiennent à
+   trois sur une ligne dès 380 px — c'est ce que demandait le Président. */
+.actions--ancres { gap: 10px; }
+.actions--ancres .bouton { min-height: 44px; padding: 11px 16px; font-size: var(--fs-sm); }
+
+@media (max-width: 560px) {
+  .actions { flex-direction: column; gap: 12px; }
+  .actions .bouton { width: 100%; }
+
+  /* Les ancres restent en ligne — c'est ce que demandait le Président.
+     Mesuré à 375 px : les trois libellés réclament 340 px, la zone utile DANS
+     l'encadré n'en offre que 293 (48 px partent en rembourrage) et
+     « Confidentialité » tombait seule sur une deuxième ligne. L'encadré saute
+     donc sur téléphone : ces trois liens sont un sommaire, pas un appel à
+     l'action, et un sommaire n'a pas besoin d'un panneau.
+     Sans encadré : 341 px utiles pour 306 demandés à 13 px. Ça tient, avec de
+     la marge — et la hauteur de cible reste à 44 px, la police n'y touche pas. */
+  .appel.actions--ancres {
+    background: none; border: none; padding: 0;
+    flex-direction: row; flex-wrap: wrap; gap: 8px;
+  }
+  .actions--ancres .bouton { width: auto; flex: 0 1 auto; padding: 11px 10px; font-size: .8125rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   LE BLOC D'ACCROCHE — centré, et lui seul
+   ---------------------------------------------------------------------------
+   Demande du Président : centrer les titres de page. Appliqué au sur-titre, au
+   H1 et au chapô, dans un conteneur borné — PAS au corps de la page.
+   Pourquoi la limite : un texte centré oblige l'œil à retrouver le début de
+   chaque ligne, qui se déplace à chaque fois. Sur deux ou trois lignes courtes
+   c'est élégant ; sur un paragraphe c'est fatigant, et sur une colonne de
+   375 px c'est illisible. AlexyaAI — la référence demandée — fait exactement
+   ce partage : héros centré dans 896 px, tout le reste aligné à gauche.
+   Relevé sur leur page : 3 paragraphes centrés, 21 alignés à gauche.
+   --------------------------------------------------------------------------- */
+.accroche { text-align: center; max-width: 42rem; margin-inline: auto; }
+.accroche .chapo { max-width: 46ch; margin-inline: auto; }
+.accroche h1 { margin-inline: auto; }
+.accroche .surtitre { margin-bottom: 14px; }
+
+/* ---------------------------------------------------------------------------
    TABLEAU
    Sur téléphone il déborde : il défile DANS son conteneur, jamais la page. Le
    conteneur est focalisable, sinon ce qui dépasse est inatteignable sans souris.
@@ -227,6 +437,10 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
    --------------------------------------------------------------------------- */
 .appel { background: var(--ink-1); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--space-6); }
 .appel--fort { background: var(--grad-brand-soft), var(--ink-1); border-color: var(--violet-300); }
+/* Appel final : bloc court, entièrement centré. Des boutons centrés sous un
+   texte aligné à gauche donnent un bloc bancal — l'axe doit être unique. */
+.appel--centre { text-align: center; }
+.appel--centre > p, .appel--centre > h2 { margin-inline: auto; }
 
 .etapes { list-style: none; counter-reset: e; padding: 0; margin: 0; display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
 .etapes li { counter-increment: e; padding-top: 18px; border-top: 2px solid transparent; border-image: var(--grad-line) 1; }
@@ -240,11 +454,45 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
 /* ---------------------------------------------------------------------------
    TÉLÉPHONE ET PRÉFÉRENCES
    --------------------------------------------------------------------------- */
-@media (max-width: 640px) {
-  .entete-inner { padding: 10px var(--gutter); gap: 8px; }
-  .nav { gap: 8px var(--space-4); }
+/* ── LE MENU DÉROULANT, sous 720 px ──────────────────────────────────────────
+   720 et non 640 : à 700 px les quatre entrées tiennent, mais collées au logo.
+   Mesuré — le premier confort revient vers 730. */
+@media (max-width: 720px) {
+  .menu__bouton { display: inline-flex; }
+
+  /* Le panneau se pose sous l'en-tête, pleine largeur. Le repère de position
+     est .entete (sticky = positionné), donc top:100% tombe pile sous la barre. */
+  .menu > .nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; gap: 0;
+    background: var(--ink-1);          /* opaque : la page défile dessous */
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+    padding: 4px var(--gutter) 12px;
+  }
+  .menu > .nav a {
+    font-size: 1rem; padding: 15px 0;  /* 15 px : cible de 50, une main, en marchant */
+    border-top: 1px solid var(--line-soft);
+  }
+  .menu > .nav a:first-child { border-top: none; }
+  /* En colonne, un soulignement ne dit plus « vous êtes ici » — il ressemble à
+     un séparateur. La marque passe à gauche, là où l'œil descend. */
+  .menu > .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--violet-300); padding-left: 12px; }
+
   .carte { padding: var(--space-4); }
   .appel { padding: var(--space-5); }
+}
+
+/* ── AU-DELÀ DU TÉLÉPHONE : la barre redevient horizontale ───────────────────
+   Deux parades côte à côte, parce que les moteurs ne masquent pas le contenu
+   d'un <details> de la même façon : les anciens posent display:none sur
+   l'enfant, les récents un content-visibility sur ::details-content. Chacune
+   est inoffensive là où elle ne sert pas. Si un moteur antérieur à 2025
+   ignorait les deux, le pire cas serait un bouton « Menu » sur grand écran :
+   moins élégant, mais toujours utilisable. Jamais une navigation inatteignable. */
+@media (min-width: 721px) {
+  .menu > .nav { display: flex; }
+  .menu::details-content { content-visibility: visible; block-size: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -270,7 +518,9 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
   }
   @page { size: A4; margin: 14mm; }
   body { background: #fff; color: #1a1a1a; font-size: 11pt; }
-  .entete, .nav, .bouton, .saut-contenu { display: none; }  /* un bouton ne se clique pas sur papier */
+  /* Un bouton ne se clique pas sur papier. .actions part avec eux : sinon
+     l'encadré d'appel reste imprimé, bordé, et vide. */
+  .entete, .nav, .menu, .bouton, .saut-contenu, .actions { display: none; }
   .bandeau { padding: 0 0 16px; border-bottom: 2px solid #5B21B6; }
   .bandeau::after { display: none; }
   .section { padding: 20px 0; }

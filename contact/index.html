@@ -23,12 +23,19 @@
       </span>
       <span class="logo__word">APEX <span>Automation</span></span>
     </a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="../">Accueil</a>
-      <a href="../offres/">Offres et tarifs</a>
-      <a href="../contact/" aria-current="page">Contact</a>
-      <a href="../mentions-legales/">Mentions légales</a>
-    </nav>
+    <!-- Menu natif <details> : fonctionne sans JavaScript. Voir assets/site.css. -->
+    <details class="menu">
+      <summary class="menu__bouton">
+        <span class="menu__barres" aria-hidden="true"></span>
+        <span class="menu__mot">Menu</span>
+      </summary>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="../">Accueil</a>
+        <a href="../offres/">Offres et tarifs</a>
+        <a href="../contact/" aria-current="page">Contact</a>
+        <a href="../mentions-legales/">Mentions légales</a>
+      </nav>
+    </details>
   </div>
 </header>
 
@@ -36,14 +43,16 @@
 
   <section class="section">
     <div class="enveloppe">
-      <p class="surtitre">Contact</p>
-      <h1>Écrivez-moi. Pas de formulaire, pas de rendez-vous imposé.</h1>
-      <p class="chapo">Une adresse, une réponse écrite. Vous n'avez rien à remplir et vous n'êtes pas obligé de me parler pour acheter — la plupart des commandes se passent sans un seul échange.</p>
-      <p class="appel appel--fort">
-        <a class="bouton pleine" href="mailto:backoffice.martinique@gmail.com?subject=Question%20avant%20de%20commander">Écrire à APEX Automation</a>
+      <div class="accroche">
+        <p class="surtitre">Contact</p>
+        <h1>Écrivez-moi. Pas de formulaire, pas de rendez-vous imposé.</h1>
+        <p class="chapo">Une adresse, une réponse écrite. Vous n'avez rien à remplir et vous n'êtes pas obligé de me parler pour acheter — la plupart des commandes se passent sans un seul échange.</p>
+      </div>
+      <div class="appel appel--fort actions">
+        <a class="bouton" href="mailto:backoffice.martinique@gmail.com?subject=Question%20avant%20de%20commander">Écrire à APEX Automation</a>
         <a class="bouton secondaire" href="../offres/">Voir les offres et commander</a>
-      </p>
-      <p class="fine">backoffice.martinique@gmail.com — réponse sous un jour ouvré.</p>
+      </div>
+      <p class="fine" style="text-align:center">backoffice.martinique@gmail.com — réponse sous un jour ouvré.</p>
     </div>
   </section>
 
@@ -120,6 +129,25 @@
     <p>Contact : <a href="mailto:backoffice.martinique@gmail.com">backoffice.martinique@gmail.com</a> — <a href="../">Accueil</a> — <a href="../offres/">Offres et tarifs</a> — <a href="../mentions-legales/">Mentions légales</a></p>
   </div>
 </footer>
+
+<!-- Voir index.html : le menu marche sans ce script, qui n'ajoute qu'Échap,
+     le clic extérieur et la tenue d'aria-expanded. -->
+<script>
+(function () {
+  var m = document.querySelector('.menu');
+  if (!m) return;
+  var s = m.querySelector('summary');
+  var etat = function () { s.setAttribute('aria-expanded', m.open ? 'true' : 'false'); };
+  etat();
+  m.addEventListener('toggle', etat);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; s.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (m.open && !m.contains(e.target)) m.open = false;
+  });
+})();
+</script>
 
 </body>
 </html>

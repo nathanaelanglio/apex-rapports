@@ -1,0 +1,110 @@
+/* ============================================================================
+   COPIE DE TRAVAIL — NE PAS ÉDITER ICI.
+   Source : APEX/livrables/apex-automation/identite/apex-automation-tokens.css
+   Copiée littéralement le 22/08/2026 pour que la maquette puisse être servie.
+   Toute correction se fait dans la source, puis se recopie ici.
+   ============================================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Fonds ---- */
+  --ink:        #0B0F19;   /* fond de référence */
+  --ink-deep:   #070B14;   /* fond du body, pied de page */
+  --ink-1:      #0E1424;   /* cartes, panneaux */
+  --ink-2:      #131B2E;   /* survol, élévation */
+
+  /* ---- Marque ---- */
+  --violet:     #8B5CF6;
+  --violet-300: #A78BFA;   /* violet lisible sur fond sombre */
+  --cyan:       #0EA5E9;
+  --cyan-300:   #38BDF8;   /* cyan lisible sur fond sombre */
+  --green:      #22C55E;   /* succès, points d'état */
+  --green-300:  #4ADE80;
+  --white:      #FFFFFF;
+
+  /* ---- Texte ---- */
+  --text:        #FFFFFF;
+  --text-strong: #E7ECF6;
+  --text-body:   #D6DEEC;
+  --muted:       #93A0BC;
+  --faint:       #66748F;
+
+  /* ---- Traits et voiles ---- */
+  --line:      rgba(255,255,255,.10);
+  --line-soft: rgba(255,255,255,.06);
+  --veil:      rgba(255,255,255,.04);
+  --veil-2:    rgba(255,255,255,.02);
+
+  /* ---- Dégradés de marque ---- */
+  --grad-brand:      linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
+  --grad-brand-soft: linear-gradient(135deg, rgba(139,92,246,.16), rgba(14,165,233,.14));
+  --grad-line:       linear-gradient(90deg, var(--violet), var(--cyan));
+
+  /* ---- Fond de page : trois halos sur l'encre ---- */
+  --bg-page:
+    radial-gradient(90% 60% at 15% -5%,   rgba(139,92,246,.16) 0%, transparent 55%),
+    radial-gradient(80% 55% at 100% 0%,   rgba(14,165,233,.14) 0%, transparent 50%),
+    radial-gradient(120% 90% at 50% 118%, rgba(14,165,233,.06) 0%, transparent 60%),
+    var(--ink);
+
+  /* ---- Typographie : pile système, aucune police téléchargée ---- */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+               "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+
+  --fs-display: clamp(2.35rem, 1.4rem + 4.4vw, 4rem);
+  --fs-h2:      clamp(1.6rem, 1.15rem + 2.1vw, 2.4rem);
+  --fs-h3:      clamp(1.15rem, 1rem + .7vw, 1.4rem);
+  --fs-lead:    clamp(1.02rem, .95rem + .5vw, 1.2rem);
+  --fs-body:    1rem;
+  --fs-sm:      .875rem;
+  --fs-xs:      .75rem;
+
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  --lh-tight:  1.05;
+  --lh-snug:   1.28;
+  --lh-normal: 1.6;
+
+  --tracking-word: .26em;  /* le mot-symbole APEX AUTOMATION */
+  --tracking-caps: .16em;  /* sur-titres, étiquettes */
+
+  /* ---- Rythme et formes ---- */
+  --space-4: 16px; --space-5: 24px; --space-6: 32px;
+  --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 20px; --r-pill: 999px;
+
+  --shadow-card:  0 20px 50px rgba(0,0,0,.45);
+  --glow-violet:  0 0 34px rgba(139,92,246,.45);
+  --glow-green:   0 0 20px rgba(34,197,94,.55);
+  --focus-ring:   0 0 0 3px rgba(139,92,246,.50);
+
+  --maxw: 1120px; --maxw-narrow: 760px; --gutter: clamp(16px, 4.5vw, 40px);
+  --dur: .18s; --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+:root[data-theme="light"], :root[data-theme="dark"] { color-scheme: dark; }
+
+/* ---- LE LOGO ---- */
+.logo { display: inline-flex; align-items: center; gap: 12px; }
+
+.logo__mark {
+  width: 38px; height: 38px; border-radius: 11px; flex: none;
+  display: grid; place-items: center;
+  background: var(--grad-brand);
+  box-shadow: var(--glow-violet);
+}
+.logo__mark svg { width: 20px; height: 20px; }
+
+.logo__word {
+  font-weight: var(--fw-black); font-size: .92rem;
+  letter-spacing: var(--tracking-word); text-transform: uppercase;
+  color: var(--white); white-space: nowrap;
+}
+.logo__word span { color: var(--cyan-300); }
+
+.logo--lg .logo__mark { width: 52px; height: 52px; border-radius: 14px; }
+.logo--lg .logo__mark svg { width: 27px; height: 27px; }
+.logo--lg .logo__word { font-size: 1.05rem; }

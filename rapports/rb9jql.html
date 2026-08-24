@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Audit — Authentik BBQ</title>
+<meta name="description" content="Rapport d'audit e-commerce établi le 24/08/2026 par APEX Automation.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%230EA5E9'/%3E%3C/linearGradient%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M17 6 8 18h6l-1 8 9-12h-6l1-8Z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: dark;
+    --ink:      #0B0F19;
+    --ink-deep: #070B14;
+    --ink-1:    #0E1424;
+    --ink-2:    #131B2E;
+    --violet:     #8B5CF6;
+    --violet-300: #A78BFA;
+    --cyan:       #0EA5E9;
+    --cyan-300:   #38BDF8;
+    --green-300:  #4ADE80;
+    --white:      #FFFFFF;
+    --text:        #FFFFFF;
+    --text-strong: #E7ECF6;
+    --text-body:   #D6DEEC;
+    --muted:       #93A0BC;
+    --line:      rgba(255,255,255,.10);
+    --line-soft: rgba(255,255,255,.06);
+    --veil:      rgba(255,255,255,.04);
+    --veil-2:    rgba(255,255,255,.02);
+    --grad-brand:      linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
+    --grad-brand-soft: linear-gradient(135deg, rgba(139,92,246,.16), rgba(14,165,233,.14));
+    --grad-line:       linear-gradient(90deg, var(--violet), var(--cyan));
+    --grad-brand-deep: linear-gradient(135deg, #6D28D9 0%, #0369A1 100%);
+    --bg-page:
+      radial-gradient(90% 60% at 15% -5%,   rgba(139,92,246,.16) 0%, transparent 55%),
+      radial-gradient(80% 55% at 100% 0%,   rgba(14,165,233,.14) 0%, transparent 50%),
+      radial-gradient(120% 90% at 50% 118%, rgba(14,165,233,.06) 0%, transparent 60%),
+      var(--ink);
+    --crit:      #FCA5A5;
+    --crit-bg:   rgba(248,113,113,.13);
+    --crit-line: rgba(248,113,113,.45);
+    --warn:      #FCD34D;
+    --warn-bg:   rgba(251,191,36,.13);
+    --warn-line: rgba(251,191,36,.45);
+    --ok:        #4ADE80;
+    --ok-bg:     rgba(74,222,128,.12);
+    --ok-line:   rgba(74,222,128,.42);
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+                 "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+    --fs-display: clamp(2.1rem, 1.4rem + 3.4vw, 3.2rem);
+    --fs-h2:      clamp(1.45rem, 1.15rem + 1.5vw, 1.95rem);
+    --fs-h3:      clamp(1.1rem, 1rem + .5vw, 1.3rem);
+    --fs-lead:    clamp(1.02rem, .95rem + .4vw, 1.15rem);
+    --fs-body:    1rem;
+    --fs-sm:      .875rem;
+    --fs-xs:      .75rem;
+    --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-black:800;
+    --tracking-word:.26em; --tracking-caps:.16em;
+    --space-4:16px; --space-5:24px; --space-6:32px;
+    --r-xs:8px; --r-sm:12px; --r-md:16px; --r-pill:999px;
+    --shadow-card: 0 20px 50px rgba(0,0,0,.45);
+    --glow-violet: 0 0 34px rgba(139,92,246,.45);
+    --focus-ring:  0 0 0 3px rgba(139,92,246,.50);
+    --maxw: 880px;
+    --gutter: clamp(16px, 4.5vw, 32px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg-page) fixed;
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { color: var(--text); margin: 0 0 12px; text-wrap: balance; }
+  h1 { font-size: var(--fs-display); line-height: 1.05; font-weight: var(--fw-black); letter-spacing: -.02em; }
+  h2 { font-size: var(--fs-h2); line-height: 1.2; font-weight: var(--fw-bold); letter-spacing: -.01em; }
+  h3 { font-size: var(--fs-h3); line-height: 1.3; font-weight: var(--fw-bold); }
+  p { margin: 12px 0; max-width: 66ch; }
+  p:first-child { margin-top: 0; }
+  p:last-child  { margin-bottom: 0; }
+  a { color: var(--cyan-300); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
+  :focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--r-xs); }
+  .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo__mark {
+    width: 38px; height: 38px; border-radius: 11px; flex: none;
+    display: grid; place-items: center;
+    background: var(--grad-brand);
+    box-shadow: var(--glow-violet);
+  }
+  .logo__mark svg { width: 20px; height: 20px; display: block; }
+  .logo__word {
+    font-weight: var(--fw-black); font-size: .92rem;
+    letter-spacing: var(--tracking-word); text-transform: uppercase;
+    color: var(--white); white-space: nowrap;
+  }
+  .logo__word span { color: var(--cyan-300); }
+  .flag { padding: var(--space-6) 0 var(--space-6); position: relative; }
+  .flag::after { content:""; position:absolute; left:var(--gutter); right:var(--gutter); bottom:0; height:2px; background:var(--grad-line); }
+  .flag .inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+  .eyebrow { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; font-weight: var(--fw-bold); color: var(--cyan-300); margin: var(--space-6) 0 10px; }
+  .flag h1 { margin-bottom: 14px; }
+  .flag .accroche { color: var(--muted); font-size: var(--fs-lead); max-width: 54ch; margin: 0; }
+  .sheet { max-width: var(--maxw); margin: 0 auto; padding: var(--space-6) var(--gutter) 88px; display: flex; flex-direction: column; gap: var(--space-5); }
+  .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .score { background: var(--ink-1); padding: 20px 14px; text-align: center; }
+  .score .n { font-size: 2.4rem; line-height: 1; font-weight: var(--fw-black); font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--text); }
+  .score .n small { font-size: .85rem; font-weight: var(--fw-semibold); color: var(--muted); letter-spacing: 0; }
+  .score .l { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--muted); margin-top: 8px; font-weight: var(--fw-semibold); }
+  .s-crit .n { color: var(--crit); } .s-warn .n { color: var(--warn); } .s-ok .n { color: var(--ok); }
+  .card { background: var(--ink-1); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--space-5); box-shadow: var(--shadow-card); }
+  .card > :first-child { margin-top: 0; } .card > :last-child { margin-bottom: 0; }
+  .lede { font-size: var(--fs-lead); color: var(--text-body); max-width: 60ch; }
+  .fine { font-size: var(--fs-sm); color: var(--muted); }
+  .defaut { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--r-sm); padding: 18px 20px; margin: 16px 0; background: var(--veil-2); }
+  .defaut.critique  { border-left-color: var(--crit); background: var(--crit-bg); border-color: var(--crit-line); }
+  .defaut.important { border-left-color: var(--warn); background: var(--warn-bg); border-color: var(--warn-line); }
+  .badge { display: inline-block; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--tracking-caps); text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-pill); border: 1px solid currentColor; }
+  .badge.critique  { color: var(--crit); }
+  .badge.important { color: var(--warn); }
+  .defaut h3 { margin: 12px 0 8px; }
+  .preuve { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 14px; }
+  .prix { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-top: 14px; }
+  .prix .montant { font-size: 1.7rem; font-weight: var(--fw-black); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .prix .quoi { font-size: var(--fs-sm); color: var(--muted); }
+  .scroll { overflow-x: auto; margin: 16px 0 4px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--ink-1); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); min-width: 480px; }
+  th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--line-soft); }
+  thead th { font-size: var(--fs-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; font-weight: var(--fw-bold); color: var(--muted); background: var(--veil-2); }
+  tbody th { font-weight: var(--fw-semibold); color: var(--text); }
+  tbody td { color: var(--text-body); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td, tbody tr:last-child th { border-bottom: none; }
+  tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background: var(--grad-brand-soft); border-top: 1px solid var(--violet-300); border-bottom: none; }
+  .cta { background: var(--grad-brand-soft), var(--ink-1); border: 1px solid var(--violet-300); border-radius: var(--r-md); padding: var(--space-6); }
+  .bouton {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 14px 30px; margin-top: 16px;
+    background: var(--grad-brand-deep);
+    color: var(--white); border: 1px solid transparent; border-radius: var(--r-sm);
+    font: inherit; font-weight: var(--fw-bold); text-decoration: none; text-align: center;
+    box-shadow: var(--glow-violet); cursor: pointer;
+    transition: filter .18s ease, box-shadow .18s ease;
+  }
+  .bouton:hover { filter: brightness(1.12); box-shadow: 0 0 44px rgba(139,92,246,.6); }
+  .sous-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; max-width: 52ch; }
+  .pied { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; max-width: 74ch; }
+  @media (max-width: 560px) {
+    .sheet { gap: var(--space-4); padding-bottom: 64px; }
+    .card, .cta { padding: var(--space-4); }
+    .defaut { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media print {
+    :root {
+      --bg-page:#fff; --ink:#fff; --ink-deep:#fff; --ink-1:#fff; --ink-2:#fff;
+      --text:#111; --text-strong:#111; --text-body:#1a1a1a; --muted:#3a3a3a;
+      --line:#c9ced4; --line-soft:#dfe3e8; --veil:#fff; --veil-2:#fff;
+      --violet-300:#5B21B6; --cyan-300:#075985;
+      --grad-brand:none; --grad-brand-soft:none; --grad-line:none; --grad-brand-deep:none;
+      --shadow-card:none; --glow-violet:none;
+      --crit:#8F2118; --crit-bg:#fbeeec; --crit-line:#8F2118;
+      --warn:#8A4C07; --warn-bg:#fdf4e8; --warn-line:#8A4C07;
+      --ok:#1A5C3C;   --ok-bg:#eaf3ee;   --ok-line:#1A5C3C;
+    }
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff; color: #1a1a1a; font-size: 11pt; }
+    .flag { padding: 0 0 14px; }
+    .flag::after { display: none; }
+    .flag .inner, .sheet { padding-left: 0; padding-right: 0; max-width: none; }
+    .flag { border-bottom: 2px solid #5B21B6; }
+    .eyebrow { color: #3a3a3a; margin-top: 12px; }
+    .sheet { padding-top: 18px; gap: 14px; }
+    .logo__mark { background: #fff; border: 1.5px solid #5B21B6; box-shadow: none; }
+    .logo__mark svg path { fill: #5B21B6; }
+    .logo__word { color: #111; }
+    .logo__word span { color: #3a3a3a; }
+    .card, .cta, .defaut, .scroll, .scores { break-inside: avoid; box-shadow: none; border: 1px solid #8b95a2; }
+    .score { border: none; }
+    .scores { background: #fff; gap: 0; }
+    .score + .score { border-left: 1px solid #c9ced4; }
+    .defaut.critique  { border-left: 4px solid #8F2118; }
+    .defaut.important { border-left: 4px solid #8A4C07; }
+    .badge { border: 1px solid currentColor; }
+    tfoot th, tfoot td { background: #f2f0fb; }
+    .bouton { display: none; }
+    .scroll { overflow: visible; } table { min-width: 0; }
+    a { color: #111; text-decoration: underline; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
+  }
+</style>
+</head>
+<body>
+
+<header class="flag">
+  <div class="inner">
+    <span class="logo">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </span>
+
+    <p class="eyebrow">Audit e-commerce &middot; 24/08/2026</p>
+    <h1>Authentik BBQ</h1>
+    <p class="accroche">Barbecue, sauces Spike et accessoires Pit Boss, Saint-Denis (La Réunion)</p>
+  </div>
+</header>
+
+<main class="sheet">
+
+  <section class="card">
+    <div class="scores">
+      <div class="score s-warn"><div class="n">5<small>/10</small></div><div class="l">Référencement</div></div>
+      <div class="score s-crit"><div class="n">3<small>/10</small></div><div class="l">Conformité</div></div>
+      <div class="score"><div class="n">—</div><div class="l">Performance</div></div>
+      <div class="score"><div class="n">—</div><div class="l">Parcours</div></div>
+    </div>
+    <p class="lede" style="margin-top:20px">Depuis le lancement en juin 2023, Authentik BBQ a créé sa propre marque de sauces (Spike, à base de tomates réunionnaises) et l'a portée dans une quinzaine de points de vente entre le nord et l'est de l'île. La boutique en ligne, elle, n'a jamais quitté son adresse de test Shopify.</p>
+    <p class="fine">Chaque constat ci-dessous a été vérifié le 24/08/2026 par recherche directe sur Google, et porte le lien exact de la page où il se voit. Performance et Parcours d'achat ne sont pas mesurables à distance sans charger le site : c'est l'objet de l'Audit Performance (250 €) ou de l'Audit 360° (290 €), non inclus dans ce diagnostic gratuit.</p>
+  </section>
+
+  <section class="card">
+    <h2>Ce qui a été relevé</h2>
+
+    <div class="defaut critique">
+      <span class="badge critique">Critique</span>
+      <h3>La boutique n'a pas de nom de domaine à elle</h3>
+      <p>Votre marque, votre email de contact et vos réseaux sociaux portent tous « authentik-bbq.com ». Mais la boutique elle-même s'ouvre à l'adresse générique <strong>authentik-barbecue.myshopify.com</strong> — l'adresse de test que Shopify attribue avant qu'un vrai nom de domaine soit connecté. Un client qui tape authentik-bbq.com ne tombe pas sur votre boutique, et l'adresse affichée dans la barre du navigateur ne dit rien de votre marque.</p>
+      <div class="prix">
+        <span class="montant">200 €</span>
+        <span class="quoi">— Migration Domaine (connexion du domaine, redirections 301, Search Console), 5 jours ouvrés</span>
+      </div>
+      <p class="preuve">Constaté ici : <a href="https://authentik-barbecue.myshopify.com/">authentik-barbecue.myshopify.com</a>, adresse de la boutique en ligne</p>
+    </div>
+
+    <div class="defaut critique">
+      <span class="badge critique">Critique</span>
+      <h3>Mentions légales et CGV introuvables</h3>
+      <p>Aucune page « mentions légales », « conditions générales de vente » ou « politique de confidentialité » n'a pu être trouvée pour la boutique, ni sur le site ni dans l'index Google (deux recherches ciblées distinctes, aucun résultat propre à la boutique). Ces mentions sont obligatoires pour toute vente à distance déclarée — la vôtre l'est, enregistrée le 24 mars 2023.</p>
+      <div class="prix">
+        <span class="montant">150 €</span>
+        <span class="quoi">— Pack Conformité (mentions légales, CGV, politique de confidentialité), 5 jours ouvrés</span>
+      </div>
+      <p class="preuve">Constaté ici : <a href="https://www.google.com/search?q=site:authentik-barbecue.myshopify.com+%22conditions+g%C3%A9n%C3%A9rales%22">recherche « conditions générales » et « politique de confidentialité » sur le domaine de la boutique</a>, aucun résultat</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Ce que ça coûte de corriger ce qui est confirmé</h2>
+    <div class="scroll" tabindex="0" role="region" aria-label="Récapitulatif chiffré">
+      <table>
+        <thead><tr><th scope="col">Prestation</th><th scope="col">Délai</th><th scope="col" class="num">Prix</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Migration Domaine</th><td>5 jours</td><td class="num">200 €</td></tr>
+          <tr><th scope="row">Pack Conformité</th><td>5 jours</td><td class="num">150 €</td></tr>
+        </tbody>
+        <tfoot><tr><th scope="row">Total des deux corrections</th><td>—</td><td class="num">350 €</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="fine">Les deux corrections se font dans le même mouvement technique : la connexion du domaine est le bon moment pour poser les pages légales dessus.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Pour lancer</h2>
+    <p>Le point le plus urgent est de donner à la boutique sa vraie adresse. Tout est réglé en ligne, sans rendez-vous et sans devis à signer. Le travail démarre à réception du paiement, et vous recevez un compte rendu de ce qui a été corrigé, point par point.</p>
+    <a class="bouton" href="https://buy.stripe.com/dRmdR9dgMfhtdHXaLc6kg07?src=rapport-rb9jql">Commander la Migration Domaine — 200 €</a>
+    <p class="sous-bouton">Lien de paiement : https://buy.stripe.com/dRmdR9dgMfhtdHXaLc6kg07<br>Paiement par carte sur une page sécurisée Stripe. Facture envoyée dans la foulée, avant tout travail. SIRET demandé au paiement.</p>
+    <p class="fine" style="margin-top:16px">Vous préférez en parler d'abord ? Répondez simplement au message, je vous propose un créneau. Ce n'est pas nécessaire pour avancer.</p>
+  </section>
+
+  <p class="pied">
+    Rapport établi le 24/08/2026 par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET 509 715 777 00058. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
+  </p>
+
+</main>
+</body>
+</html>

@@ -380,6 +380,51 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
    pas sur un bouton dont il ignore la conséquence. */
 .apres-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 10px; max-width: 44ch; }
 
+/* --- 24/08/2026 — LA MENTION SIRET, AU-DESSUS DU BOUTON QUI ENCAISSE ---------
+   Le SIRET est désormais un champ OBLIGATOIRE du tunnel Stripe. Le verrou est
+   donc dans le tunnel, pas ici : cette ligne ne bloque rien, elle PRÉVIENT.
+   Sans elle, un particulier découvre l'obligation une fois la carte sortie et
+   abandonne — un abandon qu'une ligne évite.
+
+   POURQUOI AU-DESSUS DU BOUTON ET NON EN DESSOUS.
+   En dessous, la ligne rejoint .apres-bouton, qui décrit ce qui se passe APRÈS
+   le clic. Ici on décrit une condition d'ENTRÉE : elle se lit sur le chemin de
+   l'œil vers la cible, pas derrière elle. Coût mesuré : 30 px par carte, une
+   seule ligne à toutes les largeurs.
+
+   POURQUOI UN ÉLÉMENT DÉDIÉ PLUTÔT QUE D'ALLONGER .apres-bouton.
+   Relevé le 24/08 : les onze boutons de paiement portent SIX libellés
+   .apres-bouton différents, et deux d'entre eux ne parlent pas de paiement du
+   tout (Kit Visuel, appel final). Y glisser « SIRET » aurait été six phrases à
+   écrire et six occasions de les désynchroniser. Une chaîne, une règle.
+
+   ⛔ LE BUDGET DE 30 CARACTÈRES, ET IL N'EST PAS NÉGOCIABLE.
+   Les cinq cartes « à l'unité » font 248 px de large sur grand écran, soit
+   198 px utiles. Mesuré à 14 px dans cette largeur :
+       « SIRET demandé au paiement. »        26 car.  1 ligne  ✅
+       « SIRET obligatoire au paiement. »    30 car.  1 ligne  ✅
+       « Vente aux professionnels. SIRET… »  52 car.  2 lignes ❌
+   Au-delà de ~30 caractères la mention passe à deux lignes DANS LES CARTES
+   ÉTROITES SEULEMENT — elle resterait sur une ligne dans les cartes larges.
+   La même phrase aurait alors deux hauteurs sur la même page : l'œil lit ça
+   comme deux composants différents. Toute reformulation se remesure à 198 px.
+
+   ⛔ ET ELLE NE SE POSE JAMAIS AU-DESSUS D'UN BOUTON GRATUIT.
+   Premier montage : la note surplombait les trois boutons de l'appel final,
+   dont « Demander le rapport d'audit », qui est gratuit et sans SIRET. Elle
+   affirmait qu'un rapport gratuit exige un numéro d'entreprise — un lead perdu
+   pour une mention censée en sauver. L'appel final n'a donc PAS de .note-siret :
+   sa ligne .apres-bouton distingue les deux natures. Règle générale : la note
+   n'accompagne qu'un groupe de boutons dont TOUS encaissent.
+
+   Taille : var(--fs-sm), la même que .delai et .apres-bouton — aucune échelle
+   typographique nouvelle. Couleur --text-body et non --muted : cette ligne doit
+   être lue, pas seulement disponible. Mesuré sur la page : 12,68:1 sur
+   --ink-1, et 14,48:1 sur le mot « SIRET », qui est le mot qu'on balaie.
+   --------------------------------------------------------------------------- */
+.note-siret { font-size: var(--fs-sm); line-height: 1.4; color: var(--text-body); margin: 0 0 10px; }
+.note-siret b { color: var(--text-strong); font-weight: var(--fw-semibold); }
+
 /* ---------------------------------------------------------------------------
    GROUPE DE BOUTONS — 23/08/2026
    Mesuré à 375 px sur l'accueil AVANT correction : les deux boutons du héros
@@ -558,8 +603,11 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
   @page { size: A4; margin: 14mm; }
   body { background: #fff; color: #1a1a1a; font-size: 11pt; }
   /* Un bouton ne se clique pas sur papier. .actions part avec eux : sinon
-     l'encadré d'appel reste imprimé, bordé, et vide. */
-  .entete, .nav, .menu, .bouton, .saut-contenu, .actions { display: none; }
+     l'encadré d'appel reste imprimé, bordé, et vide. .note-siret suit le même
+     sort : « SIRET demandé au paiement » sans bouton de paiement à côté est une
+     ligne orpheline. La règle survit sur papier par le pied de page, qui écrit
+     déjà que les prestations sont réservées aux titulaires d'un SIRET. */
+  .entete, .nav, .menu, .bouton, .saut-contenu, .actions, .note-siret { display: none; }
   .bandeau { padding: 0 0 16px; border-bottom: 2px solid #5B21B6; }
   .bandeau::after { display: none; }
   .section { padding: 20px 0; }

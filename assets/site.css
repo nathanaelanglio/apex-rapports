@@ -342,9 +342,39 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
   transition: filter var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .bouton:hover { filter: brightness(1.12); box-shadow: 0 0 44px rgba(139,92,246,.6); }
-.bouton.secondaire { background: var(--veil); color: var(--text); border-color: var(--line); box-shadow: none; }
+
+/* --- 24/08/2026 — la bordure du bouton secondaire était sous le plancher ---
+   Mesuré au navigateur sur la page en ligne : --line rgba(255,255,255,.10)
+   composé sur --ink-1 donnait 1,31:1 contre son fond. WCAG 1.4.11 exige 3:1
+   pour la LIMITE d'un composant : en dessous, le bouton n'a plus de forme, il
+   ne reste qu'un texte blanc qui flotte. Le défaut venait de moi, pas de la
+   page — il touchait tous les boutons secondaires du site depuis l'origine.
+   rgba(255,255,255,.36) mesure 3,32:1 sur --ink-1 et 3,31:1 sur --ink-2.
+   NE PAS remplacer par var(--line) : --line habille les cartes, où 1,31 est
+   un choix juste ; c'est le bouton, et lui seul, qui doit franchir 3:1. */
+.bouton.secondaire { background: var(--veil); color: var(--text); border-color: rgba(255,255,255,.36); box-shadow: none; }
 .bouton.secondaire:hover { background: var(--ink-2); border-color: var(--violet-300); filter: none; }
 .bouton.pleine { width: 100%; }
+
+/* --- 24/08/2026 — .contour : l'action qui ENCAISSE, mais pas la principale ---
+   Né d'un défaut réel : le paiement en deux fois du Pack Reboot (425 €) avait
+   été habillé en .secondaire, exactement comme « Demander le rapport d'audit »
+   — gratuit et sans engagement — À DIX-HUIT PIXELS DE LUI dans le même bloc.
+   Deux boutons d'apparence identique, l'un débite une carte bancaire, l'autre
+   envoie un courriel. Le système n'avait que deux niveaux ; il lui en fallait
+   trois, parce que la page a trois natures d'action :
+     .bouton              → transactionnel principal   (dégradé + halo)
+     .bouton.contour      → transactionnel alternatif  (bordure de marque, 6,3:1)
+     .bouton.secondaire   → gratuit, sans engagement   (bordure sobre, 3,3:1)
+   La bordure porte ici l'information : 2 px de --violet-300 mesurent 6,30:1.
+   ⚠️ Cette bordure est PORTEUSE, pas décorative — l'alléger rend le bouton
+   indiscernable d'un bouton gratuit. C'est la leçon Peach Banana du 21/08. */
+.bouton.contour {
+  background: var(--veil); color: var(--text);
+  border-width: 2px; border-color: var(--violet-300);
+  box-shadow: none;
+}
+.bouton.contour:hover { background: var(--ink-2); border-color: var(--violet-300); filter: none; }
 
 /* Ce qui suit le bouton dit ce qui se passe après le clic. Un inconnu n'appuie
    pas sur un bouton dont il ignore la conséquence. */
@@ -374,6 +404,15 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
 .actions:first-child { margin-top: 0; }
 .actions .bouton { flex: 0 1 auto; }
 .actions + .apres-bouton { text-align: center; max-width: 52ch; margin-inline: auto; }
+
+/* --- 24/08/2026 — .actions DANS une carte tarifaire ---
+   Le centrage ci-dessus est juste pour un bloc d'appel en pleine largeur ; il
+   est faux dans une carte, où les huit autres offres alignent leur mention sur
+   le bord gauche du bouton. Sans ces deux lignes, la seule carte à deux boutons
+   serait aussi la seule dont la mention est centrée — l'œil lit ça comme une
+   erreur de gabarit. Mesuré après correctif : écart mention/bouton = 0 px. */
+.carte .actions { margin-top: 0; }
+.carte .actions + .apres-bouton { text-align: left; max-width: 44ch; margin-inline: 0; }
 
 /* Les ancres de la page Mentions légales : plus compactes, elles tiennent à
    trois sur une ligne dès 380 px — c'est ce que demandait le Président. */

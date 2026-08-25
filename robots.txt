@@ -2,3 +2,14 @@ User-agent: *
 Allow: /
 
 Sitemap: https://apexautomation.fr/sitemap.xml
+
+# Pas de Disallow ici, volontairement.
+#
+# Le gabarit interne (_gabarit-rapport.html) et les rapports d'audit
+# (/rapports/) portent tous un <meta name="robots" content="noindex, nofollow">.
+# C'est LUI qui les tient hors de l'index.
+#
+# Ajouter un Disallow par-dessus serait contre-productif : un robot qui n'a
+# pas le droit de lire la page ne voit jamais son noindex, et peut l'indexer
+# sur la foi d'un lien externe. Interdire le crawl et interdire l'index sont
+# deux choses opposees -- ici, seul le second est voulu.

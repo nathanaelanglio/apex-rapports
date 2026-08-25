@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Audit — Karupodha</title>
-<meta name="description" content="Rapport d'audit e-commerce établi le 24/08/2026 par APEX Automation.">
+<title>Audit — Jouets Fanny Bois</title>
+<meta name="description" content="Rapport d'audit e-commerce établi le 25/08/2026 par APEX Automation.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%230EA5E9'/%3E%3C/linearGradient%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M17 6 8 18h6l-1 8 9-12h-6l1-8Z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -102,13 +102,6 @@
     color: var(--white); white-space: nowrap;
   }
   .logo__word span { color: var(--cyan-300); }
-  /* Accès aux offres — agent design, 25/08/2026. Un bouton seul, jamais la
-     barre du site : l'argumentaire complet est dans _gabarit-rapport.html.
-     L'adresse est ABSOLUE — « ../offres/ » résoudrait en ligne et mourrait dès
-     que le rapport est enregistré puis rouvert en file://. */
-  .flag .barre { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 16px; }
-  .lien-offres { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 18px; background: var(--veil); color: var(--text); border: 1px solid rgba(255,255,255,.42); border-radius: var(--r-sm); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; white-space: nowrap; transition: background .18s ease, border-color .18s ease; }
-  .lien-offres:hover { background: var(--ink-2); border-color: var(--violet-300); }
   .flag { padding: var(--space-6) 0 var(--space-6); position: relative; }
   .flag::after { content:""; position:absolute; left:var(--gutter); right:var(--gutter); bottom:0; height:2px; background:var(--grad-line); }
   .flag .inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
@@ -159,7 +152,6 @@
   .bouton:hover { filter: brightness(1.12); box-shadow: 0 0 44px rgba(139,92,246,.6); }
   .sous-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; max-width: 52ch; }
   .pied { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; max-width: 74ch; }
-  .droits { font-size: var(--fs-sm); color: var(--muted); margin: 10px 0 0; }
   @media (max-width: 560px) {
     .sheet { gap: var(--space-4); padding-bottom: 64px; }
     .card, .cta { padding: var(--space-4); }
@@ -199,15 +191,9 @@
     .badge { border: 1px solid currentColor; }
     tfoot th, tfoot td { background: #f2f0fb; }
     .bouton { display: none; }
-    .lien-offres { display: none; }
     .scroll { overflow: visible; } table { min-width: 0; }
     a { color: #111; text-decoration: underline; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
-    /* Deux exceptions, invisibles à l'écran et visibles seulement au papier :
-       sans elles, le bandeau imprimerait « APEX AUTOMATION (https://…) » et la
-       ligne de droits « apexautomation.fr (https://apexautomation.fr/) ». */
-    .flag .logo[href]::after { content: none; }
-    .droits .lien-site::after { content: none; }
   }
 </style>
 </head>
@@ -215,19 +201,16 @@
 
 <header class="flag">
   <div class="inner">
-    <div class="barre">
-      <a class="logo" href="https://apexautomation.fr/" aria-label="APEX Automation, accueil">
-        <span class="logo__mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
-        </span>
-        <span class="logo__word">APEX <span>Automation</span></span>
-      </a>
-      <a class="lien-offres" href="https://apexautomation.fr/offres/">Offres et tarifs</a>
-    </div>
+    <span class="logo">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </span>
 
-    <p class="eyebrow">Audit e-commerce &middot; 24/08/2026</p>
-    <h1>Karupodha</h1>
-    <p class="accroche">karupodha.com — sirops et infusions de plantes, Petit-Bourg (Guadeloupe)</p>
+    <p class="eyebrow">Audit e-commerce &middot; 25/08/2026</p>
+    <h1>Jouets Fanny Bois</h1>
+    <p class="accroche">fannyjouetsbois.com — jouets en bois articulés, fabrication artisanale à Velzic (Cantal)</p>
   </div>
 </header>
 
@@ -235,13 +218,13 @@
 
   <section class="card">
     <div class="scores">
+      <div class="score s-warn"><div class="n">4<small>/10</small></div><div class="l">Conformité</div></div>
       <div class="score s-warn"><div class="n">5<small>/10</small></div><div class="l">Référencement</div></div>
-      <div class="score s-crit"><div class="n">3<small>/10</small></div><div class="l">Conformité</div></div>
       <div class="score"><div class="n">—</div><div class="l">Performance</div></div>
       <div class="score"><div class="n">—</div><div class="l">Parcours</div></div>
     </div>
-    <p class="lede" style="margin-top:20px">Karupodha a une vraie histoire — la culture des plantes à 600 mètres d'altitude à Bananier (Capesterre), la transformation à Petit-Bourg, la boîte Tépeyi — et une diffusion réelle au-delà de la Guadeloupe (Terra Ô, Biolakaz vous revendent). Le site qui porte tout ça a deux failles qui coûtent des ventes et exposent l'entreprise.</p>
-    <p class="fine">Chaque constat ci-dessous a été vérifié le 24/08/2026 par recherche directe sur Google et sur karupodha.com, et porte le lien exact de la page où il se voit. Performance et Parcours d'achat ne sont pas mesurables à distance sans charger le site : c'est l'objet de l'Audit Performance (250 €) ou de l'Audit 360° (290 €), non inclus dans ce diagnostic gratuit.</p>
+    <p class="lede" style="margin-top:20px">Fanny Jouets Bois a un vrai catalogue propre — 46 URLs au total, 6 pages, 15 catégories, 22 fiches produit, mentions légales et CGV présentes avec SIRET et adresse. Le site tient debout. Deux failles restent réelles : l'une expose l'entreprise, l'autre coûte des ventes en silence, page après page.</p>
+    <p class="fine">Chaque constat ci-dessous a été vérifié le 25/08/2026 par ouverture directe de fannyjouetsbois.com (sitemap complet, fiches produit, pages légales) et par recherche Google, et porte le lien exact de la page où il se voit. Performance et Parcours d'achat ne sont pas mesurables à distance sans charger le site : c'est l'objet de l'Audit Performance (250 €), non inclus dans ce diagnostic gratuit.</p>
   </section>
 
   <section class="card">
@@ -249,38 +232,27 @@
 
     <div class="defaut critique">
       <span class="badge critique">Critique</span>
-      <h3>Mentions légales et politique de confidentialité introuvables</h3>
-      <p>Karupodha a bien des <a href="https://karupodha.com/conditions-generales-de-vente/">conditions générales de vente</a> en ligne, mais aucune page « mentions légales » ni « politique de confidentialité » n'apparaît dans l'index Google (recherches ciblées, trois requêtes distinctes, aucun résultat). Ces mentions sont obligatoires pour tout site marchand : leur absence expose l'éditeur à une sanction pouvant atteindre 75 000 € pour une personne physique et 375 000 € pour une société (art. 1-2 de la LCEN).</p>
+      <h3>Aucun bouton de rétractation en ligne</h3>
+      <p>Vos conditions générales de vente décrivent bien le droit de rétractation (14 jours) et annoncent un « modèle de formulaire de rétractation... également disponible sur le site » — mais aucune des 46 URLs du sitemap ne correspond à un formulaire cliquable. Depuis le 19 juin 2026 (ordonnance du 5 janvier 2026 transposant la directive 2023/2673, art. L221-21 du Code de la consommation), tout site marchand doit permettre au client d'exercer ce droit directement en ligne, avec une fluidité comparable au tunnel de commande — pas seulement par un texte à recopier.</p>
       <div class="prix">
         <span class="montant">150 €</span>
-        <span class="quoi">— Pack Conformité (mentions légales, politique de confidentialité, pied de page), 5 jours ouvrés</span>
+        <span class="quoi">— Pack Conformité (mentions légales, CGV, pied de page, fonctionnalité de rétractation), 5 jours ouvrés</span>
       </div>
-      <p class="preuve">Constaté ici : <a href="https://www.google.com/search?q=site:karupodha.com+mentions+l%C3%A9gales">recherche « site:karupodha.com mentions légales »</a>, zéro résultat propre au domaine</p>
+      <p class="preuve">Constaté ici : <a href="https://www.fannyjouetsbois.com/conditions-generales-de-vente">fannyjouetsbois.com/conditions-generales-de-vente</a> — clause citée, aucun lien fonctionnel associé ; sitemap complet consulté sur <a href="https://www.fannyjouetsbois.com/sitemap.xml">fannyjouetsbois.com/sitemap.xml</a> (46 URLs, aucune ne porte de formulaire)</p>
     </div>
 
     <div class="defaut important">
       <span class="badge important">Important</span>
-      <h3>Titres de fiches produits incohérents dans Google</h3>
-      <p>Plusieurs fiches produits s'affichent dans les résultats Google avec un titre tronqué ou incomplet — par exemple « INFUSION MORINGA/GINGEMBRE - » (rien après le tiret) ou « POUDRE DE MORINGA » sans nom de marque. Un titre de page mal renseigné réduit le taux de clic depuis la recherche, même quand le produit est bien classé.</p>
+      <h3>Fiches produit sans méta-description</h3>
+      <p>La fiche du robot « Mano l'Original » — votre produit phare, en cerisier et frêne massif — ne porte aucune balise meta description. C'est ce texte que Google affiche sous le titre dans les résultats de recherche : sans lui, le moteur choisit une phrase au hasard dans la page, souvent peu engageante, ce qui réduit le taux de clic même quand la fiche est bien classée.</p>
       <div class="prix">
         <span class="montant">350 €</span>
-        <span class="quoi">— Optimisation SEO (titres, méta-descriptions, textes alternatifs), 10 jours ouvrés</span>
+        <span class="quoi">— Optimisation SEO (méta-descriptions, textes alternatifs, structure des titres), 10 jours ouvrés</span>
       </div>
-      <p class="preuve">Constaté ici : <a href="https://karupodha.com/produit/infusion-moringa-gingembre/">karupodha.com/produit/infusion-moringa-gingembre/</a>, titre affiché par Google</p>
+      <p class="preuve">Constaté ici : <a href="https://www.fannyjouetsbois.com/product/__show/1/robot-mano-l-original">fannyjouetsbois.com — fiche « Robot Mano l'Original »</a>, balise description absente du head de la page</p>
     </div>
 
-    <div class="defaut important">
-      <span class="badge important">Important</span>
-      <h3>Aucun contenu de blog</h3>
-      <p>Aucune page de blog ou d'actualités n'a été trouvée sur karupodha.com. Sans contenu éditorial, la boutique ne capte aucune des recherches génériques autour de ses produits (« bienfaits sirop gingembre », « infusion moringa curcuma »…) — un trafic que d'autres revendeurs de vos propres produits (Terra Ô, Biolakaz) captent à votre place.</p>
-      <div class="prix">
-        <span class="montant">149 €/mois</span>
-        <span class="quoi">— Suivi Mensuel (référencement continu, articles réguliers), sans engagement de durée</span>
-      </div>
-      <p class="preuve">Constaté ici : <a href="https://www.google.com/search?q=site:karupodha.com+blog">recherche « site:karupodha.com blog »</a>, aucune page trouvée</p>
-    </div>
-
-    <p class="fine">À noter, hors périmètre de nos forfaits standards : vos CGV n'indiquent que le virement bancaire et le chèque comme moyens de paiement, sans carte bancaire — un point qui mérite d'être regardé avec votre solution technique, car il ralentit toute commande passée en ligne.</p>
+    <p class="fine">Sur la même fiche, les images du robot Mano portent des noms de fichiers génériques (« 12.jpg », « 108.jpg ») sans texte alternatif décrivant le produit — un manque qui prive vos photos de tout référencement sur Google Images, et pénalise l'accessibilité pour les lecteurs d'écran. Ce point est inclus dans l'Optimisation SEO ci-dessus.</p>
   </section>
 
   <section class="card">
@@ -295,22 +267,20 @@
         <tfoot><tr><th scope="row">Total des deux corrections</th><td>—</td><td class="num">500 €</td></tr></tfoot>
       </table>
     </div>
-    <p class="fine">Le Suivi Mensuel (149 €/mois, sans engagement) reste séparé : il couvre le contenu dans la durée, pas une correction ponctuelle.</p>
+    <p class="fine">Sur un catalogue de cette taille (46 URLs), les deux chantiers se traitent dans le même mouvement — c'est ce que fait le Pack Reboot Complet (850 €) s'il vous intéresse aussi de traiter la vitesse du site et de démarrer un premier contenu de blog.</p>
   </section>
 
   <section class="cta">
     <h2>Pour lancer</h2>
     <p>Le point le plus urgent est la conformité légale. Tout est réglé en ligne, sans rendez-vous et sans devis à signer. Le travail démarre à réception du paiement, et vous recevez un compte rendu de ce qui a été corrigé, point par point.</p>
-    <a class="bouton" href="https://buy.stripe.com/6oUcN5dgM6KXcDT3iK6kg06?src=rapport-rk4td9">Commander le Pack Conformité — 150 €</a>
+    <a class="bouton" href="https://buy.stripe.com/6oUcN5dgM6KXcDT3iK6kg06?src=rapport-h3mktr">Commander le Pack Conformité — 150 €</a>
     <p class="sous-bouton">Lien de paiement : https://buy.stripe.com/6oUcN5dgM6KXcDT3iK6kg06<br>Paiement par carte sur une page sécurisée Stripe. Facture envoyée dans la foulée, avant tout travail. SIRET demandé au paiement.</p>
-    <p class="fine" style="margin-top:16px">Vous préférez en parler d'abord ? Répondez simplement au message, je vous propose un créneau. Ce n'est pas nécessaire pour avancer.</p>
+    <p class="fine" style="margin-top:16px">Vous préférez en parler d'abord ? Répondez simplement au message qui accompagne ce rapport, je vous propose un créneau. Ce n'est pas nécessaire pour avancer.</p>
   </section>
 
   <p class="pied">
-    Rapport établi le 24/08/2026 par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET 509 715 777 00058. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
+    Rapport établi le 25/08/2026 par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET 509 715 777 00058. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
   </p>
-
-  <p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés. · <a class="lien-site" href="https://apexautomation.fr/">apexautomation.fr</a></p>
 
 </main>
 </body>

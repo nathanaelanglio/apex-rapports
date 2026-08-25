@@ -102,6 +102,13 @@
     color: var(--white); white-space: nowrap;
   }
   .logo__word span { color: var(--cyan-300); }
+  /* Accès aux offres — agent design, 25/08/2026. Un bouton seul, jamais la
+     barre du site : l'argumentaire complet est dans _gabarit-rapport.html.
+     L'adresse est ABSOLUE — « ../offres/ » résoudrait en ligne et mourrait dès
+     que le rapport est enregistré puis rouvert en file://. */
+  .flag .barre { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 16px; }
+  .lien-offres { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 18px; background: var(--veil); color: var(--text); border: 1px solid rgba(255,255,255,.42); border-radius: var(--r-sm); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; white-space: nowrap; transition: background .18s ease, border-color .18s ease; }
+  .lien-offres:hover { background: var(--ink-2); border-color: var(--violet-300); }
   .flag { padding: var(--space-6) 0 var(--space-6); position: relative; }
   .flag::after { content:""; position:absolute; left:var(--gutter); right:var(--gutter); bottom:0; height:2px; background:var(--grad-line); }
   .flag .inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
@@ -152,6 +159,7 @@
   .bouton:hover { filter: brightness(1.12); box-shadow: 0 0 44px rgba(139,92,246,.6); }
   .sous-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; max-width: 52ch; }
   .pied { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; max-width: 74ch; }
+  .droits { font-size: var(--fs-sm); color: var(--muted); margin: 10px 0 0; }
   @media (max-width: 560px) {
     .sheet { gap: var(--space-4); padding-bottom: 64px; }
     .card, .cta { padding: var(--space-4); }
@@ -191,9 +199,15 @@
     .badge { border: 1px solid currentColor; }
     tfoot th, tfoot td { background: #f2f0fb; }
     .bouton { display: none; }
+    .lien-offres { display: none; }
     .scroll { overflow: visible; } table { min-width: 0; }
     a { color: #111; text-decoration: underline; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
+    /* Deux exceptions, invisibles à l'écran et visibles seulement au papier :
+       sans elles, le bandeau imprimerait « APEX AUTOMATION (https://…) » et la
+       ligne de droits « apexautomation.fr (https://apexautomation.fr/) ». */
+    .flag .logo[href]::after { content: none; }
+    .droits .lien-site::after { content: none; }
   }
 </style>
 </head>
@@ -201,12 +215,15 @@
 
 <header class="flag">
   <div class="inner">
-    <span class="logo">
-      <span class="logo__mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
-      </span>
-      <span class="logo__word">APEX <span>Automation</span></span>
-    </span>
+    <div class="barre">
+      <a class="logo" href="https://apexautomation.fr/" aria-label="APEX Automation, accueil">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+        </span>
+        <span class="logo__word">APEX <span>Automation</span></span>
+      </a>
+      <a class="lien-offres" href="https://apexautomation.fr/offres/">Offres et tarifs</a>
+    </div>
 
     <p class="eyebrow">Audit e-commerce &middot; 24/08/2026</p>
     <h1>Authentik BBQ</h1>
@@ -279,6 +296,8 @@
   <p class="pied">
     Rapport établi le 24/08/2026 par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET 509 715 777 00058. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
   </p>
+
+  <p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés. · <a class="lien-site" href="https://apexautomation.fr/">apexautomation.fr</a></p>
 
 </main>
 </body>

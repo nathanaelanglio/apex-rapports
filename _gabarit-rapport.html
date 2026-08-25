@@ -175,6 +175,58 @@
   /* Variante canonique : APEX blanc, AUTOMATION cyan clair. */
   .logo__word span { color: var(--cyan-300); }
 
+  /* ---- ACCÈS AUX OFFRES — agent design, 25/08/2026 ------------------------
+     Demande du Président : la barre de menu du site en tête de rapport, « ou au
+     moins le bouton qui mène à toutes nos offres ». J'ai tranché pour le bouton
+     seul, et voici pourquoi — c'est un arbitrage, pas une facilité.
+
+     1. UN RAPPORT N'EST PAS UNE PAGE DE SITE. Il a un seul chemin : lire les
+        constats, puis commander. La barre du site ouvre QUATRE portes, dont
+        trois latérales (Accueil, Contact, Mentions légales) au moment exact où
+        le lecteur découvre ce qui cloche chez lui. Les deux dernières sont
+        déjà servies ici : le pied porte SIRET, TVA et régime de paiement, et
+        le bloc d'appel dit « répondez simplement au message ». On dupliquerait
+        des sorties pour rien.
+     2. IL NE DOIT PAS CONCURRENCER LE BOUTON STRIPE. Le rapport encaisse par un
+        bouton de paiement en bas. Un second bouton de même apparence en haut
+        vole le clic et envoie le lecteur sur une grille de six prix, alors que
+        le rapport lui dit exactement lequel le concerne. Ce lien prend donc le
+        troisième niveau du système — celui de .bouton.secondaire du site :
+        bordure sobre, aucun dégradé, aucun halo. Le niveau réservé à ce qui est
+        gratuit et sans engagement. La hiérarchie dit la vérité sur l'action.
+     3. IL SURVIT AU FICHIER ENREGISTRÉ. Le rapport se télécharge, se transfère,
+        se rouvre hors ligne, s'imprime. Un menu <details> avec panneau flottant
+        et script est une surface de casse pour zéro bénéfice ; un <a> ne casse
+        jamais.
+
+     ⛔ ET L'ADRESSE EST ABSOLUE, JAMAIS RELATIVE — c'est le piège des chemins
+     recensé dans reference_mise_en_ligne_pannes_silencieuses.md. En ligne, le
+     rapport est servi depuis /rapports/ : « ../offres/ » résoudrait bien.
+     Enregistré sur un bureau et rouvert en file://, il pointerait vers un
+     dossier qui n'existe pas — un lien mort dans le document qui doit vendre.
+     https://apexautomation.fr/offres/ est la seule forme qui tient dans les
+     deux cas, et c'est elle qui s'imprime en clair sur le papier.
+
+     Hauteur de cible 44 px : le lecteur est au téléphone. Enroulement autorisé
+     sous 430 px — le bandeau n'est PAS collant, un retour à la ligne y coûte
+     50 px une fois, pas 20 % de l'écran à chaque défilement comme sur le site.
+     --------------------------------------------------------------------- */
+  .flag .barre {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px 16px;
+  }
+  .lien-offres {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 11px 18px;
+    background: var(--veil); color: var(--text);
+    border: 1px solid rgba(255,255,255,.42);   /* 1.4.11 : la limite d'un composant se voit */
+    border-radius: var(--r-sm);
+    font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+    text-decoration: none; white-space: nowrap;
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .lien-offres:hover { background: var(--ink-2); border-color: var(--violet-300); }
+
   /* ---- Bandeau ---- */
   .flag { padding: var(--space-6) 0 var(--space-6); position: relative; }
   .flag::after { content:""; position:absolute; left:var(--gutter); right:var(--gutter); bottom:0; height:2px; background:var(--grad-line); }
@@ -246,6 +298,9 @@
   .sous-bouton { font-size: var(--fs-sm); color: var(--muted); margin-top: 12px; max-width: 52ch; }
 
   .pied { font-size: var(--fs-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; max-width: 74ch; }
+  /* Même taille que .pied : aucune échelle typographique nouvelle pour une
+     ligne, et rien ne descend sous 14 px dans un document qui s'imprime. */
+  .droits { font-size: var(--fs-sm); color: var(--muted); margin: 10px 0 0; }
 
   @media (max-width: 560px) {
     .sheet { gap: var(--space-4); padding-bottom: 64px; }
@@ -301,9 +356,21 @@
     tfoot th, tfoot td { background: #f2f0fb; }
 
     .bouton { display: none; }   /* un bouton ne se clique pas sur papier */
+    .lien-offres { display: none; }   /* idem — l'adresse survit par la ligne de droits */
     .scroll { overflow: visible; } table { min-width: 0; }
     a { color: #111; text-decoration: underline; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
+
+    /* ⚠️ DEUX EXCEPTIONS À LA RÈGLE CI-DESSUS, et elles ne sont pas cosmétiques.
+       Depuis le 25/08 le logo est un lien : sans cette ligne, le bandeau imprimé
+       afficherait « APEX AUTOMATION (https://apexautomation.fr/) » — l'adresse
+       collée au mot-symbole, en tête du document. Et la ligne de droits écrit
+       déjà son adresse en toutes lettres : la répéter entre parenthèses juste
+       après donnerait « apexautomation.fr (https://apexautomation.fr/) ».
+       Le défaut ne se voit dans aucun navigateur : il n'existe qu'au papier.
+       Spécificité à deux classes pour passer devant a[href^="http"]. */
+    .flag .logo[href]::after { content: none; }
+    .droits .lien-site::after { content: none; }
   }
 </style>
 </head>
@@ -311,12 +378,18 @@
 
 <header class="flag">
   <div class="inner">
-    <span class="logo">
-      <span class="logo__mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
-      </span>
-      <span class="logo__word">APEX <span>Automation</span></span>
-    </span>
+    <!-- Le logo devient un lien : dans un document en ligne, une marque sur
+         laquelle on clique et où rien ne se passe se lit comme un document mort.
+         Adresse absolue, même motif que le bouton ci-contre. -->
+    <div class="barre">
+      <a class="logo" href="https://apexautomation.fr/" aria-label="APEX Automation, accueil">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+        </span>
+        <span class="logo__word">APEX <span>Automation</span></span>
+      </a>
+      <a class="lien-offres" href="https://apexautomation.fr/offres/">Offres et tarifs</a>
+    </div>
 
     <p class="eyebrow">Audit e-commerce &middot; {{DATE}}</p>
     <h1>{{BOUTIQUE}}</h1>
@@ -390,6 +463,17 @@
   <p class="pied">
     Rapport établi le {{DATE}} par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET {{SIRET}}. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
   </p>
+
+  <!-- MENTION DE DROITS — agent design, 25/08/2026.
+       Le titulaire est « EI Anglio Nathanaël » et non « Nathanaël Anglio » :
+       c'est le nom exact que porte la clause Propriété intellectuelle des
+       mentions légales du site. Deux formulations pour un même titulaire sur
+       deux pages du même domaine, c'est un écart qu'on ne se permet pas.
+       ⚠️ ANNÉE ÉCRITE EN DUR, VOLONTAIREMENT — à passer à 2027 le 1er janvier.
+       Un jeton {{ANNEE}} de plus dans ce gabarit serait un jeton que le
+       rédacteur peut ne pas connaître : « © {{ANNEE}} » parti chez un
+       commerçant coûte plus cher qu'une ligne à corriger une fois par an. -->
+  <p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés. · <a class="lien-site" href="https://apexautomation.fr/">apexautomation.fr</a></p>
 
 </main>
 </body>

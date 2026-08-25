@@ -535,6 +535,36 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
 .pied-site { border-top: 1px solid var(--line); background: var(--ink-deep); padding: clamp(40px, 6vw, 64px) 0; margin-top: clamp(48px, 8vw, 88px); }
 .pied-site p { font-size: var(--fs-sm); color: var(--muted); max-width: 78ch; }
 
+/* --- 25/08/2026 — MENTION DE DROITS, demandée par le Président -------------
+   Il l'a écrite en anglais (« all right reserved »). Je la pose en français, et
+   ce n'est pas une préférence de style : le site est intégralement en français,
+   il s'adresse à des commerçants francophones, et une formule anglaise isolée
+   dans un pied français se lit comme un modèle recopié — exactement le défaut
+   que nous facturons 150 € à corriger chez nos clients. « Tous droits
+   réservés » est la forme française, et la forme anglaise n'apporte rien : ce
+   vestige de la Convention de Buenos Aires n'a aucun effet en droit français,
+   où la protection est acquise sans formalité. La mention ne protège pas, elle
+   AVERTIT — et un avertissement se lit dans la langue du lecteur.
+
+   Le titulaire est « EI Anglio Nathanaël », le nom exact que porte la clause
+   Propriété intellectuelle des mentions légales. Pas « Nathanaël Anglio », qui
+   aurait créé deux identités pour un même titulaire sur le même domaine.
+
+   ⚙️ CORRIGÉ DANS LA FOULÉE, ET C'EST LA CAPTURE QUI L'A DIT.
+   Premier montage : un filet var(--line) au-dessus, pour séparer cette ligne
+   du bloc légal. À l'écran, il n'existe pas. Mesuré : rgba(255,255,255,.10)
+   composé sur --ink-deep #070B14 donne rgb(32,35,44), soit 1,26:1 contre son
+   fond. Un séparateur à 1,26:1 ne sépare rien — il ajoute une règle CSS et
+   zéro information. Et le renforcer aurait été pire : le pied n'a aucun filet
+   interne, en introduire un donnerait à la ligne la MOINS importante de la
+   page le seul trait horizontal du bloc.
+   Le blanc fait le travail : 32 px, soit le double du rythme normal entre deux
+   paragraphes (16 px). « Cette idée est finie » se dit par l'espace, pas par
+   un trait qu'on ne voit pas.
+   Couleur héritée de .pied-site p : --muted, mesuré 7,49:1 sur --ink-deep,
+   niveau AAA. --faint est proscrit ici, il tombe à 4,05:1. */
+.pied-site .droits { margin-top: var(--space-6); }
+
 /* ---------------------------------------------------------------------------
    TÉLÉPHONE ET PRÉFÉRENCES
    --------------------------------------------------------------------------- */

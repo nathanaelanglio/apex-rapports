@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiche d'orientation — assistance à domicile, papiers et informatique</title>
+<meta name="description" content="Fiche à l'usage des agents d'accueil et des professionnels qui orientent : qui adresser, qui ne pas adresser, ce que la personne paie, et ce qui se passe après.">
+<style>
+:root{
+  --encre:#1B365D;
+  --encre-forte:#12233D;
+  --gris:#4A4E5A;
+  --or:#C8941E;
+  --papier:#FFFFFF;
+  --papier-bloc:#F4F5F8;
+  color-scheme: only light;
+}
+*{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--papier);
+  color:var(--encre);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:1.125rem;
+  line-height:1.6;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+.page{max-width:48rem;margin:0 auto;padding:0 1.25rem 4rem}
+.prose{max-width:38rem}
+p{margin:0 0 1rem}
+strong{font-weight:700}
+a{color:var(--encre-forte)}
+a:focus-visible{outline:3px solid var(--encre);outline-offset:2px}
+
+.filet{display:flex;height:5px}
+.filet i{flex:1 1 auto;background:var(--encre)}
+.filet b{flex:0 0 6rem;background:var(--or)}
+
+.usage{
+  border:4px solid var(--encre);
+  border-left-width:14px;
+  padding:1.25rem 1.5rem;
+  margin:1.5rem 0 0;
+}
+.usage .titre{
+  display:block;
+  font-size:1.375rem;font-weight:700;line-height:1.25;
+  color:var(--encre-forte);
+  margin-bottom:.625rem;
+}
+.usage p:last-child{margin:0}
+
+.epreuve{
+  border:3px solid var(--encre);
+  border-left-width:12px;
+  padding:1.125rem 1.375rem;
+  margin:1.5rem 0 0;
+  font-size:1.0625rem;
+  line-height:1.55;
+}
+.epreuve p{margin:0 0 .625rem}
+.epreuve p:last-child{margin:0}
+.epreuve .titre{font-size:1.25rem;font-weight:700;color:var(--encre-forte);display:block;margin-bottom:.5rem}
+
+.acompleter{
+  display:block;
+  border:2px dashed var(--encre);
+  padding:.75rem 1rem;
+  margin:0 0 1rem;
+  font-size:1.0625rem;
+  line-height:1.5;
+  color:var(--encre-forte);
+  font-weight:600;
+}
+
+.eyebrow{
+  margin-top:2.5rem;
+  font-size:1.0625rem;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--encre);
+}
+h1{font-size:2rem;line-height:1.2;font-weight:700;color:var(--encre-forte);margin:.5rem 0 .75rem;max-width:34rem}
+.chapeau{font-size:1.25rem;line-height:1.55;max-width:38rem;margin:0 0 1rem}
+h2{font-size:1.5rem;line-height:1.3;font-weight:700;color:var(--encre-forte);margin:0 0 1rem}
+h3{font-size:1.1875rem;line-height:1.35;font-weight:700;color:var(--encre-forte);margin:0 0 .5rem}
+section{margin-top:2.75rem}
+
+.identite{border:2px solid var(--encre);padding:1.25rem 1.5rem;margin-top:2rem}
+.identite p:last-child{margin:0}
+
+.bloc{border:2px solid var(--encre);padding:1.25rem 1.5rem;margin-top:1.25rem}
+.bloc-fort{border-left-width:10px}
+.bloc p:last-child,.bloc ul:last-child{margin-bottom:0}
+.bloc h3{margin-top:0}
+
+ul.liste{list-style:none;margin:0 0 1rem;padding:0}
+ul.liste li{position:relative;padding-left:1.625rem;margin-bottom:.5rem}
+ul.liste li:last-child{margin-bottom:0}
+ul.liste li::before{
+  content:"";position:absolute;left:0;top:.6em;
+  width:.5rem;height:.5rem;background:var(--encre);
+}
+ul.barre li::before{
+  width:.75rem;height:.1875rem;top:.75em;
+}
+
+.deux{display:flex;flex-wrap:wrap;gap:1.5rem}
+.deux > div{flex:1 1 18rem;min-width:0}
+.deux .bloc{margin-top:0;height:100%}
+
+.tab-enveloppe{overflow-x:auto;border:2px solid var(--encre)}
+.tab-enveloppe:focus-visible{outline:3px solid var(--encre);outline-offset:3px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{
+  border:1px solid var(--encre);
+  padding:.625rem .75rem;
+  text-align:left;
+  vertical-align:top;
+  font-size:1.0625rem;
+  line-height:1.45;
+}
+thead th{background:var(--papier-bloc);font-weight:700;color:var(--encre-forte);font-size:1rem;vertical-align:bottom}
+th.num,td.num{text-align:right;white-space:nowrap}
+tbody th{font-weight:700;color:var(--encre-forte)}
+.sub{display:block;font-weight:400;font-size:1rem;color:var(--gris);line-height:1.4}
+td.paye{font-weight:700;font-size:1.1875rem;color:var(--encre-forte)}
+tr.cle th,tr.cle td{border-top-width:3px;border-bottom-width:3px}
+.etq{display:none}
+
+.etapes{list-style:none;margin:1.25rem 0 0;padding:0;counter-reset:e}
+.etapes li{
+  counter-increment:e;
+  position:relative;
+  padding-left:3.5rem;
+  margin-bottom:1.25rem;
+  min-height:2.5rem;
+}
+.etapes li:last-child{margin-bottom:0}
+.etapes li::before{
+  content:counter(e);
+  position:absolute;left:0;top:0;
+  width:2.5rem;height:2.5rem;
+  border:2px solid var(--encre);
+  font-size:1.375rem;font-weight:700;line-height:2.25rem;
+  text-align:center;
+  color:var(--encre-forte);
+}
+
+.aditer{
+  border:3px solid var(--encre);
+  padding:1.25rem 1.5rem;
+  margin-top:1.25rem;
+  font-size:1.25rem;
+  line-height:1.6;
+  color:var(--encre-forte);
+}
+.aditer p{margin:0 0 .75rem}
+.aditer p:last-child{margin:0;font-size:1.0625rem;color:var(--gris)}
+
+.contact{border:3px solid var(--encre);padding:1.5rem}
+.tel{
+  display:block;
+  border:3px solid var(--encre);
+  padding:.875rem 1.25rem;
+  min-height:3.5rem;
+  font-size:1.75rem;font-weight:700;line-height:1.4;
+  font-variant-numeric:tabular-nums;
+  text-align:center;text-decoration:none;
+  color:var(--encre-forte);
+  margin:1.25rem 0 1rem;
+}
+.mail{font-size:1.125rem;margin:0}
+
+footer{
+  margin-top:2.75rem;
+  border-top:2px solid var(--encre);
+  padding-top:1.25rem;
+  font-size:1rem;
+  line-height:1.55;
+  color:var(--gris);
+}
+footer p{margin:0 0 .875rem}
+footer p:last-child{margin:0}
+footer strong{color:var(--encre)}
+
+@media (max-width:40rem){
+  h1{font-size:1.6875rem}
+  h2{font-size:1.375rem}
+  .chapeau,.aditer{font-size:1.1875rem}
+  .bloc,.contact,.identite,.usage,.aditer{padding:1.125rem}
+
+  /* Même correctif que sur le flyer particuliers (25/08) : sous 640 px,
+     le tableau devient des blocs empilés. En tableau, la colonne du
+     crédit d'impôt sortait du cadre — un agent d'accueil qui consulte
+     la fiche sur son téléphone ne verrait que le prix plein. */
+  .tab-enveloppe{border:0;overflow:visible}
+  table{width:100%}
+  thead{display:none}
+  tbody,tr,th,td{display:block}
+  tr{border:2px solid var(--encre);padding:1rem 1.125rem;margin-bottom:1rem}
+  tr:last-child{margin-bottom:0}
+  tr.cle{border-width:4px}
+  th,td{border:0;padding:0;text-align:left}
+  th.num,td.num{text-align:left;white-space:normal}
+  tbody th{font-size:1.25rem;margin-bottom:.75rem}
+  td{margin-top:.75rem}
+  .etq{display:block;font-size:1rem;font-weight:600;line-height:1.4;color:var(--encre)}
+  td.num{font-size:1.375rem;font-weight:600;color:var(--encre-forte);line-height:1.15}
+  td.paye{font-size:1.5rem;font-weight:700;line-height:1.15}
+  td .sub{font-size:1.0625rem;margin-top:.125rem}
+}
+@media (max-width:26rem){
+  .tel{font-size:1.375rem;padding:.875rem .5rem}
+}
+
+@media print{
+  @page{size:A4;margin:15mm}
+  body{font-size:11.5pt;line-height:1.5;color:#1B365D}
+  .page{max-width:none;padding:0}
+  section{margin-top:16pt}
+  h1{font-size:20pt;margin-top:6pt}
+  h2{font-size:15pt}
+  h3{font-size:12.5pt}
+  .chapeau{font-size:12.5pt}
+  .eyebrow{font-size:11pt;margin-top:8pt}
+  .usage .titre{font-size:13pt}
+  .epreuve,.acompleter,.identite{font-size:11pt}
+  th,td{font-size:11pt;padding:4pt 5pt}
+  thead th{font-size:10.5pt;background:transparent}
+  td.paye{font-size:12pt}
+  .sub{font-size:10.5pt}
+  .aditer{font-size:12pt}
+  .aditer p:last-child{font-size:11pt}
+  .etapes li::before{font-size:13pt;line-height:1.9rem;width:2.1rem;height:2.1rem}
+  .etapes li{padding-left:3rem}
+  .tel{font-size:18pt;border-width:2pt;min-height:0;padding:7pt}
+  .mail{font-size:11.5pt}
+  footer{font-size:10.5pt;margin-top:16pt}
+  .tab-enveloppe{overflow:visible;border:2px solid #1B365D}
+  table{width:100%}
+  thead{display:table-header-group}
+  tbody{display:table-row-group}
+  tr{display:table-row;border:0;padding:0;margin:0}
+  th,td{display:table-cell;border:1px solid #1B365D}
+  th.num,td.num{text-align:right;white-space:nowrap}
+  .etq{display:none}
+  .usage,.epreuve,.identite,.bloc,.contact,.aditer,.tab-enveloppe{break-inside:avoid}
+  tr,.etapes li{break-inside:avoid}
+  a{color:#1B365D;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="usage">
+    <span class="titre">Fiche à l'usage des professionnels qui orientent</span>
+    <p>Elle est faite pour un agent d'accueil, un travailleur social, un pharmacien, un responsable de résidence ou une association d'aidants. Elle dit qui nous adresser et, surtout, <strong>qui ne pas nous adresser</strong>.</p>
+    <p><strong>Ne pas la remettre au public&nbsp;:</strong> le document destiné aux particuliers est le flyer «&nbsp;On vient chez vous, pour vos papiers et pour votre ordinateur&nbsp;», qui porte les mêmes tarifs, écrits pour être lus par la personne elle-même.</p>
+  </div>
+
+  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+
+  <p class="eyebrow">Fiche d'orientation · Martinique</p>
+
+  <h1>Assistance administrative et informatique à domicile</h1>
+
+  <p class="chapeau">Un intervenant se déplace chez la personne, à sa table, pour ses papiers et pour son matériel informatique. Service à la personne déclaré&nbsp;: la personne récupère la moitié de ce qu'elle paie, en crédit d'impôt.</p>
+
+  <div class="identite">
+    <p><strong>Intervenant&nbsp;:</strong> Nathanaël Anglio, assistant administratif et informatique à domicile, entrepreneur-salarié associé au sein de la coopérative AdomSAP.</p>
+    <p><strong>Prestataire légal, qui facture et délivre l'attestation fiscale&nbsp;:</strong> la coopérative <strong>AdomSAP</strong> — société par actions simplifiée coopérative à capital variable, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon. Organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025. Vérifiable sur servicesalapersonne.gouv.fr</p>
+    <p><strong>Ce que nous ne vous demandons pas&nbsp;:</strong> aucune exclusivité, aucune convention, aucune commission d'apport ni contrepartie d'aucune sorte. Orienter quelqu'un vers nous ne vous engage à rien et ne nous lie à votre structure d'aucune façon.</p>
+  </div>
+
+  <section>
+    <h2>Qui nous adresser</h2>
+
+    <div class="deux">
+      <div>
+        <div class="bloc bloc-fort">
+          <h3>Les papiers</h3>
+          <ul class="liste">
+            <li>Une personne qui ne parvient pas à créer ou retrouver un accès en ligne&nbsp;: CAF, CGSS, Ameli, impots.gouv, France&nbsp;Travail</li>
+            <li>Un dossier à monter&nbsp;: retraite, réversion, MDPH, APA, logement social</li>
+            <li>Une déclaration de revenus à préparer</li>
+            <li>Un courrier reçu que la personne ne comprend pas</li>
+            <li>Des papiers accumulés, à trier et à classer</li>
+            <li>Quelqu'un qui a besoin de <strong>temps et de calme chez lui</strong> plutôt que d'un créneau de vingt minutes au guichet</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="bloc bloc-fort">
+          <h3>L'informatique</h3>
+          <ul class="liste">
+            <li>Un ordinateur, une imprimante ou une tablette à installer</li>
+            <li>Une box internet à raccorder</li>
+            <li>Une connexion perdue, une imprimante muette, une mise à jour bloquée</li>
+            <li>Une boîte mail à ouvrir et à organiser</li>
+            <li>Quelqu'un qui veut apprendre&nbsp;: smartphone, visioconférence, site administratif</li>
+            <li>Un mot de passe à choisir, une sauvegarde à activer, un courriel frauduleux à reconnaître</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloc">
+      <p><strong>Les deux à la fois, dans la même visite.</strong> Un dossier de retraite à remplir <em>et</em> une imprimante qui ne répond plus&nbsp;: c'est un seul rendez-vous, un seul déplacement, un seul tarif. C'est le point qui distingue cette offre d'un écrivain public d'un côté et d'un dépanneur informatique de l'autre.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Qui ne pas nous adresser</h2>
+
+    <div class="bloc bloc-fort">
+      <p>Cette liste vaut autant que la précédente. Une orientation qui n'aboutit pas coûte à la personne un déplacement, du temps et de la confiance — et elle vous revient.</p>
+      <ul class="liste barre">
+        <li><strong>Toute aide portant sur la personne elle-même.</strong> Nous n'intervenons que sur les papiers et sur le matériel — jamais sur la personne. Ces prestations relèvent d'un régime distinct que nous n'avons pas&nbsp;: un service d'aide à domicile y répondra, pas nous.</li>
+        <li><strong>Un besoin de conseil juridique ou fiscal</strong> — un choix à trancher, un arbitrage, un recours à rédiger. Nous assistons, nous ne conseillons pas.</li>
+        <li><strong>Titre de séjour, naturalisation, recours devant un tribunal</strong> — ces démarches relèvent d'un avocat ou d'une permanence habilitée.</li>
+        <li><strong>Une réparation matérielle</strong> — composant à changer, disque à récupérer, machine infectée. Nous installons, configurons et dépannons&nbsp;; nous n'intervenons pas en profondeur.</li>
+        <li><strong>Une personne sans moyen de payer la prestation.</strong> Notre service est payant, y compris pour le format court à 30&nbsp;€. Une personne en difficulté financière relève d'abord d'un écrivain public, d'une permanence associative ou d'un accompagnement social gratuit&nbsp;: c'est vers eux qu'il faut l'orienter, pas vers nous.</li>
+        <li><strong>Une situation qui appelle un travailleur social</strong> — protection, mise sous mesure, danger, isolement grave. Nous ne sommes ni un service social ni un service de veille.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ce que la personne paie</h2>
+
+    <div class="tab-enveloppe" tabindex="0" role="region" aria-label="Tableau des tarifs">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Prestation</th>
+            <th scope="col" class="num">Réglé le jour<br>de la visite</th>
+            <th scope="col" class="num">Coût réel<br>après crédit d'impôt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Séance à domicile<span class="sub">2 heures</span></th>
+            <td class="num paye"><span class="etq">Réglé le jour de la visite</span>90&nbsp;€</td>
+            <td class="num paye"><span class="etq">Coût réel après crédit d'impôt</span>45&nbsp;€</td>
+          </tr>
+          <tr>
+            <th scope="row">Séance longue<span class="sub">3 heures</span></th>
+            <td class="num paye"><span class="etq">Réglé le jour de la visite</span>135&nbsp;€</td>
+            <td class="num paye"><span class="etq">Coût réel après crédit d'impôt</span>67,50&nbsp;€</td>
+          </tr>
+          <tr class="cle">
+            <th scope="row">Forfait mensuel «&nbsp;Tranquillité&nbsp;»<span class="sub">2 séances de 2 heures par mois — 180&nbsp;€ si les séances sont prises séparément</span></th>
+            <td class="num paye"><span class="etq">Réglé chaque mois</span>169&nbsp;€<span class="sub">par mois</span></td>
+            <td class="num paye"><span class="etq">Coût réel après crédit d'impôt</span>84,50&nbsp;€<span class="sub">par mois</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Coup de main solidaire<span class="sub">une seule démarche, réglée en une fois — ce n'est pas un tarif horaire</span></th>
+            <td class="num paye"><span class="etq">Réglé le jour de la visite</span>30&nbsp;€</td>
+            <td class="num paye"><span class="etq">Coût réel après crédit d'impôt</span>15&nbsp;€</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bloc bloc-fort">
+      <h3>Ce qu'il faut dire exactement sur le crédit d'impôt</h3>
+      <p>La personne <strong>règle le prix entier le jour de l'intervention</strong>. La moitié lui revient <strong>ensuite</strong>, sous forme de crédit d'impôt de 50&nbsp;%&nbsp;: en déduction de son impôt sur le revenu l'année suivante si elle est imposable, <strong>remboursée par le Trésor public</strong> si elle ne l'est pas. AdomSAP lui remet une attestation fiscale annuelle qui sert de justificatif.</p>
+      <p><strong>Ne dites pas «&nbsp;ça ne lui coûtera que 45&nbsp;€&nbsp;».</strong> Elle avance 90&nbsp;€, et le retour arrive plus tard — pas toujours la même année civile. C'est la seule formulation exacte, et c'est aussi celle qui évite une déception au moment de payer.</p>
+      <p><strong>C'est le crédit d'impôt qui distingue cette offre.</strong> Tous les prestataires d'aide administrative ou de dépannage informatique ne sont pas déclarés services à la personne — sans cette déclaration, le client ne récupère rien. À prix affiché comparable, la dépense réelle n'est donc pas la même. C'est le point qui mérite d'être dit à la personne.</p>
+      <p>Prix TTC, TVA 2,1&nbsp;% comprise. Pas de frais de déplacement, pas de frais de dossier. Plafond du crédit d'impôt&nbsp;: 12&nbsp;000&nbsp;€ de dépenses de services à la personne par an et par foyer, dont <strong>3&nbsp;000&nbsp;€</strong> pour l'assistance informatique (article D.7233-5 du code du travail).</p>
+    </div>
+
+    <div class="bloc bloc-fort">
+      <h3>Le forfait, ce que vous pouvez en dire</h3>
+      <p><strong>Aucune durée d'engagement.</strong> La personne l'arrête quand elle veut, par un simple appel au 06 96 88 48 14 — rien à écrire, rien à signer. Le mois commencé va à son terme, le mois suivant n'est plus facturé.</p>
+      <p><strong>14 jours pour changer d'avis</strong> après l'inscription, sans justification. Si elle veut une première séance avant la fin de ce délai, un accord écrit simple est signé avant la visite. Si elle renonce après cette première séance, elle ne paie que celle-ci — la moitié du forfait — et le reste lui est remboursé.</p>
+      <p><strong>Les deux séances du mois se prennent dans le mois.</strong> Un empêchement signalé au moins 48 heures avant donne lieu à une reprogrammation dans le mois. Passé le mois, une séance non prise n'est ni reportée ni remboursée.</p>
+      <p>Ces conditions figurent en toutes lettres sur le flyer remis à la personne&nbsp;: elle n'a pas à vous croire sur parole ni à les demander.</p>
+
+      <p><strong>Présentez-le comme une possibilité, pas comme la formule d'entrée.</strong> Le forfait convient aux situations qui reviennent chaque mois — une retraite en cours d'instruction, un suivi CAF, un apprentissage au long cours. Mais il se choisit mieux <em>après</em> un premier rendez-vous, quand le besoin réel est connu&nbsp;: engager quelqu'un sur un abonnement mensuel avant de l'avoir rencontré n'est bon ni pour lui ni pour nous. Orientez d'abord vers la séance simple&nbsp;; le forfait viendra si le besoin se confirme.</p>
+    </div>
+  </section>
+
+  <!-- RÉSERVE INTERNE — ne pas remettre dans le corps du document.
+       25/08/2026 : la capacité de l'outil d'AdomSAP à gérer un abonnement
+       mensuel récurrent et un remboursement au prorata n'est pas confirmée
+       par écrit. Tant qu'elle ne l'est pas, le forfait ne se met pas en
+       avant auprès d'un partenaire public — c'est ce que produit le
+       paragraphe « possibilité, pas formule d'entrée » ci-dessus, sans
+       exposer un doute sur notre prestataire à un agent de CCAS.
+       Quand AdomSAP aura confirmé : ce paragraphe peut rester tel quel,
+       il est de toute façon le bon conseil commercial. -->
+
+
+
+  <section>
+    <h2>Ce que votre orientation déclenche</h2>
+    <ol class="etapes">
+      <li><strong>La personne appelle, ou vous appelez avec elle si elle le souhaite.</strong> On écoute ce qui bloque, on dit tout de suite si c'est pour nous ou non. Si ce n'est pas pour nous, on le dit et on l'oriente ailleurs — sans facturer quoi que ce soit.</li>
+      <li><strong>Un rendez-vous est fixé à son domicile</strong>, à une date et une heure convenues avec elle. La formule et le prix sont annoncés avant la visite, jamais découverts sur place. Elle peut demander à un proche d'être présent&nbsp;; nous l'y encourageons.</li>
+      <li><strong>L'intervention a lieu, la facture est établie par AdomSAP.</strong> C'est la personne qui saisit ses identifiants et valide elle-même ses démarches&nbsp;; nous restons à côté d'elle et n'en conservons aucun. L'attestation fiscale annuelle lui parvient ensuite.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Nous joindre</h2>
+    <div class="contact">
+      <p>Pour une orientation, une question sur un cas précis, ou pour recevoir des flyers à l'accueil.</p>
+      <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
+      <p class="mail">Courriel&nbsp;: backoffice.martinique@gmail.com</p>
+      <p style="margin-top:1rem;margin-bottom:0">Zone d'intervention&nbsp;: Martinique.</p>
+    </div>
+
+    <div class="aditer">
+      <p><strong>Si vous cherchez quoi dire à la personne&nbsp;:</strong></p>
+      <p>«&nbsp;Il existe quelqu'un qui se déplace chez vous pour vos papiers et pour votre ordinateur. C'est payant&nbsp;: 90&nbsp;€ pour deux heures, et la moitié vous revient l'année suivante en crédit d'impôt, même si vous ne payez pas d'impôts. Vous pouvez l'appeler, en parler, et décider après.&nbsp;»</p>
+      <p>Phrase pensée pour être lue à voix haute, ou notée sur un papier que la personne emporte.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Assistance administrative à domicile</strong> (activité n°&nbsp;14) et <strong>assistance informatique à domicile</strong> (activité n°&nbsp;11) de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong> — SAS coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon. Organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
+    <p><strong>En cas de litige&nbsp;:</strong> la personne adresse d'abord une réclamation écrite à AdomSAP, qui s'engage à répondre sous 15 jours ouvrés. Si la réponse ne la satisfait pas, elle peut ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — contact@sasmediationsolution-conso.fr</p>
+    <!-- RGPD : volontairement absent. Contrôle de conformité du 25/08/2026 —
+         l'article 13 s'attache au support et au moment de la collecte réelle.
+         Cette fiche ne collecte rien : ni champ, ni formulaire, ni coupon.
+         L'obligation naîtra sur l'accord signé avant la première intervention,
+         document qui reste à rédiger. Ne pas ajouter ici une mention RGPD
+         « par précaution » : elle serait hors sujet. -->
+
+    <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime distinct, réservé à d'autres prestations. Aucune intervention sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</p>
+    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, entrepreneur-salarié associé au sein d'AdomSAP. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: backoffice.martinique@gmail.com</p>
+    <p><strong>Droit de rétractation du client&nbsp;:</strong> 14 jours à compter de la conclusion du contrat, sans justification (articles L.221-18 et suivants du code de la consommation). Si la prestation démarre à sa demande avant la fin de ce délai, son accord exprès est recueilli par écrit avant l'intervention.</p>
+  </footer>
+
+</div>
+</body>
+</html>

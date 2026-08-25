@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Assistance à domicile — papiers et ordinateur, en Martinique</title>
+<meta name="description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier et crédit d'impôt de 50 % expliqué en deux temps.">
+<style>
+:root{
+  /* Charte de la maison — config/charte-graphique.md */
+  --encre:#1B365D;        /* 12,1:1 sur blanc — corps, traits           */
+  --encre-forte:#12233D;  /* 15,8:1 — titres                            */
+  --gris:#4A4E5A;         /*  8,3:1 — mentions légales uniquement       */
+  --or:#C8941E;           /*  2,7:1 — aplats et filets, JAMAIS un mot   */
+  --papier:#FFFFFF;
+  --papier-bloc:#F4F5F8;
+
+  /* Teintes d'illustration — 25/08/2026, agent design.
+     Elles n'existent QUE dans les dessins : aucun texte ne se pose
+     dessus, aucune information n'en dépend. Même statut que l'or.
+     Déposées ici en hexadécimal, comme l'exige la règle du 22/08. */
+  --ill-ciel:#E8F1F4;
+  --ill-mer:#7FB6C4;
+  --ill-morne:#5C8F6B;
+  --ill-sable:#F2E4CE;
+  --ill-bois:#C79A62;
+  color-scheme: only light;
+}
+*{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--papier);
+  color:var(--encre);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:1.25rem;
+  line-height:1.65;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+.page{max-width:44rem;margin:0 auto;padding:0 1.25rem 4rem}
+.prose{max-width:36rem}
+p{margin:0 0 1.25rem}
+strong{font-weight:700}
+a{color:var(--encre-forte)}
+a:focus-visible{outline:3px solid var(--encre);outline-offset:2px}
+
+.filet{display:flex;height:5px}
+.filet i{flex:1 1 auto;background:var(--encre)}
+.filet b{flex:0 0 6rem;background:var(--or)}
+
+.epreuve{
+  border:3px solid var(--encre);
+  border-left-width:12px;
+  padding:1.25rem 1.5rem;
+  margin:1.5rem 0 2rem;
+  font-size:1.0625rem;
+  line-height:1.6;
+}
+.epreuve p{margin:0 0 .75rem}
+.epreuve p:last-child{margin:0}
+.epreuve .titre{font-size:1.375rem;font-weight:700;color:var(--encre-forte);display:block;margin-bottom:.5rem}
+
+.acompleter{
+  display:block;
+  border:2px dashed var(--encre);
+  padding:.75rem 1rem;
+  margin:0 0 1.25rem;
+  font-size:1.0625rem;
+  line-height:1.55;
+  color:var(--encre-forte);
+  font-weight:600;
+}
+
+.identite{
+  border:2px solid var(--encre);
+  padding:1.5rem 1.75rem;
+  margin-top:2.5rem;
+  font-size:1.125rem;
+  line-height:1.6;
+  display:flex;
+  gap:1.5rem;
+  align-items:flex-start;
+}
+.identite .texte{flex:1 1 18rem;min-width:0}
+.identite p{margin:0 0 1rem}
+.identite p:last-child{margin:0}
+.portrait{flex:0 0 8.5rem;max-width:8.5rem}
+.portrait svg{display:block;width:100%;height:auto;border:2px solid var(--encre)}
+.portrait .legende{
+  display:block;
+  border:2px dashed var(--encre);
+  border-top:0;
+  padding:.5rem .625rem;
+  font-size:1.0625rem;   /* plancher absolu du document : 17 px */
+  line-height:1.4;
+  font-weight:600;
+  color:var(--encre-forte);
+}
+@media (max-width:34rem){
+  .identite{display:block}
+  .portrait{max-width:7rem;margin:0 0 1.25rem}
+  .portrait .legende{font-size:.9375rem;padding:.375rem .5rem}
+}
+
+/* Illustrations — dessinées pour ce document, aucune ressource distante.
+   Le trait marine porte le dessin ; les aplats sont un bonus qui peut
+   disparaître chez une imprimante qui refuse les fonds. */
+.illustration{
+  display:block;width:100%;height:auto;
+  border:2px solid var(--encre);
+  margin:2.5rem 0 0;
+}
+.horizon{display:block;width:100%;height:auto;margin-top:3rem}
+.horizon + footer{margin-top:1.25rem;border-top:0;padding-top:0}
+.vignette{flex:0 0 auto;width:4.5rem;height:4.5rem}
+
+.eyebrow{
+  margin-top:3rem;
+  font-size:1.125rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--encre);
+}
+h1{font-size:2.25rem;line-height:1.2;font-weight:700;color:var(--encre-forte);margin:.75rem 0 1rem;max-width:34rem}
+.chapeau{font-size:1.4375rem;line-height:1.55;max-width:36rem;margin:0 0 1.25rem}
+h2{font-size:1.75rem;line-height:1.3;font-weight:700;color:var(--encre-forte);margin:0 0 1.25rem}
+h3{font-size:1.5rem;line-height:1.35;font-weight:700;color:var(--encre-forte);margin:0 0 .5rem}
+section{margin-top:3.5rem}
+
+.bloc{border:2px solid var(--encre);padding:1.5rem 1.75rem;margin-top:1.5rem}
+.bloc-fort{border-left-width:10px}
+.bloc p:last-child,.bloc ul:last-child{margin-bottom:0}
+.sous-titre{
+  font-size:1.3125rem;font-weight:700;line-height:1.35;
+  color:var(--encre-forte);
+  margin:1.75rem 0 .5rem;
+}
+.bloc > .sous-titre:first-of-type{margin-top:.5rem}
+
+.pictos{display:flex;align-items:center;gap:.875rem;margin-bottom:.25rem;flex-wrap:wrap}
+.pictos svg{flex:0 0 auto}
+.pictos h3{flex:1 1 12rem;min-width:0}
+
+ul.liste{list-style:none;margin:0 0 1.25rem;padding:0}
+ul.liste li{position:relative;padding-left:1.75rem;margin-bottom:.625rem}
+ul.liste li:last-child{margin-bottom:0}
+ul.liste li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:.55rem;height:.55rem;background:var(--encre);
+}
+
+.deux{display:flex;flex-wrap:wrap;gap:2rem}
+.deux > div{flex:1 1 17rem;min-width:0}
+
+.cumul{
+  border:2px solid var(--encre);
+  border-left-width:10px;
+  background:var(--papier-bloc);
+  padding:1.5rem 1.75rem;
+  margin-top:2rem;
+  font-size:1.4375rem;
+  line-height:1.5;
+  font-weight:600;
+  color:var(--encre-forte);
+}
+.cumul p{margin:0 0 .75rem}
+.cumul p:last-child{margin:0;font-size:1.25rem;font-weight:400;line-height:1.6}
+
+.tab-enveloppe{overflow-x:auto;border:2px solid var(--encre)}
+.tab-enveloppe:focus-visible{outline:3px solid var(--encre);outline-offset:3px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{
+  border:1px solid var(--encre);
+  padding:.75rem .875rem;
+  text-align:left;
+  vertical-align:top;
+  font-size:1.125rem;
+  line-height:1.45;
+}
+thead th{
+  background:var(--papier-bloc);
+  font-weight:700;
+  color:var(--encre-forte);
+  font-size:1.0625rem;
+  vertical-align:bottom;
+}
+th.num,td.num{text-align:right;white-space:nowrap}
+/* Le montant reste insécable, sa mention se replie. Sans cette ligne, le
+   nowrap est hérité par le .sub et gonfle la largeur minimale du tableau
+   au-delà de la colonne : mesuré 672 px pour 664 disponibles, le 25/08. */
+td .sub{white-space:normal}
+tbody th{font-weight:700;color:var(--encre-forte);font-size:1.1875rem}
+.sub{display:block;font-weight:400;font-size:1.0625rem;color:var(--gris);line-height:1.4}
+/* Les deux montants ont exactement le même poids typographique.
+   Décision du 25/08 : le relevé de prix martiniquais montre que nous
+   sommes +67 % en prix affiché sur l'administratif et −17 % en reste
+   à charge. Toute la comparaison se joue sur la colonne de droite ;
+   la mettre en second plan, c'est perdre le prospect avant qu'il
+   comprenne. Les deux temps restent écrits, aucun n'est omis. */
+td.paye,td.rendu{font-weight:800;font-size:1.5rem;color:var(--encre-forte);line-height:1.2}
+td.rendu{border-left-width:3px}
+tr.cle th,tr.cle td{border-top-width:3px;border-bottom-width:3px}
+.marque-cle{display:block;font-weight:600;font-size:1.0625rem;color:var(--encre);line-height:1.4;margin-top:.25rem}
+.etq{display:none}
+
+.apres-tab{font-size:1.125rem;line-height:1.6;margin:1rem 0 0}
+
+.phrase-seule{font-size:1.4375rem;line-height:1.55;max-width:36rem;margin:3.5rem 0 0;font-weight:600;color:var(--encre-forte)}
+
+.contact{border:3px solid var(--encre);padding:1.75rem}
+.contact p{max-width:32rem}
+.tel{
+  display:block;
+  border:3px solid var(--encre);
+  padding:1rem 1.25rem;
+  min-height:4rem;
+  font-size:2rem;font-weight:700;line-height:1.4;
+  font-variant-numeric:tabular-nums;
+  text-align:center;text-decoration:none;
+  color:var(--encre-forte);
+  margin:1.5rem 0 1rem;
+}
+.mail{font-size:1.25rem;margin:0}
+
+footer{
+  margin-top:3.5rem;
+  border-top:2px solid var(--encre);
+  padding-top:1.5rem;
+  font-size:1.0625rem;
+  line-height:1.6;
+  color:var(--gris);
+}
+footer p{margin:0 0 1rem}
+footer p:last-child{margin:0}
+footer strong{color:var(--encre)}
+
+@media (max-width:40rem){
+  h1{font-size:1.875rem}
+  h2{font-size:1.5rem}
+  .chapeau,.cumul,.phrase-seule{font-size:1.3125rem}
+  .bloc,.contact,.identite,.cumul{padding:1.25rem}
+
+  /* Sous 640 px, le tableau devient des blocs empilés.
+     Motif mesuré le 25/08 : en tableau, il faisait 548 px dans une
+     enveloppe de 335 px — la colonne du crédit d'impôt était hors
+     champ, et c'est elle qui décide. Un lecteur de 80 ans ne fait
+     pas glisser un tableau du doigt pour voir un prix. */
+  .tab-enveloppe{border:0;overflow:visible}
+  table{width:100%}
+  thead{display:none}
+  tbody,tr,th,td{display:block}
+  tr{
+    border:2px solid var(--encre);
+    padding:1.125rem 1.25rem;
+    margin-bottom:1.25rem;
+  }
+  tr:last-child{margin-bottom:0}
+  tr.cle{border-width:4px}
+  th,td{border:0;padding:0;text-align:left}
+  th.num,td.num{text-align:left;white-space:normal}
+  tbody th{font-size:1.375rem;margin-bottom:.875rem}
+  .marque-cle{margin-top:.5rem}
+  td{margin-top:.875rem}
+  .etq{
+    display:block;
+    font-size:1.0625rem;font-weight:600;line-height:1.4;
+    color:var(--encre);
+  }
+  td.paye,td.rendu{font-size:1.75rem;line-height:1.15}
+  td.rendu{border-left-width:0}
+  td .sub{font-size:1.125rem;margin-top:.125rem}
+}
+@media (max-width:26rem){
+  .tel{font-size:1.5rem;padding:1rem .5rem}
+}
+
+@media print{
+  @page{size:A4;margin:15mm}
+  body{font-size:12.5pt;line-height:1.55;color:#1B365D}
+  .page{max-width:none;padding:0}
+  section{margin-top:20pt}
+  h1{font-size:22pt;margin-top:8pt}
+  h2{font-size:16.5pt}
+  h3{font-size:13.5pt}
+  .chapeau{font-size:14pt}
+  .cumul{font-size:13.5pt;background:transparent}
+  .cumul p:last-child{font-size:12pt}
+  .eyebrow{font-size:11.5pt;margin-top:10pt}
+  .identite,.epreuve,.acompleter,.apres-tab{font-size:11.5pt}
+  th,td{font-size:11.5pt;padding:5pt 6pt}
+  thead th{font-size:11pt;background:transparent}
+  tbody th{font-size:12pt}
+  /* Sans cette ligne, le .sub reste en rem (17 px ≈ 12,75 pt) et devient
+     plus gros que le texte de sa propre cellule à l'impression. */
+  .sub{font-size:11pt}
+  td.paye{font-size:16pt}
+  td.rendu{font-size:13pt}
+  .marque-cle{font-size:11pt}
+  .phrase-seule{font-size:13pt;margin-top:20pt}
+  .tel{font-size:20pt;border-width:2pt;min-height:0;padding:8pt}
+  .mail{font-size:12pt}
+  footer{font-size:11pt;margin-top:20pt}
+  .tab-enveloppe{overflow:visible;border:2px solid #1B365D}
+  table{width:100%}
+  thead{display:table-header-group}
+  tbody{display:table-row-group}
+  tr{display:table-row;border:0;padding:0;margin:0}
+  th,td{display:table-cell;border:1px solid #1B365D}
+  th.num,td.num{text-align:right;white-space:nowrap}
+  .etq{display:none}
+  .illustration{margin-top:14pt;max-height:66mm}
+  .horizon{margin-top:16pt;max-height:20mm}
+  .horizon + footer{margin-top:8pt}
+  .portrait{flex-basis:32mm;max-width:32mm}
+  .portrait .legende{font-size:10.5pt}
+  .vignette{width:14mm;height:14mm}
+  .illustration,.horizon,.identite,.pictos{break-inside:avoid}
+  .epreuve,.identite,.contact,.bloc,.cumul,.tab-enveloppe{break-inside:avoid}
+  tr{break-inside:avoid}
+  a{color:#1B365D;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+
+  <!-- Illustration d'en-tête. Dessinée pour ce document le 25/08/2026 :
+       aucune banque d'images, aucun fichier distant, aucun droit à céder.
+       La scène est celle de la visite — la table du client, ses papiers,
+       son ordinateur, et la fenêtre ouverte sur la Martinique. -->
+  <svg class="illustration" viewBox="0 0 720 250" role="img"
+       aria-label="Dessin : la table d'un particulier, avec une chemise de dossiers, un ordinateur portable et deux tasses. Au-dessus, une étagère de classeurs ; à droite, une fenêtre ouverte sur la mer, une case au toit de tôle, un cocotier et les mornes de la Martinique.">
+    <rect x="0" y="0" width="720" height="250" fill="#FFFFFF"/>
+
+    <!-- Étagère de classeurs : le classement, qui est la moitié du métier -->
+    <rect x="70" y="46" width="22" height="46" fill="#F2E4CE"/>
+    <rect x="96" y="52" width="18" height="40" fill="#C8941E"/>
+    <rect x="118" y="42" width="24" height="50" fill="#7FB6C4"/>
+    <rect x="146" y="56" width="20" height="36" fill="#FFFFFF"/>
+    <rect x="176" y="72" width="66" height="20" fill="#FFFFFF"/>
+    <g fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="70" y="46" width="22" height="46"/>
+      <rect x="96" y="52" width="18" height="40"/>
+      <rect x="118" y="42" width="24" height="50"/>
+      <rect x="146" y="56" width="20" height="36"/>
+      <rect x="176" y="72" width="66" height="20"/>
+    </g>
+    <path d="M56 92h256M84 100v10M290 100v10" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Fenêtre : la Martinique, dehors -->
+    <rect x="436" y="16" width="264" height="140" fill="#E8F1F4"/>
+    <path d="M436 112h264v44H436z" fill="#7FB6C4"/>
+    <path d="M436 112c30-36 54-40 82-14 24 20 36 20 56-4 18-20 40-20 60 2 16 18 34 20 66 2v14H436z" fill="#5C8F6B"/>
+    <path d="M666 112c-2-24 2-38 10-48" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M676 64c-12-8-24-7-32 2M676 64c14-7 25-3 30 7M676 64c-7-12-3-23 7-28M676 64c12 2 18 10 18 22" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M474 112V86h48v26z" fill="#F2E4CE"/>
+    <path d="M466 86l32-20 32 20z" fill="#C8941E"/>
+    <path d="M474 112V86h48v26zM466 86l32-20 32 20z" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M490 112V99h14v13z" fill="none" stroke="#1B365D" stroke-width="3.5"/>
+    <path d="M436 16h264v140H436z" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M568 16v140M436 86h264" fill="none" stroke="#1B365D" stroke-width="4"/>
+
+    <!-- La table -->
+    <path d="M30 196h660v14H30z" fill="#C79A62"/>
+    <path d="M30 196h660v14H30zM66 210v34M654 210v34" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Chemise ouverte et ses feuilles -->
+    <path d="M100 130h84v22h-84z" fill="#FFFFFF"/>
+    <path d="M86 196l14-46h96l-14 46z" fill="#C8941E"/>
+    <path d="M100 130h84v22h-84zM86 196l14-46h96l-14 46z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M112 140h56M112 168h48M108 180h40" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Ordinateur portable, ouvert vers la personne -->
+    <path d="M236 190l16-78h104l16 78z" fill="#E8F1F4"/>
+    <path d="M254 118h100l11 60H243z" fill="#FFFFFF"/>
+    <path d="M236 190l16-78h104l16 78zM254 118h100l11 60H243z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M266 138h66M266 152h48M266 166h58" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+    <path d="M224 196h156" fill="none" stroke="#1B365D" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Deux tasses : on est deux à cette table -->
+    <path d="M436 196v-30h34v30z" fill="#FFFFFF"/>
+    <path d="M470 172h12a9 9 0 0 1 0 18h-12" fill="none" stroke="#1B365D" stroke-width="4"/>
+    <path d="M436 196v-30h34v30z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M508 196v-24h30v24z" fill="#FFFFFF"/>
+    <path d="M538 178h10a7 7 0 0 1 0 14h-10" fill="none" stroke="#1B365D" stroke-width="4"/>
+    <path d="M508 196v-24h30v24z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="identite">
+    <div class="texte">
+      <p><strong>Qui vient chez vous&nbsp;: Nathanaël Anglio</strong>, assistant administratif et informatique à domicile, en Martinique.</p>
+      <p><strong>Votre prestataire officiel&nbsp;: la coopérative AdomSAP</strong>, déclarée organisme de services à la personne sous le numéro <strong>SAP944666189</strong>. C'est AdomSAP qui établit votre facture et votre attestation fiscale annuelle. Nathanaël Anglio y est entrepreneur-salarié associé.</p>
+      <p>Ce numéro de déclaration se vérifie sur le site public des services à la personne&nbsp;: servicesalapersonne.gouv.fr</p>
+    </div>
+  </div>
+
+  <p class="eyebrow">À domicile, partout en Martinique · Service à la personne déclaré</p>
+
+  <h1>On vient chez vous, pour vos papiers et pour votre ordinateur.</h1>
+
+  <p class="chapeau">Assistance administrative et assistance informatique, à votre table. Vous réglez la visite&nbsp;; la moitié de la somme vous revient ensuite en crédit d'impôt.</p>
+
+  <p class="prose">Il n'y a pas d'autre tarif que ceux de cette page&nbsp;: pas de frais de déplacement, pas de frais de dossier.</p>
+
+  <section>
+    <h2>Deux aides, un seul déplacement</h2>
+
+    <div class="deux">
+      <div>
+        <div class="pictos">
+          <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <rect x="2" y="2" width="68" height="68" fill="#F2E4CE"/>
+            <path d="M20 14h22l10 10v34H20z" fill="#FFFFFF"/>
+            <path d="M42 14v10h10" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M20 14h22l10 10v34H20z" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M27 34h18M27 42h18M27 50h11" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
+            <path d="M50 56l8-22 6 3-9 21z" fill="#C8941E" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
+          </svg>
+          <h3>Les papiers</h3>
+        </div>
+        <ul class="liste">
+          <li>Lire et expliquer un courrier</li>
+          <li>Remplir un formulaire avec vous</li>
+          <li>Créer ou retrouver un accès en ligne&nbsp;: CAF, CGSS, Ameli, impots.gouv, France&nbsp;Travail</li>
+          <li>Réunir les pièces d'un dossier&nbsp;: retraite, réversion, MDPH, APA, logement social, CAF</li>
+          <li>Préparer votre déclaration de revenus avec vous</li>
+          <li>Résilier un contrat, signaler un changement d'adresse, télécharger une attestation</li>
+          <li>Trier et classer vos papiers</li>
+        </ul>
+      </div>
+      <div>
+        <div class="pictos">
+          <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <rect x="2" y="2" width="68" height="68" fill="#E8F1F4"/>
+            <rect x="12" y="16" width="40" height="28" fill="#FFFFFF"/>
+            <rect x="12" y="16" width="40" height="28" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M6 52h52l-6-8H12z" fill="#7FB6C4" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M20 26h20M20 34h13" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
+            <rect x="48" y="30" width="16" height="26" rx="2" fill="#FFFFFF"/>
+            <rect x="48" y="30" width="16" height="26" rx="2" fill="none" stroke="#1B365D" stroke-width="3"/>
+            <path d="M53 51h6" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
+            <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
+          </svg>
+          <h3>L'ordinateur</h3>
+        </div>
+        <ul class="liste">
+          <li>Installer un ordinateur neuf, une imprimante, une tablette</li>
+          <li>Raccorder une box internet</li>
+          <li>Remettre en marche ce qui ne répond plus&nbsp;: connexion perdue, imprimante muette, mise à jour bloquée</li>
+          <li>Ouvrir et organiser une boîte mail</li>
+          <li>Apprendre à s'en servir&nbsp;: smartphone, visioconférence, site administratif</li>
+          <li>Choisir un mot de passe, activer une sauvegarde</li>
+          <li>Reconnaître un courriel frauduleux</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cumul">
+      <p>La même visite peut servir aux deux&nbsp;: un dossier de retraite à remplir <em>et</em> une imprimante qui ne répond plus.</p>
+      <p>Un seul rendez-vous, un seul déplacement, un seul tarif. Vous n'avez pas à choisir entre les deux, ni à faire venir deux personnes.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Les tarifs, écrits en entier</h2>
+
+    <div class="tab-enveloppe" tabindex="0" role="region" aria-label="Tableau des tarifs">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Ce que c'est</th>
+            <th scope="col" class="num">Vous réglez<br>le jour de la visite</th>
+            <th scope="col" class="num">Ce que la visite vous coûte<br>au bout du compte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Séance à domicile<span class="sub">2 heures chez vous</span></th>
+            <td class="num paye"><span class="etq">Vous réglez le jour de la visite</span>90&nbsp;€</td>
+            <td class="num rendu"><span class="etq">Ce que la visite vous coûte au bout du compte</span>45&nbsp;€<span class="sub">après le crédit d'impôt</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Séance longue<span class="sub">3 heures chez vous</span></th>
+            <td class="num paye"><span class="etq">Vous réglez le jour de la visite</span>135&nbsp;€</td>
+            <td class="num rendu"><span class="etq">Ce que la visite vous coûte au bout du compte</span>67,50&nbsp;€<span class="sub">après le crédit d'impôt</span></td>
+          </tr>
+          <tr class="cle">
+            <th scope="row">Forfait mensuel «&nbsp;Tranquillité&nbsp;»<span class="sub">2 séances de 2 heures, chaque mois</span><span class="marque-cle">Deux séances prises séparément coûtent 180&nbsp;€.</span></th>
+            <td class="num paye"><span class="etq">Vous réglez chaque mois</span>169&nbsp;€<span class="sub">par mois</span></td>
+            <td class="num rendu"><span class="etq">Ce que le mois vous coûte au bout du compte</span>84,50&nbsp;€<span class="sub">par mois, après le crédit d'impôt</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="apres-tab">Prix TTC. Vous réglez le montant de la colonne du milieu le jour de l'intervention&nbsp;; la moitié vous est rendue ensuite, ce qui ramène la dépense au montant de la colonne de droite. Le mécanisme est expliqué juste en dessous.</p>
+
+    <!-- Textes de conformité rendus le 25/08/2026, insérés mot pour mot.
+         Regroupés ici plutôt que dispersés : ce qui engage sur le forfait
+         doit se lire d'un seul tenant, sinon il ne s'en lit qu'un tiers.
+         Aucun montant en gros caractères dans ce bloc — « la moitié du
+         forfait » ne doit entrer en concurrence avec aucun chiffre. -->
+    <div class="bloc bloc-fort" id="forfait-conditions">
+      <h3>Le forfait mensuel, en clair</h3>
+
+      <p class="sous-titre">Vous l'arrêtez quand vous voulez</p>
+      <p>Le forfait n'a pas de durée d'engagement. C'est un abonnement simple que vous arrêtez quand vous voulez, par un appel au 06 96 88 48 14 — rien à écrire, rien à signer. Le mois commencé va à son terme&nbsp;; le mois suivant n'est plus facturé.</p>
+
+      <p class="sous-titre">Vous avez 14 jours pour changer d'avis</p>
+      <p>Vous disposez de 14 jours après votre inscription pour changer d'avis, sans avoir à vous justifier. Si vous voulez que la première séance ait lieu avant la fin de ces 14 jours, dites-le-nous&nbsp;: nous vous faisons signer un accord simple avant de venir. Si vous changez d'avis après cette première séance, vous ne payez que celle-ci — la moitié du forfait — et le reste vous est remboursé.</p>
+
+      <p class="sous-titre">Les séances du mois se prennent dans le mois</p>
+      <p>Les deux séances du mois sont prévues pour ce mois-là. Si l'une d'elles ne peut pas avoir lieu, prévenez-nous au moins 48 heures avant&nbsp;: nous la reprogrammons dans le mois. Passé le mois, une séance non prise n'est ni reportée, ni remboursée.</p>
+    </div>
+
+    <div class="bloc bloc-fort">
+      <h3>Quand choisir quoi</h3>
+      <ul class="liste">
+        <li><strong>Séance à domicile —</strong> la visite de base. Papiers, informatique, ou les deux dans le même rendez-vous.</li>
+        <li><strong>Séance longue —</strong> pour un gros dossier qu'on veut finir en une fois&nbsp;: une demande de retraite, un dossier MDPH, une installation complète.</li>
+        <li><strong>Forfait mensuel —</strong> pour ce qui ne se règle pas en une visite&nbsp;: une retraite en cours d'instruction, un suivi CAF, ou l'envie d'apprendre l'ordinateur à son rythme. Le rendez-vous est fixé à l'avance, tous les mois.</li>
+      </ul>
+    </div>
+
+    <!-- Le Coup de main est délibérément HORS du tableau (25/08).
+         À 30 € pour une intervention courte, il se lirait comme la ligne
+         la plus chère de la gamme si on le posait dans une colonne qui
+         invite au calcul. Ce n'est pas un tarif horaire : c'est un forfait
+         de déplacement pour une démarche unique. Il se présente comme tel. -->
+    <div class="bloc bloc-fort" id="coup-de-main">
+      <div class="pictos">
+        <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="68" height="68" fill="#E8F1F4"/>
+          <path d="M14 22h34v28H14z" fill="#FFFFFF"/>
+          <path d="M14 22l17 14 17-14" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M14 22h34v28H14z" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="52" cy="46" r="14" fill="#C8941E"/>
+          <path d="M46 46l5 5 9-10" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="52" cy="46" r="14" fill="none" stroke="#1B365D" stroke-width="3"/>
+          <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
+        </svg>
+        <h3>Le coup de main solidaire</h3>
+      </div>
+      <p><strong>Une seule démarche, réglée en une fois&nbsp;: 30&nbsp;€ — soit 15&nbsp;€ après le crédit d'impôt.</strong> Un courrier à comprendre, une attestation à télécharger, un mot de passe à retrouver, une imprimante à rebrancher.</p>
+      <p>Ce n'est pas une séance&nbsp;: c'est un déplacement pour régler une chose précise, sans ouvrir de dossier ni prendre d'abonnement. Quand votre demande tient en une fois, nous ne vous facturons pas une séance entière — appelez, dites ce dont il s'agit, nous vous dirons tout de suite si cela relève de ce format.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Le crédit d'impôt, en deux temps</h2>
+    <div class="bloc bloc-fort">
+      <p><strong>Premier temps&nbsp;:</strong> vous réglez le prix affiché, en entier, le jour de l'intervention.</p>
+      <p><strong>Second temps&nbsp;:</strong> la moitié de cette somme vous revient ensuite, sous forme de <strong>crédit d'impôt</strong> — 50&nbsp;% du montant payé.</p>
+      <ul class="liste">
+        <li><strong>Si vous payez des impôts</strong>&nbsp;: la somme vient en déduction de votre impôt sur le revenu, l'année suivante, lors de votre déclaration.</li>
+        <li><strong>Si vous ne payez pas d'impôts</strong>&nbsp;: l'administration fiscale vous <strong>rembourse directement</strong> cette somme, par virement ou par chèque du Trésor Public. C'est automatique une fois la prestation déclarée.</li>
+      </ul>
+      <p style="margin-top:1.25rem">AdomSAP vous remet une <strong>attestation fiscale annuelle</strong>&nbsp;: c'est le document qui vous sert au moment de votre déclaration. Le crédit d'impôt est un dispositif national&nbsp;; les règles sont consultables sur impots.gouv.fr.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ce que nous ne faisons pas</h2>
+    <div class="bloc bloc-fort">
+      <p>Nous vous aidons à remplir, nous ne décidons pas à votre place. Si une question demande un conseil — un choix à trancher, un recours à écrire — nous vous le disons, et nous vous orientons vers un professionnel du droit ou des impôts.</p>
+      <p><strong>C'est vous qui saisissez vos identifiants et vos mots de passe, jamais nous.</strong> Vous vous connectez, vous validez&nbsp;; nous restons à côté de vous. Nous n'en conservons aucun.</p>
+      <p>Nous n'intervenons pas sur les titres de séjour, la naturalisation, ni sur un recours devant un tribunal — ces démarches relèvent d'un avocat. Nous ne donnons pas non plus de conseil pour payer moins d'impôts.</p>
+      <p>Côté informatique&nbsp;: nous installons, nous configurons et nous dépannons — nous n'intervenons pas en profondeur. Un composant à changer, un disque à récupérer, un virus installé&nbsp;: cela relève d'un réparateur informatique professionnel, et nous vous le dirons.</p>
+      <p><strong>Nous n'intervenons jamais sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</strong></p>
+      <p>La décision d'un organisme ne nous appartient pas. Nous menons votre dossier jusqu'à son dépôt complet, dans les délais imposés&nbsp;; l'issue, elle, appartient à l'administration.</p>
+    </div>
+  </section>
+
+  <p class="phrase-seule">Vous pouvez demander à un proche d'être présent pendant la visite. C'est même une bonne idée.</p>
+
+  <section>
+    <h2>Prendre rendez-vous</h2>
+    <div class="contact">
+      <p>Un appel suffit. Dites-nous ce qui vous embête — vous, ou vos enfants pour vous.</p>
+      <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
+      <p class="mail">Ou par courriel&nbsp;: backoffice.martinique@gmail.com</p>
+      <p style="margin-top:1rem;margin-bottom:0">À domicile, partout en Martinique. Il n'y a rien à remplir en ligne, rien à créer comme compte.</p>
+    </div>
+  </section>
+
+  <!-- Ligne d'horizon : la Martinique, en deux traits. Ferme le document
+       sur le lieu plutôt que sur une mention légale. -->
+  <svg class="horizon" viewBox="0 0 720 84" role="img" aria-label="Dessin : la côte de la Martinique, ses mornes et ses cocotiers.">
+    <path d="M0 84V56c40-22 74-24 104-6 24 14 42 12 56-6 18-22 42-22 62 2 16 20 34 22 56 6 26-20 56-18 90 6 28 20 52 20 74-2 24-24 52-22 82 6 26 24 52 26 78 6 6-4 12-8 18-12v28z" fill="#E8F1F4"/>
+    <path d="M0 84V70c46-16 82-14 108 6 20 16 38 16 54 0 20-20 44-18 66 6 18 20 38 22 60 6 30-22 60-20 90 6 24 20 46 20 66 0 22-22 48-20 78 6 22 20 44 22 66 6l32-16v-6" fill="#7FB6C4" opacity=".55"/>
+    <path d="M112 66c-2-16 2-27 10-35" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M122 31c-10-7-21-6-28 2M122 31c12-6 22-3 27 6M122 31c-6-10-3-20 6-24M122 31c10 1 16 9 16 19" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M596 66c-2-14 2-24 9-31" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M605 35c-9-6-18-5-24 2M605 35c10-5 19-2 23 5M605 35c-5-9-2-17 5-21M605 35c9 1 14 8 14 17" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M0 84h720" fill="none" stroke="#1B365D" stroke-width="5"/>
+  </svg>
+
+  <footer>
+    <p><strong>Assistance administrative à domicile</strong> (activité n°&nbsp;14) et <strong>assistance informatique à domicile</strong> (activité n°&nbsp;11) de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong> — société par actions simplifiée coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon. Organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
+    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — contact@sasmediationsolution-conso.fr</p>
+    <!-- RGPD : volontairement absent. Contrôle de conformité du 25/08/2026 —
+         l'article 13 s'attache au support et au moment de la collecte réelle.
+         Ce flyer porte un numéro de téléphone et aucun champ : il ne collecte
+         rien. L'obligation naîtra sur l'accord signé avant la première
+         intervention, document qui reste à rédiger. Ne pas ajouter ici une
+         mention RGPD « par précaution » : elle serait hors sujet et allongerait
+         un pied de page déjà dense. -->
+
+    <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime différent, réservé à d'autres prestations. Nous n'intervenons pas sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</p>
+    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, entrepreneur-salarié associé au sein d'AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: backoffice.martinique@gmail.com</p>
+    <p>Prix TTC, TVA 2,1&nbsp;% comprise (taux réduit applicable dans les départements d'outre-mer). Facture et attestation fiscale annuelle établies par AdomSAP. Le crédit d'impôt de 50&nbsp;% s'applique dans la limite de 12&nbsp;000&nbsp;€ de dépenses de services à la personne par an et par foyer, dont 3&nbsp;000&nbsp;€ pour l'assistance informatique — des plafonds que ces tarifs n'approchent pas.</p>
+    <p><strong>Droit de rétractation&nbsp;:</strong> 14 jours à compter de la conclusion du contrat, sans justification (articles L.221-18 et suivants du code de la consommation). Si la prestation démarre à votre demande avant la fin de ce délai, votre accord exprès est recueilli par écrit avant l'intervention.</p>
+  </footer>
+
+</div>
+</body>
+</html>

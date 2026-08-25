@@ -195,7 +195,14 @@
     a { color: #111; text-decoration: underline; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
   }
-</style>
+
+    /* Navigation et droits — ajoutes le 25/08/2026 */
+    .lien-offres { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 18px; background: var(--veil); color: var(--text); border: 1px solid rgba(255,255,255,.42); border-radius: var(--r-sm); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; white-space: nowrap; transition: background .18s ease, border-color .18s ease; }
+    .lien-offres:hover { background: var(--ink-2); border-color: var(--violet-300); }
+    .lien-offres { display: none; }
+    .droits { font-size: var(--fs-sm); color: var(--muted); margin: 10px 0 0; }
+    .droits .lien-site::after { content: none; }
+  </style>
 </head>
 <body>
 
@@ -238,7 +245,8 @@
         <span class="montant">150 €</span>
         <span class="quoi">— Pack Conformité (mentions légales, CGV, pied de page, fonctionnalité de rétractation), 5 jours ouvrés</span>
       </div>
-      <p class="preuve">Constaté ici : <a href="https://www.fannyjouetsbois.com/conditions-generales-de-vente">fannyjouetsbois.com/conditions-generales-de-vente</a> — clause citée, aucun lien fonctionnel associé ; sitemap complet consulté sur <a href="https://www.fannyjouetsbois.com/sitemap.xml">fannyjouetsbois.com/sitemap.xml</a> (46 URLs, aucune ne porte de formulaire)</p>
+      <p class="preuve">Constaté ici : <a href="https://www.fannyjouetsbois.com/conditions-generales-de-vente">fannyjouetsbois.com/conditions-generales-de-vente</a>
+      <a class="lien-offres" href="https://apexautomation.fr/offres/">Offres et tarifs</a> — clause citée, aucun lien fonctionnel associé ; sitemap complet consulté sur <a href="https://www.fannyjouetsbois.com/sitemap.xml">fannyjouetsbois.com/sitemap.xml</a> (46 URLs, aucune ne porte de formulaire)</p>
     </div>
 
     <div class="defaut important">
@@ -281,6 +289,8 @@
   <p class="pied">
     Rapport établi le 25/08/2026 par <strong>APEX Automation</strong> — Nathanaël Anglio, entreprise individuelle, SIRET 509 715 777 00058. <strong>TVA non applicable, article 293 B du CGI.</strong> Les constats portent sur l'état de la boutique à cette date et sont vérifiables aux adresses citées. Paiement intégral avant démarrage, ou 50 % à la commande et 50 % à la livraison. Ce document est personnel et n'est pas référencé par les moteurs de recherche.
   </p>
+
+<p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés. · <a class="lien-site" href="https://apexautomation.fr/">apexautomation.fr</a></p>
 
 </main>
 </body>

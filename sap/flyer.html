@@ -1,21 +1,409 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="refresh" content="0; url=https://apexautomation.fr/aide/">
-<link rel="canonical" href="https://apexautomation.fr/aide/">
-<title>Assistance à domicile — papiers et ordinateur</title>
+<title>Aide à domicile en Martinique — papiers et ordinateur</title>
+<meta name="description" content="Flyer A4 recto : on vient chez vous pour vos papiers et votre ordinateur. 45 € la visite de 2 heures après crédit d'impôt. Téléphone et adresse de la page complète.">
 <style>
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-       background:#fff;color:#12233d;display:grid;place-items:center;
-       min-height:100vh;margin:0;padding:24px;text-align:center;font-size:20px;line-height:1.6}
-  a{color:#12233d}
+:root{
+  /* Charte de la maison — config/charte-graphique.md */
+  --encre:#1B365D;        /* 12,1:1 sur blanc — corps, traits         */
+  --encre-forte:#12233D;  /* 15,8:1 — titres, chiffres                */
+  --gris:#4A4E5A;         /*  8,3:1 — pied de page uniquement         */
+  --or:#C8941E;           /*  2,7:1 — filets et aplats, JAMAIS un mot */
+  --papier:#FFFFFF;
+  --creme:#FDF3E3;        /* fond de bloc chaud, contraste 15:1 sous l'encre forte */
+  --hors-feuille:#EDE6DA;
+
+  /* Teintes d'illustration — registre chaleureux, 25/08/2026.
+     Elles n'existent QUE dans les dessins : aucun texte ne s'y pose,
+     aucune information n'en dépend. Même statut que l'or.
+     Déposées ici en hexadécimal, comme l'exige la règle du 22/08. */
+  --i-ciel:#BFE7F2;
+  --i-mer:#2AA5A0;
+  --i-morne:#3E9B5F;
+  --i-palme:#20613C;
+  --i-soleil:#F7C64B;
+  --i-toit:#D9633B;
+  --i-corail:#E4736A;
+  --i-mangue:#F2A93B;
+  --i-bois:#C8823F;
+  --i-appui:#E4B36A;
+  --i-sable:#FDF3E3;
+  --i-peau-a:#D19B6E;
+  --i-peau-b:#A9714A;
+  --i-cheveux:#DCD8D2;
+  --i-chemise:#3E8FB0;
+  color-scheme: only light;
+}
+*{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--hors-feuille);
+  color:var(--encre);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+
+/* LA FEUILLE.
+   Dimensionnée en millimètres : 96 px = 1 pouce dans le navigateur comme
+   à l'impression, donc ce qui s'affiche ici EST ce qui sort du bac.
+   Une seule page A4, jamais deux. */
+/* Hauteur FIXE, pas min-height. Mesuré le 25/08 : avec min-height, le
+   contenu dépassait de 2 px les 297 mm — invisible à l'écran, une
+   seconde page à l'impression. Le contenu est calibré 30 px sous la
+   limite pour absorber une police de repli plus haute que Segoe UI. */
+.feuille{
+  width:210mm;
+  height:297mm;
+  margin:0 auto;
+  background:var(--papier);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.filet{display:flex;height:6px;flex:0 0 auto}
+.filet i{flex:1 1 auto;background:var(--encre)}
+.filet b{flex:0 0 7rem;background:var(--or)}
+
+.scene{display:block;width:100%;height:auto;flex:0 0 auto}
+
+main{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  padding:6mm 14mm 0;
+}
+
+h1{
+  font-size:37px;
+  line-height:1.14;
+  font-weight:700;
+  color:var(--encre-forte);
+  margin:0 0 10px;
+  letter-spacing:-.005em;
+}
+.quoi{
+  font-size:21px;
+  line-height:1.45;
+  margin:0 0 14px;
+  max-width:170mm;
+}
+
+/* LE PRIX.
+   Le grand chiffre est le reste à charge, comme demandé — mais le montant
+   réglé le jour de la visite est écrit à taille de titre, dans le même bloc,
+   jamais en petits caractères. Contrôle de conformité du 25/08 : la
+   formulation à un seul temps est interdite, elle serait trompeuse. */
+.prix{
+  border:3px solid var(--encre);
+  border-left-width:12px;
+  background:var(--creme);
+  padding:13px 20px 13px;
+  margin:0 0 12px;
+}
+.montant{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  flex-wrap:wrap;
+  margin:0 0 8px;
+}
+.montant .chiffre{
+  font-size:64px;
+  line-height:1;
+  font-weight:800;
+  color:var(--encre-forte);
+  font-variant-numeric:tabular-nums;
+}
+.montant .quoi-prix{
+  font-size:21px;
+  line-height:1.3;
+  font-weight:700;
+  color:var(--encre-forte);
+  flex:1 1 44mm;
+}
+.deux-temps{
+  font-size:19px;
+  line-height:1.45;
+  margin:0;
+  color:var(--encre);
+}
+.deux-temps strong{font-weight:700;color:var(--encre-forte)}
+
+/* LE CONTACT. */
+.contact{
+  display:flex;
+  gap:16px;
+  align-items:stretch;
+  margin:0 0 10px;
+}
+.tel{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:4px solid var(--encre);
+  padding:10px 18px;
+  text-decoration:none;
+  color:var(--encre-forte);
+  font-size:33px;
+  font-weight:800;
+  line-height:1.1;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.tel svg{flex:0 0 auto;display:block}
+.tel:focus-visible{outline:3px solid var(--encre);outline-offset:3px}
+.rassure{
+  flex:1 1 auto;
+  align-self:center;
+  font-size:18px;
+  line-height:1.4;
+  margin:0;
+}
+.rassure strong{font-weight:700;color:var(--encre-forte)}
+
+/* L'ADRESSE DE LA PAGE COMPLÈTE.
+   Écrite en toutes lettres, jamais derrière un mot-lien : elle se recopie
+   à la main et se dicte au téléphone à quelqu'un de la famille. */
+.suite{
+  border:2px solid var(--encre);
+  border-left:12px solid var(--or);
+  background:var(--creme);
+  padding:11px 18px;
+  margin:0 0 10px;
+  font-size:18px;
+  line-height:1.4;
+}
+.suite .url{
+  display:block;
+  font-size:25px;
+  font-weight:800;
+  color:var(--encre-forte);
+  line-height:1.25;
+  margin-top:2px;
+  letter-spacing:.005em;
+}
+
+footer{
+  flex:0 0 auto;
+  margin-top:auto;
+  border-top:2px solid var(--encre);
+  /* 10 mm de marge basse, pas 7 : la zone non imprimable d'une imprimante
+     domestique fait couramment 6,35 mm en pied de page. À 7 mm, la dernière
+     ligne des mentions se fait rogner sur une machine sur deux. */
+  padding:9px 0 10mm;
+  font-size:15px;      /* 11,3 pt imprimé — plancher de la charte SAP pour les mentions */
+  line-height:1.42;
+  color:var(--gris);
+}
+footer p{margin:0 0 5px}
+footer p:last-child{margin:0}
+footer strong{color:var(--encre)}
+
+/* ÉCRAN ÉTROIT — la feuille rigide devient un flux lisible.
+   Deux changements, pas un. La contrainte de hauteur disparaît, donc on
+   remonte toutes les tailles au plancher senior de la charte SAP (17 px
+   minimum, corps à 20) — ET on repasse en rem. Sur la feuille A4 les px
+   sont obligatoires : ils garantissent que l'écran est l'imprimé. Ici il
+   n'y a plus de feuille à respecter, et un lecteur de 80 ans qui a
+   agrandi la police par défaut de son navigateur doit être suivi. */
+@media (max-width:212mm){
+  body{background:var(--papier)}
+  .feuille{width:100%;height:auto;overflow:visible}
+  main{padding:1.25rem 1.25rem 0}
+  h1{font-size:1.875rem}
+  .quoi{font-size:1.25rem;margin-bottom:1rem}
+  .prix{padding:1rem 1.125rem;margin-bottom:1rem}
+  .montant{gap:.625rem}
+  .montant .chiffre{font-size:3.5rem}
+  .montant .quoi-prix{font-size:1.25rem;flex-basis:100%}
+  .deux-temps{font-size:1.1875rem}
+  .contact{display:block;margin-bottom:1rem}
+  .tel{font-size:1.8125rem;justify-content:center;margin-bottom:.875rem;white-space:normal}
+  .rassure{font-size:1.1875rem}
+  .suite{font-size:1.1875rem;padding:.875rem 1.125rem;margin-bottom:1rem}
+  .suite .url{font-size:1.4375rem}
+  footer{font-size:1.0625rem;padding:.75rem 0 1.75rem}
+}
+@media (max-width:26rem){
+  h1{font-size:1.625rem}
+  .montant .chiffre{font-size:3rem}
+  .tel{font-size:1.5rem;padding:.625rem .5rem;gap:.5rem}
+}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#FFFFFF}
+  /* 296,5 mm et non 297 : un demi-millimètre de sécurité. Une feuille
+     calée au millimètre près sur le format de page fait sortir une
+     seconde feuille vide chez la moitié des pilotes d'impression. */
+  .feuille{
+    width:210mm;height:296.5mm;margin:0;overflow:hidden;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  a{color:var(--encre-forte);text-decoration:none}
+}
 </style>
 </head>
 <body>
-  <p>Cette page a une nouvelle adresse.<br>
-  <a href="https://apexautomation.fr/aide/">apexautomation.fr/aide</a></p>
-  <script>location.replace('https://apexautomation.fr/aide/');</script>
+
+<div class="feuille">
+
+  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+
+  <!-- La scène. Dessinée pour ce document le 25/08/2026 : aucune banque
+       d'images, aucun fichier distant, aucun droit à céder.
+       Registre revu le 25/08 sur demande du Président — « des illustrations,
+       mais plus chaleureuses ». Ce qui change par rapport au dessin du matin :
+       il y a deux personnes à la table au lieu d'une table vide, les aplats
+       sont saturés au lieu d'être pastel, et la fenêtre montre la Martinique
+       en plein jour. Le trait reste marine : c'est lui qui porte le dessin
+       chez une imprimante qui refuse les fonds. -->
+  <svg class="scene" viewBox="0 6 720 224" role="img"
+       aria-label="Dessin : deux personnes assises côte à côte à une table, une dame âgée à lunettes et l'assistant qui l'accompagne. Devant elles, une chemise de dossiers, un ordinateur portable, deux tasses et un pot de fleurs. Derrière, une étagère de classeurs et une fenêtre ouverte sur la mer, un morne vert, une case au toit rouge et un cocotier.">
+    <rect x="0" y="0" width="720" height="236" fill="#FDF3E3"/>
+
+    <!-- La fenêtre : la Martinique, dehors, en plein jour -->
+    <rect x="424" y="20" width="272" height="132" fill="#BFE7F2"/>
+    <circle cx="466" cy="54" r="21" fill="#F7C64B"/>
+    <path d="M424 114c30-32 56-36 84-13 24 19 42 17 62-4 20-21 46-19 66 4 13 14 30 17 60 5V152H424Z" fill="#3E9B5F"/>
+    <rect x="424" y="134" width="272" height="18" fill="#2AA5A0"/>
+    <path d="M442 142h22M484 147h17M614 143h20" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- La case au toit de tôle -->
+    <path d="M556 134v-30h44v30z" fill="#FBE7C6"/>
+    <path d="M548 104l30-21 30 21z" fill="#D9633B"/>
+    <path d="M556 134v-30h44v30zM548 104l30-21 30 21z" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M571 134v-17h14v17z" fill="#3E8FB0" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Le cocotier -->
+    <path d="M638 136c-5-34 0-50 13-63" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+    <g fill="none" stroke="#20613C" stroke-width="7" stroke-linecap="round">
+      <path d="M651 72c-16-5-29 0-35 11"/>
+      <path d="M651 72c16-5 28 0 34 11"/>
+      <path d="M651 72c-11-10-13-23-8-32"/>
+      <path d="M651 72c11-9 25-8 33 1"/>
+      <path d="M651 72c-15 3-25 11-28 21"/>
+    </g>
+    <circle cx="651" cy="72" r="5" fill="#20613C"/>
+
+    <!-- Cadre, meneau, appui -->
+    <path d="M540 20v132" fill="none" stroke="#1B365D" stroke-width="4"/>
+    <rect x="424" y="20" width="272" height="132" fill="none" stroke="#1B365D" stroke-width="5"/>
+    <rect x="414" y="152" width="292" height="10" fill="#E4B36A" stroke="#1B365D" stroke-width="4"/>
+
+    <!-- L'étagère : les classeurs, qui sont la moitié du métier -->
+    <g stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="60" y="42" width="24" height="48" fill="#E4736A"/>
+      <rect x="88" y="50" width="20" height="40" fill="#F7C64B"/>
+      <rect x="112" y="38" width="26" height="52" fill="#2AA5A0"/>
+      <rect x="142" y="46" width="22" height="44" fill="#FFFFFF"/>
+      <rect x="168" y="54" width="24" height="36" fill="#3E9B5F"/>
+    </g>
+    <path d="M212 90v-15h30v15z" fill="#D9633B" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <g fill="none" stroke="#20613C" stroke-width="4.5" stroke-linecap="round">
+      <path d="M227 75V60"/>
+      <path d="M227 66c-8-2-14-8-15-16"/>
+      <path d="M227 70c8-2 14-9 15-17"/>
+    </g>
+    <path d="M42 90h214M66 90v11M234 90v11" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- LA DAME. Cou, buste, tête, cheveux, lunettes, sourire. -->
+    <rect x="180" y="146" width="20" height="20" fill="#D19B6E"/>
+    <path d="M134 212v-22c0-15 10-26 24-30l16-5h32l16 5c14 4 24 15 24 30v22z" fill="#E4736A" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M174 156l16 22 16-22" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="190" cy="128" r="28" fill="#D19B6E" stroke="#1B365D" stroke-width="4"/>
+    <circle cx="164" cy="135" r="4.5" fill="#D19B6E" stroke="#1B365D" stroke-width="3"/>
+    <circle cx="216" cy="135" r="4.5" fill="#D19B6E" stroke="#1B365D" stroke-width="3"/>
+    <path d="M159 133c-1-23 13-39 31-39s32 16 31 39c-5-10-11-16-19-18-9 5-22 6-31 1-5 3-9 9-12 17Z" fill="#DCD8D2" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <g fill="none" stroke="#1B365D" stroke-width="3">
+      <circle cx="180" cy="131" r="8.5"/>
+      <circle cx="202" cy="131" r="8.5"/>
+      <path d="M188.5 131h5"/>
+    </g>
+    <circle cx="180" cy="131" r="2.6" fill="#12233D"/>
+    <circle cx="202" cy="131" r="2.6" fill="#12233D"/>
+    <path d="M182 144c5 5 11 5 16 0" fill="none" stroke="#12233D" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- L'ASSISTANT. -->
+    <rect x="322" y="152" width="18" height="18" fill="#A9714A"/>
+    <path d="M280 212v-20c0-14 10-25 23-29l15-4h26l15 4c13 4 23 15 23 29v20z" fill="#3E8FB0" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M318 160l13 19 13-19" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="331" cy="134" r="26" fill="#A9714A" stroke="#1B365D" stroke-width="4"/>
+    <circle cx="307" cy="140" r="4.5" fill="#A9714A" stroke="#1B365D" stroke-width="3"/>
+    <circle cx="355" cy="140" r="4.5" fill="#A9714A" stroke="#1B365D" stroke-width="3"/>
+    <path d="M306 132c-1-19 11-32 25-32s26 13 25 32c-4-9-9-14-16-15-7 4-18 5-25 1-4 3-7 7-9 14Z" fill="#3A2A1E" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="322" cy="134" r="2.8" fill="#12233D"/>
+    <circle cx="340" cy="134" r="2.8" fill="#12233D"/>
+    <path d="M323 147c5 5 11 5 16 0" fill="none" stroke="#12233D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M374 186l32-8 4 13-32 10z" fill="#3E8FB0" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="414" cy="182" r="9.5" fill="#A9714A" stroke="#1B365D" stroke-width="3.5"/>
+
+    <!-- LA TABLE et ce qu'il y a dessus -->
+    <path d="M50 168h64v22H50z" fill="#FFFFFF" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M60 176h44M60 184h32" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M36 212l12-40h72l-12 40z" fill="#F2A93B" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+
+    <path d="M424 156h72v46h-72z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M436 170h48M436 181h34" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M412 202h96l8 10h-112z" fill="#BFE7F2" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+
+    <path d="M528 212v-27h30v27z" fill="#E4736A" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M558 191h11a8.5 8.5 0 0 1 0 17h-11" fill="none" stroke="#1B365D" stroke-width="4"/>
+    <path d="M586 212v-22h26v22z" fill="#F7C64B" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M612 195h9a7 7 0 0 1 0 14h-9" fill="none" stroke="#1B365D" stroke-width="4"/>
+
+    <path d="M652 212l4-23h36l4 23z" fill="#D9633B" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M661 190v-11M678 190v-19M692 190v-10" fill="none" stroke="#20613C" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="661" cy="174" r="9" fill="#E4736A" stroke="#1B365D" stroke-width="3"/>
+    <circle cx="678" cy="166" r="9.5" fill="#F7C64B" stroke="#1B365D" stroke-width="3"/>
+    <circle cx="693" cy="176" r="8" fill="#2AA5A0" stroke="#1B365D" stroke-width="3"/>
+
+    <rect x="-4" y="212" width="728" height="18" fill="#C8823F" stroke="#1B365D" stroke-width="5"/>
+  </svg>
+
+  <main>
+
+    <h1>On vient chez vous, pour vos papiers et votre ordinateur.</h1>
+
+    <p class="quoi">Un courrier à comprendre, un dossier de retraite à monter, une imprimante qui ne répond plus, un mot de passe perdu. <strong>On s'assoit à votre table, et on le fait avec vous.</strong></p>
+
+    <div class="prix">
+      <p class="montant">
+        <span class="chiffre">45&nbsp;€</span>
+        <span class="quoi-prix">la visite de 2 heures, une fois le crédit d'impôt rendu</span>
+      </p>
+      <p class="deux-temps"><strong>Vous réglez 90 €</strong> le jour de la visite. <strong>La moitié vous revient ensuite</strong>, en crédit d'impôt de 50 % — que vous payiez des impôts ou non.</p>
+    </div>
+
+    <div class="contact">
+      <a class="tel" href="tel:+596696884814">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+          <path d="M8 3h7l3 8-4 3c2 5 6 9 11 11l3-4 8 3v7c0 1-1 2-2 2C17 33 1 17 1 5c0-1 1-2 2-2z" transform="translate(1 1) scale(.86)" fill="#F2A93B" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        06 96 88 48 14
+      </a>
+      <p class="rassure">Appelez, on regarde ensemble, vous décidez après. <strong>Vous pouvez demander à un proche d'être là.</strong> À domicile, partout en Martinique.</p>
+    </div>
+
+    <p class="suite">Tous les tarifs, le crédit d'impôt expliqué et ce que nous ne faisons pas&nbsp;:
+      <span class="url">apexautomation.fr/aide</span></p>
+
+    <footer>
+      <p><strong>Qui vient chez vous&nbsp;:</strong> Nathanaël Anglio, assistant administratif et informatique à domicile, partenaire indépendant de la coopérative AdomSAP. <strong>Votre prestataire&nbsp;:</strong> AdomSAP, organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong>, qui établit votre facture et votre attestation fiscale annuelle. Ce numéro se vérifie sur servicesalapersonne.gouv.fr</p>
+      <p>Assistance administrative (activité n°&nbsp;14) et assistance informatique (activité n°&nbsp;11) à domicile, article D.7231-1 du code du travail. <strong>Activité déclarée, non agréée</strong>&nbsp;: nous n'intervenons pas sur la personne, uniquement sur les papiers et sur le matériel. Prix TTC, TVA 2,1&nbsp;% comprise. Courriel&nbsp;: backoffice.martinique@gmail.com</p>
+    </footer>
+
+  </main>
+
+</div>
 </body>
 </html>

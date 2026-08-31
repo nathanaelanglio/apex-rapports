@@ -110,6 +110,43 @@
       <div class="carte">
         <h2>Notre méthode, pas une promesse en l'air</h2>
         <p>Avant d'écrire une ligne, nous comptons ce qu'il y a réellement à corriger — sur le fichier <code>sitemap.xml</code> de la boutique, pas sur le menu affiché, qui ne montre jamais tout. Sur un chantier réel mené en 2026, cette méthode a révélé un catalogue <strong>seize fois plus grand</strong> que ce que la navigation du site laissait deviner.</p>
+
+        <!-- LE RELEVÉ. Il illustre le paragraphe ci-dessus : même chantier, mêmes
+             chiffres. C'est pour ça qu'il est ICI et pas dans une rubrique à lui
+             — deux mentions du même client à deux endroits de la page se liraient
+             comme deux clients. Voir assets/site.css, bloc « LE RELEVÉ ».
+
+             ⛔ AUCUN NOM DE CLIENTE, ET AUCUN LIEN VERS L'ÉTUDE DE CAS tant que
+             les deux ne sont pas acquis (accord de la cliente au 31/08/2026 : pas
+             donné ; étude de cas : pas en ligne). Le bloc est publiable tel quel.
+
+             QUAND L'ACCORD ARRIVE ET QUE L'ÉTUDE EST EN LIGNE, une seule ligne
+             change — celle de .releve__suite, qui devient par exemple :
+               Chantier mené pour <NOM>. <a href="...">Lire le relevé complet</a>
+             Rien d'autre ne bouge : ni la structure, ni les paliers, ni le CSS.
+             ⚠️ Ne PAS écrire ce lien avant que la page cible réponde. -->
+        <figure class="releve">
+          <figcaption class="releve__source">Relevé d'un chantier réel mené en 2026, sur une boutique de 234 fiches produit actives. Chiffres constatés avant correction.</figcaption>
+          <!-- ⛔ CHAQUE LIGNE PORTE SON ÉTAT, ET LES TROIS NE SONT PAS DE MÊME
+               NATURE : deux ont été corrigées, la troisième a seulement été
+               signalée — le trafic non humain était hors du périmètre commandé.
+               C'est pour ça qu'il n'y a pas de colonne « après » commune : elle
+               serait vide sur la troisième ligne, et une case vide dans une
+               rangée se lit comme un oubli, jamais comme « sans objet ».
+               ⚠️ N'écrire ici QUE ce qui est vérifiable aujourd'hui. Le résultat
+               commercial n'en fait pas partie : il est dans .releve__reserve. -->
+          <ul class="releve__liste">
+            <li><b class="releve__chiffre">0</b><div class="releve__texte"><span class="releve__quoi">fiche produit référencée sur Google, sur 234</span><span class="releve__etat"><strong>Corrigé :</strong> les 234 ont reçu leur titre et leur description.</span></div></li>
+            <li><b class="releve__chiffre">244</b><div class="releve__texte"><span class="releve__quoi">images sans texte alternatif, sur 425</span><span class="releve__etat"><strong>Corrigé :</strong> les images ont été traitées.</span></div></li>
+            <li><b class="releve__chiffre">~20&nbsp;%</b><div class="releve__texte"><span class="releve__quoi">du trafic mesuré ne venait pas de vraies clientes</span><span class="releve__etat"><strong>Signalé, non corrigé :</strong> hors du périmètre commandé.</span></div></li>
+          </ul>
+          <!-- La réserve est le pendant du « Ce que nous ne promettons jamais »
+               deux paragraphes plus bas : la page refuse déjà de promettre du
+               trafic, ce bloc refuse de le sous-entendre. Elle reste imprimée. -->
+          <p class="releve__reserve">Ce que ces corrections ont changé en visites et en ventes n'est pas encore mesuré : la comparaison est prévue en octobre 2026.</p>
+          <p class="releve__suite">Le comptage complet, c'est l'<a href="offres/#audit-360">Audit 360°</a> — il précède tout devis au-delà de 60 fiches.</p>
+        </figure>
+
         <p>C'est ce qui nous permet d'annoncer un prix fixe sans mauvaise surprise ensuite — pour vous comme pour nous.</p>
         <p><strong>Ce que nous ne promettons jamais :</strong> un volume de trafic, une position dans les résultats de recherche, un délai de résultat. Aucun prestataire sérieux ne le peut, Google seul décide du classement. Ce que nous garantissons : le travail fait, documenté, et un prix qui ne bouge pas après signature — pour le périmètre annoncé, jusqu'à 60 fiches produit. Catalogue plus grand ? Vous recevez un devis avant de commander, jamais une facture après.</p>
       </div>

@@ -864,6 +864,158 @@ html { scroll-padding-top: 88px; }
 @media screen and (max-width: 540px)  { .grille   .offre .nom { min-height: 0; } }
 @media screen and (max-width: 742px)  { .grille-2 .offre .nom { min-height: 0; } }
 
+/* ============================================================================
+   LE RELEVÉ — la preuve chiffrée d'un chantier, DANS « Notre méthode »
+   Agent design — 31/08/2026. Mesuré sur la page réelle, pas sur une maquette.
+   ----------------------------------------------------------------------------
+   ⛔ POURQUOI IL N'Y A PAS DE SECTION « NOS ÉTUDES DE CAS ».
+   Nous n'avons qu'un chantier. Un titre au pluriel promet un catalogue, et
+   l'œil COMPTE LES CARTES avant de lire le texte : le lecteur ne se dit pas
+   « quelle belle pièce », il se dit « ils n'en ont qu'une ». Une carte seule
+   en pleine largeur ne rattrape rien tant qu'elle n'a ni image, ni nom, ni
+   lien à suivre — c'est un cartel de musée devant un mur vide.
+   Et la preuve est DÉJÀ dans cette section : le « seize fois plus grand » du
+   paragraphe au-dessus vient de ce chantier-là. Une seconde référence posée
+   ailleurs dans la page ferait croire à DEUX clients. On ne crée donc pas de
+   rubrique : on donne son corps à la phrase qui existe déjà.
+   Le jour où il y aura trois chantiers, la question se rouvre — pas avant.
+
+   ⛔ AUCUN NOM DE CLIENTE ICI — ET CE N'EST PAS CE QUI CONDITIONNE LA MISE EN
+   LIGNE. Le relevé tient sans elle : ce sont des chiffres, pas une référence,
+   et aucun inconnu ne la reconnaîtrait. Mais ELLE se reconnaît dès la première
+   ligne : ce sont les chiffres exacts de son audit. Publier avant de le lui
+   demander transformerait la demande en ratification. Ce bloc attend donc son
+   accord — pas parce qu'il la nomme, parce qu'elle s'y verra.
+   Quand l'accord arrive, une ligne s'ajoute dans .releve__suite. Aucun
+   remontage, aucun palier à recalculer.
+
+   ⛔ PAS DE DÉGRADÉ SUR LES CHIFFRES — leçon du 30/08, et elle se paie deux
+   fois. `background-clip:text` a DEUX pannes silencieuses (impression et
+   contraste forcé), et sur une boîte pleine largeur le dégradé se déroule dans
+   le vide : le glyphe n'occupe que 5 à 7 % de la course. Encre PLEINE, teinte
+   claire : --cyan-300 mesure 8,57:1 sur --ink-1, 8,01:1 sur --ink-2, et
+   #075985 (sa valeur d'impression) 7,56:1 sur blanc. Rien de ce bloc ne
+   dépend d'un fond pour exister : il survit tel quel en contraste forcé.
+   ============================================================================ */
+
+/* Borné à 66ch, la MÊME colonne de lecture que les <p> de la carte.
+   Sans cette borne, mesuré à 1280 px : l'encadré faisait 990 px quand les
+   paragraphes qu'il illustre en font 569 — 74 % plus large, dont 424 px de
+   fond teinté VIDE à droite. Le seul élément de la carte à aller au bord
+   était aussi le seul rempli à moitié. Après : 569 px, 2 px de reste. */
+.releve {
+  max-width: 66ch;
+  margin: var(--space-5) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--ink-2);
+}
+.releve__source { font-size: var(--fs-sm); color: var(--muted); margin: 0 0 var(--space-4); }
+.releve__liste  { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+
+/* --- UNE COLONNE PAR DÉFAUT : le chiffre AU-DESSUS de son libellé ----------
+   C'est la disposition du téléphone, et elle est le défaut assumé, pas un
+   repli dégradé. Mesuré à 375 px en deux colonnes : la colonne du chiffre
+   prenait 91,6 px (chiffre + gouttière) sur 276 px utiles, soit 33 % de la
+   largeur, et le libellé tombait à 191 px. À 346 px il tombait à 130 px et
+   passait à trois lignes — pour un relevé de trois entrées, trois hauteurs
+   différentes ruinent la lecture en colonne.
+   Le seuil de casse est à 363 px d'écran, soit DOUZE PIXELS sous l'iPhone le
+   plus courant. On ne pose pas un système qui tient à douze pixels : la
+   bascule se fait donc bien plus haut (480 px), là où la place est réelle.
+   Bénéfice second, et il n'est pas petit : en une colonne, la mise en page ne
+   dépend plus de la largeur du chiffre, donc plus du tout de la police. */
+.releve__liste > li { display: grid; gap: 2px; }
+
+.releve__chiffre {
+  font-size: clamp(1.3rem, 1.1rem + .9vw, 1.75rem);
+  line-height: 1.15;
+  font-weight: var(--fw-black);
+  color: var(--cyan-300);
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  hyphens: manual;          /* un nombre ne se coupe jamais */
+  white-space: nowrap;
+}
+.releve__quoi  { font-size: var(--fs-sm); color: var(--text-body); }
+
+/* --- L'ÉTAT DE CHAQUE LIGNE — ajouté le 31/08/2026 sur veto de fond --------
+   ⛔ TROIS CHIFFRES « AVANT » ET AUCUN « APRÈS » NE SONT PAS UN RELEVÉ.
+   Première version : trois défauts constatés, zéro correction montrée — dans
+   une section intitulée « Notre méthode, pas une promesse en l'air ». Trois
+   plaies, aucune cicatrice. Un avant sans après est un diagnostic de vendeur.
+
+   ET LE DÉFAUT DE COMPOSITION QUI SE CACHAIT DESSOUS, PLUS GRAVE QUE L'OUBLI :
+   les trois lignes n'ont pas la même nature. Deux sont « trouvé puis corrigé »,
+   la troisième est « trouvé puis SIGNALÉ » — le trafic non humain était hors du
+   périmètre commandé, rien n'a été corrigé là-dessus. Une colonne « après »
+   commune aurait donc porté une case vide sur la troisième ligne, et une case
+   vide dans une rangée se lit comme un échec ou un oubli, jamais comme « sans
+   objet ». *Imposer une grille symétrique à des éléments de natures différentes
+   fabrique un mensonge à l'endroit exact où la case manque.*
+   D'où l'état ÉCRIT ligne par ligne, jamais une colonne : chaque entrée dit ce
+   qu'elle est. Le mot d'état est en toutes lettres et jamais porté par une
+   couleur seule — il sort en gris à l'impression et n'existe pas pour un
+   daltonien. <strong> suffit : la règle globale lui donne déjà --text-strong,
+   mesuré 14,48:1 sur l'encadré, 18,88:1 sur blanc à l'impression. */
+.releve__texte { display: grid; gap: 5px; }
+.releve__etat  { font-size: var(--fs-sm); color: var(--text-body); }
+
+/* La réserve porte sur TOUT le relevé, pas sur une ligne : sans un écart plus
+   large que celui des entrées, elle se lisait comme une quatrième entrée sans
+   chiffre. Mesuré : 16 px entre les entrées, 24 avant la réserve, 10 avant le
+   lien — les trois constats forment un groupe, la réserve et la sortie en
+   forment un autre. C'est le blanc qui sépare, pas un filet : un filet à
+   --line mesure 1,26:1 sur ce fond et ne sépare rien (leçon du 25/08).
+   Couleur --text-body et non --muted : cette ligne doit être LUE. Elle reste
+   à l'impression — c'est une information, pas un dispositif de navigation. */
+.releve__reserve { font-size: var(--fs-sm); color: var(--text-body); margin: var(--space-5) 0 0; }
+.releve__suite   { font-size: var(--fs-sm); margin: 10px 0 0; }
+
+/* --- DEUX COLONNES DÈS 480 px : les chiffres partagent leur bord droit -----
+   ⚠️ CE PALIER N'EST PAS EN `screen and`, ET C'EST VOULU.
+   La règle de maison (28/08) vise les paliers qui DÉGRADENT pour l'étroit :
+   une feuille A4 mesure 793,7 px et tombait sous eux sans que rien ne le
+   signale. Celui-ci fait l'inverse — il AMÉLIORE quand la place existe, et
+   la place existe sur le papier. Vérifié à 794 px : les deux colonnes
+   s'appliquent, l'encadré fait 522 px comme les paragraphes, un libellé par
+   ligne. L'écrire `screen and` renverrait la feuille en une colonne.
+
+   ⛔ LE BUDGET DE LA COLONNE, ET IL SE REMESURE À CHAQUE CHIFFRE AJOUTÉ.
+   `min-width` est en em : la colonne suit donc le clamp du chiffre au lieu de
+   se figer en pixels. 3,6em est calibré sur le PIRE repli de police, pas sur
+   celle de nos postes — mesuré au canvas, « ~20 % » vaut :
+       Roboto 2,77em · Segoe UI 3,09em · Arial et Helvetica 3,33em
+   La première version tenait 3,2em : juste ici, fausse sur un Mac, où la
+   colonne s'élargissait POUR CETTE SEULE LIGNE et rendait l'escalier de 25 px
+   qu'elle était censée supprimer. Invisible depuis nos écrans.
+   Marge restante : 8 % sur Arial. Un chiffre du type « 1,36 / 4,5 » vaut
+   4,95em et FERAIT SAUTER la colonne : remesurer avant d'en ajouter un. */
+@media (min-width: 480px) {
+  .releve__liste { gap: 14px; }
+  .releve__liste > li {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-4); row-gap: 0;
+    align-items: baseline;
+  }
+  .releve__chiffre { min-width: 3.6em; text-align: right; }
+}
+
+@media print {
+  /* Sans `break-inside`, le relevé se coupe entre deux pages : trois chiffres
+     dont le dernier passe seul au verso ne se compare plus. Vérifié à 794 px :
+     la carte entière fait 665 px pour 1017 px utiles, elle tient sur une page.
+     La bordure passe à #8b95a2 — la même que .carte et .appel : à #c9ced4,
+     mon encadré aurait été le seul filet pâle de la feuille.
+     .releve__suite part avec .actions et .note-siret : c'est un lien relatif,
+     donc `a[href^="http"]::after` ne lui ajoute AUCUNE adresse. Sur papier il
+     serait souligné sans dire où il mène — un cul-de-sac. Rien n'est perdu :
+     le devis au-delà de 60 fiches est déjà écrit dans le paragraphe suivant. */
+  .releve { break-inside: avoid; border: 1px solid #8b95a2; background: #fff; }
+  .releve__suite { display: none; }
+}
+
 @media print {
   /* Le chemin est un dispositif de NAVIGATION : sur papier il n'y a rien à
      atteindre, et le récapitulatif ci-dessous liste déjà les neuf offres avec

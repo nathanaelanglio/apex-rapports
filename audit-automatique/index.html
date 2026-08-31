@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit automatique — APEX Automation</title>
+<meta name="description" content="Vous entrez l'adresse de votre boutique, vous réglez 29 €, vous recevez votre rapport dans l'heure. Aucun rendez-vous, aucun devis, aucun échange préalable.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MAQUETTE — agent design (Léa), 31/08/2026.
+     Destination : apex-rapports/audit-automatique/index.html
+     (les deux <link> ci-dessus sont écrits POUR cet emplacement).
+
+     ⛔ QUATRE CHOSES À RÉGLER AVANT MISE EN LIGNE — détail en fin de fichier.
+        1. Le lien Stripe n'existe pas. Il est écrit en clair et en majuscules
+           dans les boutons : le lien Stripe reel a 29 EUR est pose depuis le 31/08. Il ne peut
+           pas être confondu avec un lien réel ni encaisser par erreur.
+        2. Le prix 29 € est une valeur de maquette, au milieu de la fourchette
+           donnée. Il apparaît 8 fois (title, description, h1 chapô, 3 boutons,
+           bloc « Le prix », bloc « Où il se place »).
+        3. La liste des contrôles est un ENGAGEMENT CONTRACTUEL. Toute ligne
+           que l'outil ne sait pas faire doit être retirée AVANT la mise en
+           ligne, pas corrigée après une réclamation.
+        4. La collision avec le Diagnostic Express gratuit doit être tranchée
+           par le Président (voir annexe, point B).
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── LE BLOC DE SAISIE ──────────────────────────────────────────────────────
+   Le site n'a aucun champ de formulaire : ces règles sont nouvelles, et
+   posées sur les jetons existants, jamais sur des valeurs en dur.
+
+   ⛔ RÈGLE QUI GOUVERNE TOUT CE BLOC : le champ n'est JAMAIS une barrière.
+   Le bouton est un <a> valide dès le chargement, il ne se désactive pas, il
+   ne dépend pas du script. Si le JavaScript ne s'exécute pas, la page reste
+   exactement aussi vendeuse — l'adresse est de toute façon redemandée au
+   paiement. Un bouton qui ne peut pas marcher ne s'affiche pas (12/08). */
+.saisie{background:var(--ink-1);border:1px solid var(--violet-300);border-radius:var(--r-md);padding:var(--space-5);box-shadow:var(--shadow-card)}
+.saisie__titre{font-size:var(--fs-h3);font-weight:var(--fw-bold);color:var(--text);margin:0 0 6px}
+.saisie__aide{font-size:var(--fs-sm);color:var(--muted);margin:0 0 var(--space-4);max-width:56ch}
+.saisie__ligne{display:grid;gap:12px}
+.saisie label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--text-strong);margin-bottom:6px}
+.saisie input{
+  width:100%;box-sizing:border-box;min-height:52px;padding:13px 16px;
+  font-family:var(--font-sans);font-size:1.05rem;
+  color:var(--text);background:var(--ink-2);
+  border:1px solid rgba(255,255,255,.36);border-radius:var(--r-sm);
+}
+.saisie input::placeholder{color:var(--muted)}
+.saisie input:focus{outline:none;border-color:var(--violet-300);box-shadow:var(--focus-ring)}
+.saisie__echo{font-size:var(--fs-sm);color:var(--text-body);margin:0;min-height:1.4em}
+.saisie__echo b{color:var(--cyan-300);font-weight:var(--fw-semibold);overflow-wrap:anywhere}
+.saisie .bouton{width:100%}
+/* Au-delà de 560 px, champ et bouton côte à côte. min-width:0 sur le champ,
+   sinon la largeur intrinsèque de l'input (~20 caractères) l'empêche de se
+   réduire et pousse le bouton hors de la carte.
+
+   ⛔ align-items:END, et surtout pas START. Mesuré à 768 px avec start : le
+   bouton se posait à y=662 et le champ à y=691 — 29 PX D'ÉCART, soit très
+   exactement la hauteur du <label> qui coiffe le champ dans sa cellule. Le
+   bouton flottait au-dessus de son propre champ. `end` cale les deux sur le
+   bas de la rangée, c'est-à-dire sur la ligne que l'œil lit comme la base
+   commune du couple champ + bouton. */
+@media (min-width:560px){
+  .saisie__ligne{grid-template-columns:minmax(0,1fr) auto;align-items:end}
+  .saisie input{min-width:0}
+  .saisie .bouton{width:auto;white-space:nowrap}
+  .saisie__echo{grid-column:1 / -1}
+}
+
+/* La BOÎTE du couple champ + bouton est bornée, pas le champ. Mesuré à
+   1280 px sans cette règle : le champ prenait 690 px pour accueillir treize
+   caractères — un champ vide de 690 px annonce qu'on attend un paragraphe,
+   pas un nom de domaine, et le bouton partait à l'autre bout de la carte.
+   640 px = un champ d'une trentaine de caractères (largement au-delà d'un
+   domaine), la gouttière, et le bouton. La carte, elle, reste pleine
+   largeur : c'est le groupe qui se resserre, pas le panneau — sinon on
+   déplace le vide au lieu de le supprimer (31/08). */
+.saisie__ligne{max-width:640px}
+/* Même raison pour la mention sous le bouton : sans borne elle atteignait
+   690 px, soit une centaine de caractères par ligne. 66ch est la mesure des
+   paragraphes du site. */
+.saisie .apres-bouton{max-width:66ch}
+
+/* ── LE RELEVÉ DES TREIZE BOUTIQUES ─────────────────────────────────────────
+   Bloc de preuve. Leçon du 31/08 (veto de Camille) : chaque élément dit son
+   ÉTAT. Ici l'état est le même pour les six lignes — ce sont des CONSTATS de
+   diagnostic, rien n'a été corrigé — il est donc écrit une fois, en tête, au
+   lieu d'être répété six fois.
+   La grille est posée sur le <ul>, pas sur chaque <li> : trois grilles de deux
+   colonnes ne font pas un tableau de trois lignes (31/08). Colonne du chiffre
+   en 3.6em — mesurée sur le pire repli de police (Arial/Helvetica), pas sur
+   celle de mon poste. */
+.constats{list-style:none;margin:var(--space-5) 0 0;padding:0;display:grid;gap:var(--space-4)}
+.constats>li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:14px;align-items:baseline;margin:0}
+.constats__n{font-size:1.5rem;font-weight:var(--fw-black);color:var(--cyan-300);font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap}
+.constats__quoi{font-size:var(--fs-sm);color:var(--text-body)}
+.constats__quoi b{color:var(--text-strong);font-weight:var(--fw-semibold)}
+/* Sous 480 px, une seule colonne : la mise en page cesse alors de dépendre de
+   la largeur du chiffre, donc de la police. Le palier est posé là où la place
+   redevient confortable, pas là où elle cesse d'être possible (31/08). */
+@media screen and (max-width:479px){
+  .constats>li{grid-template-columns:1fr;gap:2px}
+}
+
+/* ── LA CARTE ORPHELINE DE LA COMPARAISON ───────────────────────────────────
+   Trois offres dans une .grille : sous une certaine largeur elle n'a que deux
+   colonnes, et la TROISIÈME carte se retrouve seule sur sa rangée. Or
+   `.offre .nom{min-height:2.6em}` (site.css) réserve deux lignes de titre pour
+   aligner les prix ENTRE cartes voisines. Sur une carte seule il n'y a plus
+   personne à aligner : la réserve devient une bande morte d'environ 32 px
+   entre le titre et le montant.
+
+   Palier MESURÉ, pas estimé (leçon du 31/08 : le palier d'un composant n'est
+   pas celui du voisin). La grille passe à trois colonnes quand son contenu
+   atteint 746 px ; l'enveloppe donne 0,91 × largeur de fenêtre dans cette
+   plage (gutter = 4,5vw de chaque côté) — soit une bascule à 820 px. Vérifié :
+   740 px de contenu → 2 colonnes, 746 px → 3 colonnes.
+
+   La règle ne vise QUE la dernière carte : entre 541 et 819 px les deux
+   premières partagent encore une rangée et ont toujours besoin de la réserve.
+   Sous 541 px, site.css la relâche déjà pour toutes. */
+@media screen and (max-width:819px){
+  .offres-trois .offre:last-child .nom{min-height:0}
+}
+</style>
+</head>
+<body>
+
+<a class="saut-contenu" href="#contenu">Aller au contenu</a>
+
+<header class="entete">
+  <div class="entete-inner">
+    <a class="logo" href="../" aria-label="APEX Automation, accueil">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </a>
+    <details class="menu">
+      <summary class="menu__bouton">
+        <span class="menu__barres" aria-hidden="true"></span>
+        <span class="menu__mot">Menu</span>
+      </summary>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="../">Accueil</a>
+        <a href="../offres/">Offres et tarifs</a>
+        <a href="../contact/">Contact</a>
+        <a href="../mentions-legales/">Mentions légales</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<div class="bandeau">
+  <div class="enveloppe">
+    <div class="accroche">
+      <p class="surtitre">Audit automatique</p>
+      <h1>Votre boutique passée en revue. Le rapport arrive dans l'heure.</h1>
+      <p class="chapo">Vous entrez l'adresse, vous réglez 29 €, vous recevez un lien vers votre rapport. Aucun rendez-vous, aucun devis à attendre, aucun échange préalable.</p>
+    </div>
+  </div>
+</div>
+
+<main id="contenu">
+
+  <!-- ══ SAISIE 1 — le premier point d'action, à ~11 % de la hauteur ══
+       Il est ICI et pas plus bas. Le lecteur qui arrive par un lien de
+       prospection sait déjà ce qu'il veut : lui faire lire treize écrans
+       avant de lui donner un champ, c'est le perdre. Celui qui hésite,
+       lui, descend — et retrouve le même bloc deux fois. -->
+  <section class="section" style="padding-top:clamp(32px,5vw,48px)">
+    <div class="enveloppe">
+      <div class="saisie">
+        <p class="saisie__titre">L'adresse de votre boutique</p>
+        <p class="saisie__aide">Le nom de domaine suffit. Vous n'avez rien d'autre à préparer&nbsp;: ni accès, ni mot de passe, ni identifiant.</p>
+        <div class="saisie__ligne">
+          <div>
+            <label for="adresse-1">Adresse de la boutique à examiner</label>
+            <input id="adresse-1" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="maboutique.fr">
+          </div>
+          <a class="bouton" href="https://buy.stripe.com/9B6aEXb8Ec5heM106y6kg0h">Commander mon audit — 29 €</a>
+          <p class="saisie__echo" aria-live="polite"></p>
+        </div>
+        <p class="apres-bouton">Paiement par carte sur une page sécurisée Stripe. Facture reçue immédiatement. L'adresse de votre boutique vous sera redemandée sur la page de paiement — rien n'est transmis depuis ce champ. Prestation réservée aux professionnels disposant d'un numéro SIRET.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CE QUE NOUS TROUVONS — le bloc de preuve ══ -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Ce que nous trouvons</p>
+      <h2>Sur les treize dernières boutiques examinées</h2>
+      <p class="chapo">Treize boutiques françaises et antillaises, passées en revue les 24 et 25 août 2026. Vingt-huit constats au total. Aucun de ces commerçants ne savait ce qui suit avant de le lire.</p>
+
+      <div class="carte" style="margin-top:32px">
+        <p class="fine" style="margin:0">Relevé de constats, pas de corrections&nbsp;: ces treize boutiques ont reçu un diagnostic, elles ne nous ont pas commandé de travaux. Chaque chiffre ci-dessous compte des boutiques distinctes, sur treize.</p>
+
+        <ul class="constats">
+          <li>
+            <span class="constats__n">7/13</span>
+            <span class="constats__quoi"><b>Aucun moyen d'exercer son droit de rétractation en ligne.</b> Ni formulaire, ni procédure écrite. C'est le manquement le plus fréquent, et l'un des rares qui se voit depuis l'extérieur.</span>
+          </li>
+          <li>
+            <span class="constats__n">5/13</span>
+            <span class="constats__quoi"><b>Pages légales absentes, introuvables, ou jamais remplies.</b> Sur l'une d'elles, le modèle fourni par la plateforme était toujours en ligne avec ses crochets vides. Deux autres n'affichaient aucun SIRET.</span>
+          </li>
+          <li>
+            <span class="constats__n">3/13</span>
+            <span class="constats__quoi"><b>Un problème de nom de domaine.</b> Un domaine qui ne répondait plus et une boutique accessible seulement à son adresse provisoire&nbsp;; une autre sans domaine à elle&nbsp;; une troisième dont le catalogue avait disparu de Google après un changement de nom.</span>
+          </li>
+          <li>
+            <span class="constats__n">1/13</span>
+            <span class="constats__quoi"><b>Des dizaines de liens vers des sites de jeux d'argent injectés dans le pied de page.</b> Le commerçant l'ignorait.</span>
+          </li>
+          <li>
+            <span class="constats__n">1/13</span>
+            <span class="constats__quoi"><b>Un contrôle d'âge « vente d'alcool » sur une boutique de maroquinerie.</b> Chaque visiteur devait le franchir avant de voir un seul sac.</span>
+          </li>
+          <li>
+            <span class="constats__n">1/13</span>
+            <span class="constats__quoi"><b>Une faute d'orthographe dans le titre du produit vedette</b> — celui qui s'affiche dans les résultats de recherche.</span>
+          </li>
+        </ul>
+      </div>
+
+      <p class="fine" style="margin-top:20px">Ces treize diagnostics ont été écrits à la main. L'audit automatique cherche les mêmes points, sur une liste fixe, sans attendre qu'un humain soit disponible.</p>
+    </div>
+  </section>
+
+  <!-- ══ SAISIE 2 — au sortir du bloc de preuve ══
+       Placée ICI et pas plus bas, après mesure. Avec ce bloc à la suite des
+       six familles de contrôles, le plus grand désert de la page atteignait
+       36,3 % de sa hauteur, soit 4,3 écrans de téléphone sans une seule
+       sortie — entre le champ d'accueil et le suivant. Il tombe ici au point
+       où le lecteur vient de lire la preuve la plus forte de la page ; celui
+       qui veut d'abord savoir CE QUI est contrôlé continue, et c'est
+       exactement le rôle de la section suivante. -->
+  <section class="section">
+    <div class="enveloppe">
+      <div class="saisie">
+        <p class="saisie__titre">Et sur la vôtre&nbsp;?</p>
+        <p class="saisie__aide">La suite de la page détaille les six familles de contrôles, ce que cet audit ne fait pas, et où il se place par rapport à nos autres formules. Si vous n'avez pas besoin de le lire&nbsp;:</p>
+        <div class="saisie__ligne">
+          <div>
+            <label for="adresse-2">Adresse de la boutique à examiner</label>
+            <input id="adresse-2" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="maboutique.fr">
+          </div>
+          <a class="bouton" href="https://buy.stripe.com/9B6aEXb8Ec5heM106y6kg0h">Commander mon audit — 29 €</a>
+          <p class="saisie__echo" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CE QUE CONTIENT LE RAPPORT ══
+       ⛔ CHAQUE LIGNE DE CETTE LISTE EST UN ENGAGEMENT. Elles décrivent ce que
+       l'outil DOIT savoir faire — l'outil n'existe pas encore. Toute ligne
+       qu'il ne sait pas produire se retire d'ici avant la mise en ligne. Une
+       promesse tenue à 80 % sur une page de vente est un litige à 29 €, et un
+       avis public qui coûte plus que la vente. -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Ce que vous recevez</p>
+      <h2>Un rapport, six familles de contrôles</h2>
+      <p class="chapo">Tout ce qui est trouvé figure au rapport — pas une sélection des cinq plus parlants. Chaque constat porte l'adresse exacte de la page où il se voit, pour que vous puissiez le vérifier vous-même.</p>
+
+      <div class="grille" style="margin-top:40px">
+
+        <article class="carte">
+          <h3>Pages légales</h3>
+          <ul class="liste">
+            <li>Mentions légales, CGV, politique de confidentialité, politique de livraison&nbsp;: présentes ou non</li>
+            <li>Identité de l'éditeur et SIRET affichés</li>
+            <li>Mentions restées à l'état de modèle</li>
+          </ul>
+        </article>
+
+        <article class="carte">
+          <h3>Droit de rétractation</h3>
+          <ul class="liste">
+            <li>Existence d'une procédure accessible en ligne</li>
+            <li>Délai annoncé au client</li>
+            <li>Cohérence entre CGV et pages d'information</li>
+          </ul>
+        </article>
+
+        <article class="carte">
+          <h3>Référencement</h3>
+          <ul class="liste">
+            <li>Titre et méta-description de chaque page</li>
+            <li>Présence et unicité du titre principal</li>
+            <li>Textes alternatifs manquants sur les images</li>
+            <li>Adresses de pages et fil d'Ariane</li>
+          </ul>
+        </article>
+
+        <article class="carte">
+          <h3>Indexation</h3>
+          <ul class="liste">
+            <li>Pages connues de Google, et pages qui n'y sont pas</li>
+            <li>Adresses indexées qui renvoient une erreur</li>
+            <li><code>sitemap.xml</code> et <code>robots.txt</code></li>
+          </ul>
+        </article>
+
+        <article class="carte">
+          <h3>Domaine et redirections</h3>
+          <ul class="liste">
+            <li>Certificat et réponse du domaine</li>
+            <li>Redirections en place, ou manquantes</li>
+            <li>Traces d'un ancien domaine ou d'un ancien nom de marque</li>
+          </ul>
+        </article>
+
+        <article class="carte">
+          <h3>Contenu résiduel</h3>
+          <ul class="liste">
+            <li>Pages « à venir » ou périmées toujours en ligne</li>
+            <li>Fiches produit épuisées non retirées</li>
+            <li>Poids de la page d'accueil et nombre de scripts chargés</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CE QUE ÇA NE FAIT PAS ══
+       Le bloc le plus important de la page. Un acheteur qui découvre APRÈS
+       coup ce que son achat ne couvre pas ne demande pas un remboursement :
+       il écrit un avis. Le dire avant coûte quelques ventes et n'en coûte
+       aucune de mauvaise. -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Sans détour</p>
+      <h2>Ce que cet audit ne fait pas</h2>
+
+      <div class="grille-2" style="margin-top:32px">
+        <div class="appel">
+          <ul class="liste hors">
+            <li><strong>Il ne certifie pas votre conformité légale.</strong> Chaque ligne du rapport dit ce qui est présent ou absent sur vos pages publiques, à la date du contrôle — jamais ce que la loi exige exactement pour votre activité. Pour une question juridique sur votre situation, un avocat reste la bonne source</li>
+            <li><strong>Il ne corrige rien.</strong> Il dit ce qui ne va pas et où&nbsp;; les corrections sont des prestations séparées, chacune à prix affiché</li>
+            <li><strong>Personne ne le relit à la main.</strong> C'est une machine, et c'est ce qui permet le prix et le délai</li>
+            <li><strong>Il ne teste pas votre tunnel de commande</strong>&nbsp;: il faudrait passer une commande réelle</li>
+            <li>Il ne juge ni votre design, ni vos prix, ni vos produits</li>
+            <li>Il ne compte pas votre catalogue fiche par fiche&nbsp;: c'est le travail de l'Audit 360°</li>
+            <li>Il ne promet aucune position dans les résultats de recherche</li>
+            <li><strong>Et s'il ne tient pas ce qu'il annonce&nbsp;:</strong> si le rapport ne couvre pas ce qui était annoncé, si l'un de ses constats s'avère faux, ou s'il ne vous donne pas de quoi agir, vous nous l'écrivez dans les 14 jours suivant la livraison&nbsp;: nous le complétons ou le reprenons sans frais, sous 7 jours ouvrés — pas un remboursement, un rapport qui tient ce qu'il annonce</li>
+          </ul>
+        </div>
+
+        <div class="appel">
+          <h3 style="margin-top:0">Et si votre boutique est en ordre&nbsp;?</h3>
+          <p style="font-size:.9375rem">Le rapport le dira, et il vous aura coûté 29 €. Nous ne fabriquons pas de constats pour justifier un prix&nbsp;: sur les treize dernières boutiques, deux n'avaient que des points mineurs.</p>
+          <p style="font-size:.9375rem">C'est le risque de tout diagnostic, et il vaut mieux le lire ici que le découvrir en ouvrant le rapport.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ OÙ IL SE PLACE ══
+       ⚠️ CE BLOC EXISTE POUR UNE RAISON PRÉCISE : le site propose déjà un
+       Diagnostic Express GRATUIT. Un acheteur qui paie 29 € puis découvre
+       l'existence du gratuit se sent berné — et il a raison. La seule parade
+       honnête est de le lui dire ici, avec la différence écrite. Voir annexe,
+       point B : c'est une décision commerciale, pas une décision de forme. -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Où il se place</p>
+      <h2>Trois façons de faire regarder votre boutique</h2>
+      <p class="chapo">Nous proposons aussi un diagnostic gratuit. Il est plus court et plus lent&nbsp;; le voici en face des deux autres, pour que vous choisissiez en connaissance de cause.</p>
+
+      <div class="grille offres-trois" style="margin-top:40px">
+
+        <article class="carte offre">
+          <h3 class="nom">Diagnostic Express</h3>
+          <p class="montant">0 <span class="unite">€</span></p>
+          <p class="delai">Envoyé sous 48 heures</p>
+          <ul class="liste">
+            <li>Cinq constats, choisis et écrits à la main</li>
+            <li>Chacun avec le lien de la page où il se voit</li>
+          </ul>
+          <ul class="liste hors">
+            <li>Cinq constats seulement, et vous attendez notre disponibilité</li>
+          </ul>
+          <div class="pousse">
+            <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander le diagnostic gratuit</a>
+            <p class="apres-bouton">Par email, sans engagement.</p>
+          </div>
+        </article>
+
+        <article class="carte offre avant">
+          <span class="pastille">Cette page</span>
+          <h3 class="nom">Audit automatique</h3>
+          <p class="montant">29 <span class="unite">€</span></p>
+          <p class="delai">Dans l'heure, à toute heure</p>
+          <ul class="liste">
+            <li>Six familles de contrôles, tout ce qui est trouvé</li>
+            <li>Sans rendez-vous, sans attendre personne</li>
+            <li>Chaque constat avec son adresse vérifiable</li>
+          </ul>
+          <ul class="liste hors">
+            <li>Aucune relecture humaine, aucun chiffrage de vos corrections</li>
+          </ul>
+          <div class="pousse">
+            <p class="note-siret"><b>SIRET</b> demandé au paiement.</p>
+            <a class="bouton pleine" href="https://buy.stripe.com/9B6aEXb8Ec5heM106y6kg0h">Commander — 29 €</a>
+            <p class="apres-bouton">Paiement par carte, page sécurisée Stripe.</p>
+          </div>
+        </article>
+
+        <article class="carte offre">
+          <h3 class="nom">Audit 360°</h3>
+          <p class="montant">290 <span class="unite">€</span></p>
+          <p class="delai">Livré sous 3 jours ouvrés</p>
+          <ul class="liste">
+            <li>Dix spécialités, examinées par un humain</li>
+            <li>Le volume réel compté sur votre <code>sitemap.xml</code></li>
+            <li>Un devis ferme pour chaque correction</li>
+          </ul>
+          <ul class="liste hors">
+            <li>Ne corrige rien non plus&nbsp;: il chiffre</li>
+          </ul>
+          <div class="pousse">
+            <p class="note-siret"><b>SIRET</b> demandé au paiement.</p>
+            <a class="bouton pleine secondaire" href="../offres/#audit-360">Voir l'Audit 360°</a>
+            <p class="apres-bouton">Déduit du Pack Reboot Complet ou de l'Optimisation SEO si vous commandez dans les 30 jours.</p>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="fine" style="margin-top:20px">En une phrase&nbsp;: le gratuit vous donne un aperçu quand nous sommes disponibles, celui-ci vous donne la liste complète tout de suite, et l'Audit 360° vous donne le prix de chaque réparation.</p>
+    </div>
+  </section>
+
+  <!-- ══ COMMENT ÇA SE PASSE ══ -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Comment ça se passe</p>
+      <h2>Quatre étapes, et rien à préparer</h2>
+
+      <ol class="etapes" style="margin-top:40px">
+        <li><strong>Vous entrez votre adresse</strong><p>Le nom de domaine suffit. Il vous est redemandé sur la page de paiement, c'est là qu'il nous parvient.</p></li>
+        <li><strong>Vous réglez 29 €</strong><p>Par carte, sur une page Stripe. La facture arrive dans la foulée.</p></li>
+        <li><strong>La machine travaille</strong><p>Elle passe la liste de contrôles sur les pages publiques de votre boutique. Aucun accès ne vous est demandé.</p></li>
+        <li><strong>Vous recevez un lien</strong><p>Sous une heure, par email. Le rapport est une page à vous, consultable et imprimable, non référencée par les moteurs de recherche.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══ LE PRIX ET LES RÉSERVES ══ -->
+  <section class="section">
+    <div class="enveloppe">
+      <div class="grille-2">
+
+        <div class="appel">
+          <h2 style="font-size:1.35rem">Le prix, et ce qu'il n'y a pas</h2>
+          <ul class="liste">
+            <li><strong>29 € une fois.</strong> Pas d'abonnement, pas de reconduction, pas de prélèvement suivant</li>
+            <li>Aucune inscription, aucun compte à créer</li>
+            <li>Votre adresse ne sert qu'à produire le rapport&nbsp;: nous ne la revendons pas et ne la transmettons à personne</li>
+            <li>Si vous ne voulez plus rien recevoir de nous après le rapport, un mot suffit</li>
+          </ul>
+        </div>
+
+        <div class="appel">
+          <h2 style="font-size:1.35rem">Qui encaisse</h2>
+          <p style="font-size:.875rem">Nathanaël Anglio, entreprise individuelle immatriculée en France sous le SIRET <strong>509&nbsp;715&nbsp;777&nbsp;00058</strong>. Paiements traités par Stripe&nbsp;; aucune coordonnée bancaire ne transite par nous.</p>
+          <p style="font-size:.875rem">Prestation réservée aux professionnels disposant d'un numéro SIRET.</p>
+          <p class="fine">TVA non applicable, article 293 B du code général des impôts.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SAISIE 3 — le point d'action final ══ -->
+  <section class="section">
+    <div class="enveloppe">
+      <div class="saisie">
+        <p class="saisie__titre">Votre rapport, dans l'heure</p>
+        <p class="saisie__aide">Entrez le nom de domaine de votre boutique. Il vous sera redemandé sur la page de paiement.</p>
+        <div class="saisie__ligne">
+          <div>
+            <label for="adresse-3">Adresse de la boutique à examiner</label>
+            <input id="adresse-3" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="maboutique.fr">
+          </div>
+          <a class="bouton" href="https://buy.stripe.com/9B6aEXb8Ec5heM106y6kg0h">Commander mon audit — 29 €</a>
+          <p class="saisie__echo" aria-live="polite"></p>
+        </div>
+        <p class="apres-bouton">Paiement par carte sur une page sécurisée Stripe. Facture reçue immédiatement. Vous préférez le diagnostic gratuit sous 48 heures&nbsp;? <a href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demandez-le par email</a> — c'est plus court et plus lent, et c'est écrit plus haut.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied-site">
+  <div class="enveloppe">
+    <span class="logo logo--lg" style="margin-bottom:24px">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </span>
+    <p>Nathanaël Anglio, entreprise individuelle — SIRET 509&nbsp;715&nbsp;777&nbsp;00058. <strong>TVA non applicable, article 293 B du code général des impôts.</strong> Prix en euros hors taxes, réservés aux professionnels disposant d'un numéro SIRET.</p>
+    <p>Contact : <a href="mailto:contact@apexautomation.fr">contact@apexautomation.fr</a> — <a href="../contact/">Contact</a>
+      <a href="../mentions-legales/">Mentions légales</a> — <a href="../mentions-legales/#cgv">Conditions générales de vente</a></p>
+    <p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script>
+/* Menu — identique au reste du site. Le menu marche sans ce script. */
+(function () {
+  var m = document.querySelector('.menu');
+  if (!m) return;
+  var s = m.querySelector('summary');
+  var etat = function () { s.setAttribute('aria-expanded', m.open ? 'true' : 'false'); };
+  etat();
+  m.addEventListener('toggle', etat);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; s.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (m.open && !m.contains(e.target)) m.open = false;
+  });
+})();
+
+/* Le champ d'adresse.
+   Il fait DEUX choses, et rien d'autre :
+     — il renvoie au lecteur l'adresse qu'il vient de taper, normalisée. C'est
+       le moment où l'achat devient concret : il voit SON domaine dans la page.
+     — il joint cette adresse au lien de paiement (client_reference_id), pour
+       que la commande arrive avec son objet.
+
+   ⛔ IL NE BLOQUE JAMAIS RIEN. Le href de départ est conservé et restitué dès
+   que la saisie n'est pas une adresse valide. Sans JavaScript, le bouton mène
+   exactement au même endroit. L'adresse est de toute façon redemandée par
+   Stripe : ce champ est un confort, jamais le canal de transmission. */
+(function () {
+  var blocs = document.querySelectorAll('.saisie');
+  Array.prototype.forEach.call(blocs, function (b) {
+    var champ = b.querySelector('input');
+    var echo  = b.querySelector('.saisie__echo');
+    var lien  = b.querySelector('a.bouton');
+    if (!champ || !echo || !lien) return;
+
+    var base = lien.getAttribute('href');
+
+    var maj = function () {
+      var v = champ.value.trim()
+        .replace(/^https?:\/\//i, '')
+        .replace(/^www\./i, '')
+        .replace(/\/+$/, '');
+
+      if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/i.test(v)) {
+        echo.textContent = '';
+        lien.setAttribute('href', base);
+        return;
+      }
+
+      echo.textContent = '';
+      echo.appendChild(document.createTextNode('Nous examinerons '));
+      var fort = document.createElement('b');
+      fort.textContent = v;
+      echo.appendChild(fort);
+      echo.appendChild(document.createTextNode('.'));
+
+      var ref = v.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 180);
+      lien.setAttribute('href', base + (base.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + ref);
+    };
+
+    champ.addEventListener('input', maj);
+    champ.addEventListener('change', maj);
+    maj();
+  });
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     ANNEXE — LES ARBITRAGES, ET CE QUI RESTE À TRANCHER
+     Agent design (Léa), 31/08/2026. Ce bloc reste dans le fichier : c'est une
+     page web, les commentaires ne partent pas chez le lecteur.
+
+  A. « UN SEUL CHEMIN : LIRE, PUIS PAYER » — LA RÈGLE DU 25/08 NE S'APPLIQUE
+     PAS ICI, ET C'EST DÉLIBÉRÉ.
+
+     Je l'avais posée sur le gabarit de rapport : pas de barre de menu, un
+     seul lien latéral, rien qui concurrence le bouton d'achat. Elle reste
+     juste LÀ-BAS, et elle serait fausse ici. La raison tient en une ligne :
+     un rapport est reçu par quelqu'un qui nous connaît déjà et qui a un seul
+     geste à faire ; cette page est reçue par un inconnu qui doit d'abord
+     décider s'il nous fait confiance. Lui fermer les portes de la maison
+     (offres, contact, mentions légales) au moment exact où il se demande à
+     qui il donne 29 €, c'est le geste d'un site dont on se méfie.
+     L'en-tête complet du site est donc conservé.
+
+     Ce qui est repris de la règle, en revanche : UN SEUL type d'action de
+     paiement dans la page. Les trois blocs de saisie portent le même bouton
+     vers le même lien. Les deux autres formules (gratuit, Audit 360°) sont
+     en bouton SECONDAIRE — le troisième niveau du système. La hiérarchie dit
+     la vérité sur l'action.
+
+
+  ⚠️ B. LA COLLISION AVEC LE DIAGNOSTIC EXPRESS GRATUIT — DÉCISION À PRENDRE
+
+     Le site vend déjà, gratuitement et sous 48 heures, CINQ CONSTATS SOURCÉS
+     écrits à la main. Cette page vend 29 € un rapport automatique produit
+     dans l'heure. Sans arbitrage, le nouveau produit ne vend que de la
+     VITESSE, et l'acheteur qui découvre le gratuit après coup se sent berné.
+
+     La page est composée sur l'hypothèse qui rend le prix honnête :
+     le gratuit est un APERÇU (cinq constats choisis), le payant est la LISTE
+     COMPLÈTE (tout ce qui est trouvé, sur six familles). C'est la seule
+     différence qu'une machine produit réellement, et elle est écrite en
+     toutes lettres dans le bloc « Où il se place ».
+
+     Si cette hypothèse n'est pas retenue, deux autres voies :
+       — assumer « la même chose, plus vite » (honnête, commercialement faible) ;
+       — réserver le Diagnostic Express à la prospection sortante et le
+         retirer de la page publique des offres.
+     Dans les trois cas, la page doit être reprise. Ce n'est pas une décision
+     de forme : elle ne m'appartient pas.
+
+     ⛔ Et tant que rien n'est tranché, NE PAS mettre cette page en ligne à
+     côté d'une page d'offres qui propose le gratuit sans le comparer.
+
+
+  C. LE PRIX : 29 €, ET POURQUOI CE POINT DE LA FOURCHETTE
+
+     Valeur de maquette, le prix ne m'appartient pas. L'argument de
+     composition, lui, est le suivant : à 29 € l'écart avec le gratuit est
+     trop faible pour qu'un acheteur se donne la peine de sortir sa carte ;
+     à 49 € il compare avec les 290 € de l'Audit 360° et se demande ce qu'il
+     perd. 29 € laisse un rapport de 1 à 10 avec l'Audit 360° (290 ÷ 29) — assez net
+     pour que les deux ne se concurrencent pas dans la même grille.
+
+
+  D. LE CHAMP D'ADRESSE — CE QU'IL FAIT, ET CE QU'IL NE FAIT PAS
+
+     Le site est statique : il n'y a aucun serveur pour recevoir un
+     formulaire. Trois options existaient, deux ont été écartées.
+       — Un vrai <form> : impossible sans serveur.
+       — Un champ décoratif qui ne transmet rien : c'est exactement ce qui
+         trahit la confiance quand l'acheteur s'en aperçoit. Écarté.
+       — RETENU : le champ compose le lien de paiement et le dit. L'adresse
+         est jointe en client_reference_id, et la page écrit noir sur blanc
+         que rien n'est transmis depuis le champ et que Stripe la redemandera.
+
+     ⚠️ DEUX CHOSES À VÉRIFIER AVANT MISE EN LIGNE :
+       1. Le Payment Link doit porter un CHAMP PERSONNALISÉ OBLIGATOIRE
+          « adresse de la boutique ». Stripe en accepte deux au maximum, en
+          texte, liste ou nombre. Sans ce champ, la page MENT : elle annonce
+          une demande qui n'aura pas lieu, et la commande arrive sans objet.
+       2. client_reference_id est renseigné avec l'adresse nettoyée (lettres,
+          chiffres et tirets). Son acceptation exacte par Stripe n'a pas été
+          testée — si elle échoue, le lien de base reste valide et rien ne
+          casse, mais le confort disparaît sans prévenir. À tester une fois.
+
+
+  E. LES MESURES ET LES RÈGLES DE MAISON APPLIQUÉES
+
+     — Trois points d'action, répartis : ~11 %, ~50 %, ~92 % de la hauteur.
+       La règle « deux CTA » se compte en POSITION, pas en nombre (30/08) :
+       une page dont les deux appels sont dans le dernier dixième n'en a
+       qu'un.
+     — Aucun tableau. La comparaison des trois formules passe par .grille et
+       trois cartes .offre : un tableau à quatre colonnes se coupe sur un
+       téléphone sans le dire, et le lecteur conclut que le prix n'est pas
+       écrit (30/08).
+     — Le relevé des treize boutiques : grille posée sur le <ul>, pas sur
+       chaque <li> — trois grilles de deux colonnes ne font pas un tableau de
+       trois lignes (31/08). Colonne du chiffre en 3.6em, mesurée sur le pire
+       repli de police et non sur celle de ce poste (31/08). Sous 480 px, une
+       colonne : la disposition cesse alors de dépendre de la police.
+     — Le bloc de preuve dit son ÉTAT une seule fois, en tête : ce sont des
+       constats, rien n'a été corrigé. Les six lignes étant du même état, le
+       répéter six fois serait du bruit — mais l'omettre serait un « avant »
+       sans « après » (veto de Camille, 31/08).
+     — Le dégradé de marque ne porte aucun mot : les boutons utilisent le
+       système du site, qui a déjà --grad-brand-deep (22/08).
+     — Aucun badge de confiance, aucun prix barré, aucune urgence, aucun
+       compte à rebours, aucun témoignage : la page SAP du 20/08 a établi que
+       ce sont précisément les marques que les faux sites imitent le mieux.
+     — Aucun chiffre inventé. Les six constats et les treize boutiques
+       viennent des rapports réels de apex-rapports/rapports/, datés des 24 et
+       25 août 2026, et le comptage est vérifiable fichier par fichier.
+
+
+  F. HORS DE MON PÉRIMÈTRE, MAIS À SAVOIR AVANT DE LANCER
+
+     Un produit en libre-service encaisse sans intervention. Les versements
+     Stripe de la maison sont désactivés depuis le 05/05/2025 : l'argent
+     entre, il ne sort pas. Ce n'est pas un défaut de cette page, mais c'est
+     une condition de fonctionnement du produit qu'elle vend.
+     ══════════════════════════════════════════════════════════════════════ -->
+
+</body>
+</html>

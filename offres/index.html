@@ -79,7 +79,7 @@
         <li><a href="#pack-reboot"><span class="chemin__cas">Tout cela à la fois</span><span class="chemin__offre">Pack Reboot Complet</span><span class="chemin__prix">850 €</span></a></li>
         <li><a href="#suivi-mensuel"><span class="chemin__cas">C'est en ordre, je veux que ça le reste</span><span class="chemin__offre">Suivi mensuel</span><span class="chemin__prix">149 €/mois</span></a></li>
         <li><a href="#audit-360"><span class="chemin__cas">Je veux le chiffrage exact avant de m'engager</span><span class="chemin__offre">Audit 360°</span><span class="chemin__prix">290 €</span></a></li>
-        <li><a href="#diagnostic-express"><span class="chemin__cas">Je ne sais pas par où commencer</span><span class="chemin__offre">Diagnostic Express</span><span class="chemin__prix">0 €</span></a></li>
+        <li><a href="#audit-automatique"><span class="chemin__cas">Je ne sais pas par où commencer</span><span class="chemin__offre">Audit automatique</span><span class="chemin__prix">29 €</span></a></li>
       </ul>
     </div>
   </section>
@@ -89,24 +89,26 @@
     <div class="enveloppe">
       <p class="surtitre">Avant de commander</p>
       <h2>Comment savoir ce qu'il vous faut</h2>
-      <p class="chapo">Deux façons de regarder votre boutique. L'une est gratuite et ne chiffre rien ; l'autre est payante et chiffre tout.</p>
+      <p class="chapo">Deux façons de regarder votre boutique. L'une liste ce qui ne va pas, l'autre chiffre chaque réparation.</p>
 
       <div class="grille-2" style="margin-top:40px">
 
-        <article class="carte offre" id="diagnostic-express">
-          <h3 class="nom">Diagnostic Express</h3>
-          <p class="montant">0 <span class="unite">€</span></p>
-          <p class="delai">Envoyé sous 48 heures</p>
+        <article class="carte offre" id="audit-automatique">
+          <h3 class="nom">Audit automatique</h3>
+          <p class="montant">29 <span class="unite">€</span></p>
+          <p class="delai">Dans l'heure, à toute heure — sans rendez-vous</p>
           <ul class="liste">
-            <li>Cinq constats sourcés sur votre boutique</li>
-            <li>Chacun avec le lien de la page où il se voit</li>
+            <li>Six familles de contrôles passées sur votre boutique</li>
+            <li>Chaque constat avec le lien de la page où il se voit</li>
+            <li>Vous entrez l'adresse, vous réglez, le rapport arrive</li>
           </ul>
           <ul class="liste hors">
-            <li>Ne chiffre rien : c'est un premier regard, pas un devis — pour un prix, l'étape suivante est l'Audit 360°, à 290 €</li>
+            <li>Ne chiffre rien : il dit ce qui ne va pas et où — pour le prix de chaque réparation, l'étape suivante est l'Audit 360°, à 290 €</li>
+            <li>Ne certifie pas votre conformité légale : il constate ce qui est présent ou absent, jamais ce que la loi exige pour votre activité</li>
           </ul>
           <div class="pousse">
-            <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander mon Diagnostic Express</a>
-            <p class="apres-bouton">Par email, sans engagement et sans rendez-vous.</p>
+            <a class="bouton secondaire" href="../audit-automatique/">Voir ce que couvre l'audit</a>
+            <p class="apres-bouton">Si votre boutique n'est pas lisible, vous êtes remboursé — sans question.</p>
           </div>
         </article>
 
@@ -341,7 +343,7 @@
           </thead>
           <tbody role="rowgroup">
             <tr role="row">
-              <th role="rowheader" scope="row"><a href="#diagnostic-express">Diagnostic Express</a></th>
+              <th role="rowheader" scope="row"><a href="#audit-automatique">Audit automatique</a></th>
               <td role="cell">Cinq constats sourcés, avec le lien de chaque page</td>
               <td role="cell"><span class="etiq">Délai&nbsp;:</span> 48 heures</td>
               <td role="cell" class="num">0 €</td>
@@ -448,16 +450,19 @@
       <div class="appel appel--fort appel--centre">
         <p class="surtitre">Pour commencer</p>
         <h2>Vous savez déjà ce qu'il vous faut ?</h2>
-        <p>Commandez directement la prestation concernée. Si vous hésitez encore, le Diagnostic Express vous aidera à choisir — ce n'est pas une version gratuite de l'Audit 360°, c'est l'étape d'avant.</p>
+        <p>Commandez directement la prestation concernée. Si vous hésitez encore, l'audit automatique à 29 € vous dira ce qui ne va pas — ce n'est pas une version réduite de l'Audit 360°, c'est l'étape d'avant : celui-ci liste, l'autre chiffre.</p>
         <div class="actions">
           <a class="bouton" href="https://buy.stripe.com/4gMfZh2C8d9lfQ55qS6kg0b">Commander le Pack Reboot — 850 €</a>
           <a class="bouton contour" href="https://buy.stripe.com/7sYfZhfoUglx6fv06y6kg0e">En deux fois — 2 × 425 €</a>
-          <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander mon Diagnostic Express</a>
+          <a class="bouton secondaire" href="../audit-automatique/">Mon audit complet — 29 €</a>
         </div>
-        <!-- Pas de .note-siret dans ce bloc : il contient un bouton GRATUIT
-             (« Demander mon Diagnostic Express »). Une note placée au-dessus des
-             trois dirait qu'un rapport gratuit exige un SIRET. Voir site.css. -->
-        <p class="apres-bouton">Commander demande un SIRET. Le Diagnostic Express est gratuit et sans engagement, envoyé sous 48 heures.</p>
+        <!-- 31/08/2026 — la mention SIRET vaut de nouveau pour les TROIS boutons.
+             Elle avait été écartée quand l'un d'eux était gratuit : une note
+             placée au-dessus des trois aurait dit qu'un rapport gratuit exige
+             un SIRET. Le gratuit a disparu au profit de l'audit à 29 €, dont
+             le lien de paiement porte un champ SIRET obligatoire — la note
+             redevient vraie pour les trois. Voir site.css. -->
+        <p class="apres-bouton">Les trois demandent un SIRET&nbsp;: nos prestations sont réservées aux professionnels. L'audit automatique est livré dans l'heure, sans rendez-vous.</p>
       </div>
     </div>
   </section>

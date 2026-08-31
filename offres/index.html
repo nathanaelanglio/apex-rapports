@@ -51,6 +51,39 @@
 
 <main id="contenu">
 
+  <!-- ══ PAR OÙ COMMENCER ══
+       31/08/2026 — agent design. Ce bloc sert DEUX fonctions, et c'est voulu :
+         — il donne un point d'entrée à neuf offres qui n'en avaient aucun ;
+         — il est le SEUL sommaire d'une page de plus de 10 000 px sur téléphone.
+       Mesuré avant : 10 837 px de haut à 375 px de large, zéro navigation
+       interne, et SEPT ancres d'offre sur neuf qui n'existaient pas — un lien
+       de prospection vers une offre précise déposait le lecteur en haut de
+       treize écrans. Les sept id manquants sont posés dans le même mouvement.
+       Aucune pastille « le plus choisi » : nous n'avons pas le volume de ventes
+       qui l'autoriserait, et un chiffre inventé n'a pas sa place ici.
+       ⚠️ Les neuf phrases sont reprises de ce que le site écrit déjà (accueil,
+       « ce qui ne marche pas », puces de chaque carte) — aucune n'invente de
+       promesse. La formulation définitive reste chez Thomas. -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Par où commencer</p>
+      <h2>Neuf prestations, une seule vous concerne</h2>
+      <p class="fine">Prenez la ligne qui ressemble le plus à votre situation. Si aucune ne vous ressemble, les deux dernières vous diront laquelle passe en premier.</p>
+
+      <ul class="chemin">
+        <li><a href="#pack-conformite"><span class="chemin__cas">Mes pages légales viennent d'un autre site</span><span class="chemin__offre">Pack Conformité</span><span class="chemin__prix">150 €</span></a></li>
+        <li><a href="#migration-domaine"><span class="chemin__cas">Je change de nom de domaine</span><span class="chemin__offre">Migration de domaine</span><span class="chemin__prix">200 €</span></a></li>
+        <li><a href="#audit-performance"><span class="chemin__cas">Ma boutique met des secondes à s'afficher</span><span class="chemin__offre">Audit de performance</span><span class="chemin__prix">250 €</span></a></li>
+        <li><a href="#kit-visuel"><span class="chemin__cas">Mon site n'a aucune identité visuelle</span><span class="chemin__offre">Kit Visuel</span><span class="chemin__prix">290 €</span></a></li>
+        <li><a href="#optimisation-seo"><span class="chemin__cas">Mes fiches produit, Google ne les classe nulle part</span><span class="chemin__offre">Optimisation du référencement</span><span class="chemin__prix">350 €</span></a></li>
+        <li><a href="#pack-reboot"><span class="chemin__cas">Tout cela à la fois</span><span class="chemin__offre">Pack Reboot Complet</span><span class="chemin__prix">850 €</span></a></li>
+        <li><a href="#suivi-mensuel"><span class="chemin__cas">C'est en ordre, je veux que ça le reste</span><span class="chemin__offre">Suivi mensuel</span><span class="chemin__prix">149 €/mois</span></a></li>
+        <li><a href="#audit-360"><span class="chemin__cas">Je veux le chiffrage exact avant de m'engager</span><span class="chemin__offre">Audit 360°</span><span class="chemin__prix">290 €</span></a></li>
+        <li><a href="#diagnostic-express"><span class="chemin__cas">Je ne sais pas par où commencer</span><span class="chemin__offre">Diagnostic Express</span><span class="chemin__prix">0 €</span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ══ AVANT DE COMMANDER ══ -->
   <section class="section">
     <div class="enveloppe">
@@ -60,19 +93,19 @@
 
       <div class="grille-2" style="margin-top:40px">
 
-        <article class="carte offre">
+        <article class="carte offre" id="diagnostic-express">
           <h3 class="nom">Diagnostic Express</h3>
           <p class="montant">0 <span class="unite">€</span></p>
-          <p class="delai">Réponse sous 20 minutes de travail</p>
+          <p class="delai">Envoyé sous 48 heures</p>
           <ul class="liste">
             <li>Cinq constats sourcés sur votre boutique</li>
             <li>Chacun avec le lien de la page où il se voit</li>
           </ul>
           <ul class="liste hors">
-            <li>Ne chiffre rien : c'est un premier regard, pas un devis</li>
+            <li>Ne chiffre rien : c'est un premier regard, pas un devis — pour un prix, l'étape suivante est l'Audit 360°, à 290 €</li>
           </ul>
           <div class="pousse">
-            <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander mon diagnostic</a>
+            <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander mon Diagnostic Express</a>
             <p class="apres-bouton">Par email, sans engagement et sans rendez-vous.</p>
           </div>
         </article>
@@ -112,11 +145,11 @@
     <div class="enveloppe">
       <p class="surtitre">À l'unité</p>
       <h2>Cinq chantiers, cinq prix fermes</h2>
-      <p class="chapo">Chacun se commande seul. Aucun ne dépend d'un autre, et aucun ne se transforme en supplément une fois commencé.</p>
+      <p class="chapo">Cinq prestations à l'unité, chacune à prix fixe, décidé avant que vous ne commandiez. Aucune ne dépend d'une autre, et aucune ne se transforme en supplément une fois commencée — pour le périmètre annoncé : jusqu'à 60 fiches produit. Catalogue plus grand ? Vous le savez avant de payer, jamais après : un devis chiffré par Audit 360° remplace le forfait.</p>
 
       <div class="grille" style="margin-top:40px">
 
-        <article class="carte offre">
+        <article class="carte offre" id="pack-conformite">
           <h3 class="nom">Pack Conformité</h3>
           <p class="montant">150 <span class="unite">€</span></p>
           <p class="delai">Livré sous 5 jours ouvrés</p>
@@ -133,7 +166,7 @@
           </div>
         </article>
 
-        <article class="carte offre">
+        <article class="carte offre" id="migration-domaine">
           <h3 class="nom">Migration de domaine</h3>
           <p class="montant">200 <span class="unite">€</span></p>
           <p class="delai">Livré sous 5 jours ouvrés</p>
@@ -150,7 +183,7 @@
           </div>
         </article>
 
-        <article class="carte offre">
+        <article class="carte offre" id="audit-performance">
           <h3 class="nom">Audit de performance</h3>
           <p class="montant">250 <span class="unite">€</span></p>
           <p class="delai">Livré sous 7 jours ouvrés</p>
@@ -167,10 +200,11 @@
           </div>
         </article>
 
-        <article class="carte offre">
+        <article class="carte offre" id="optimisation-seo">
           <h3 class="nom">Optimisation du référencement</h3>
           <p class="montant">350 <span class="unite">€</span></p>
           <p class="delai">Livré sous 10 jours ouvrés</p>
+          <p style="font-size:.875rem;margin:0">Pour un catalogue jusqu'à 60 fiches produit. Au-delà, un devis chiffré par l'<a href="#audit-360">Audit 360°</a> remplace ce prix.</p>
           <ul class="liste">
             <li>Titres H1 revus page par page</li>
             <li>Méta-descriptions réécrites</li>
@@ -215,12 +249,22 @@
 
       <div class="grille-2" style="margin-top:40px">
 
-        <article class="carte offre avant">
+        <article class="carte offre avant" id="pack-reboot">
           <span class="pastille">Le plus complet</span>
           <h3 class="nom">Pack Reboot Complet</h3>
           <p class="montant">850 <span class="unite">€</span></p>
+          <!-- 31/08/2026 — agent design. La réassurance monte CONTRE le prix.
+               L'objection ne se forme pas devant le bouton, elle se forme devant
+               le montant : le lecteur lit « 850 » en 43 px et sa question arrive
+               là. La réponse était 300 px plus bas, en gris, après qu'il a
+               tranché. Le poids des boutons ne bouge pas — c'est l'INFORMATION
+               qui remonte, pas la hiérarchie des actions. Voir site.css.
+               ✅ Modalité VÉRIFIÉE le 31/08 sur le lien Stripe lui-même :
+               il débite 425,00 €, et son libellé produit porte « acompte 50
+               pourcent a la commande (solde 425 EUR a la livraison) ». -->
+          <p class="paiement-alt">ou <b>2 × 425 €</b> — la seconde moitié à la livraison</p>
           <p class="delai">Livré sous 20 jours ouvrés</p>
-          <p style="font-size:.875rem;margin:0">Les quatre prestations ci-dessus, plus trois articles de blog rédigés pour votre activité.</p>
+          <p style="font-size:.875rem;margin:0">Les quatre prestations ci-dessus, plus trois articles de blog rédigés pour votre activité. Pour un catalogue jusqu'à 60 fiches produit — au-delà, un devis chiffré par l'<a href="#audit-360">Audit 360°</a> remplace ce prix.</p>
           <ul class="liste">
             <li>Pack Conformité, migration, performance et référencement</li>
             <li>Trois articles de blog écrits et publiés</li>
@@ -237,21 +281,22 @@
           </div>
         </article>
 
-        <article class="carte offre">
+        <article class="carte offre" id="suivi-mensuel">
           <h3 class="nom">Suivi mensuel</h3>
           <p class="montant">149 <span class="unite">€ / mois</span></p>
           <p class="delai">Sans engagement de durée</p>
-          <p style="font-size:.875rem;margin:0">Pour une boutique déjà remise d'aplomb, et qu'il s'agit de ne pas laisser se dégrader.</p>
+          <p style="font-size:.875rem;margin:0">Pour une boutique déjà remise d'aplomb, et qu'il s'agit de ne pas laisser se dégrader. Votre premier mois, daté :</p>
           <ul class="liste">
-            <li>Référencement suivi et corrigé au fil des mois</li>
-            <li>Articles de blog réguliers</li>
-            <li>Lecture des statistiques et ce qu'il faut en retenir</li>
-            <li>Conseils écrits, sans rendez-vous imposé</li>
+            <li><strong>Semaine 1</strong> — état des lieux Search Console et 3 actions SEO prioritaires</li>
+            <li><strong>Semaine 2</strong> — un article de blog optimisé SEO livré, avec CTA vers vos produits</li>
+            <li><strong>Semaine 3</strong> — corrections appliquées sur les pages prioritaires</li>
+            <li><strong>Semaine 4</strong> — récapitulatif écrit : ce qui a été fait, ce qui est prévu ensuite</li>
           </ul>
+          <p class="fine">Chaque mois suivant reprend ce rythme : un article, des corrections SEO continues, un récapitulatif daté.</p>
           <div class="pousse">
             <p class="note-siret"><b>SIRET</b> demandé au paiement.</p>
             <a class="bouton pleine secondaire" href="https://buy.stripe.com/eVq28r4Kgc5h9rH4mO6kg0g">S'abonner — 149 €/mois</a>
-            <p class="apres-bouton">Prélèvement mensuel, résiliable à tout moment depuis votre espace, sans préavis ni frais.</p>
+            <p class="apres-bouton">Résiliable à tout moment, sans préavis ni justification, par simple email — le mois déjà entamé reste dû, aucune facturation après la résiliation.</p>
           </div>
         </article>
 
@@ -265,27 +310,91 @@
       <p class="surtitre">Récapitulatif</p>
       <h2>Tout, sur une ligne chacun</h2>
 
-      <div class="defile" tabindex="0" role="region" aria-label="Récapitulatif des prestations et des prix" style="margin-top:32px">
-        <table>
+      <!-- 31/08/2026 — agent design. TROIS CHANGEMENTS DE STRUCTURE, en plus de
+           la mise en page (voir site.css pour la mesure complète) :
+           • <tfoot> SUPPRIMÉ. Il logeait le Pack Reboot — contresens sémantique
+             (un pied de tableau résume des colonnes, il n'abrite pas une offre)
+             ET il forçait le Reboot APRÈS le Suivi mensuel, à l'inverse de
+             l'ordre de la page. Remplacé par <tr class="phare">, même effet
+             visuel, à sa place.
+           • LES TROIS OFFRES MANQUANTES AJOUTÉES (Diagnostic, Audit 360°, Kit
+             Visuel) : le tableau en listait SIX sur neuf sous un titre qui
+             annonce « Tout ». Le titre devient vrai, il n'a pas eu à changer.
+             La première ligne que lit quelqu'un qui descend ici est désormais un
+             prix nul. L'ordre est CELUI DE LA PAGE — un récapitulatif qui
+             réordonne oblige le lecteur à réapprendre ce qu'il vient de lire.
+           • LE NOM DE CHAQUE OFFRE DEVIENT UN LIEN vers sa carte. C'est ce qui
+             fait du récapitulatif un instrument et non une décoration.
+           Rôles ARIA explicites : sous 721 px les éléments passent en
+           display:block, ce qui retire le tableau de son rôle natif pour
+           certains lecteurs d'écran. Les rôles le rendent. -->
+      <div class="defile defile--tarifs" tabindex="0" role="region" aria-label="Récapitulatif des prestations et des prix" style="margin-top:32px">
+        <table class="tarifs" role="table">
           <caption>Prix en euros hors taxes. TVA non applicable, article 293 B du code général des impôts.</caption>
-          <thead>
-            <tr>
-              <th scope="col">Prestation</th>
-              <th scope="col">Ce qui est livré</th>
-              <th scope="col">Délai</th>
-              <th scope="col" class="num">Prix</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col">Prestation</th>
+              <th role="columnheader" scope="col">Ce qui est livré</th>
+              <th role="columnheader" scope="col">Délai</th>
+              <th role="columnheader" scope="col" class="num">Prix</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><th scope="row">Pack Conformité</th><td>Mentions légales, CGV, confidentialité, pied de page</td><td>5 jours</td><td class="num">150 €</td></tr>
-            <tr><th scope="row">Migration de domaine</th><td>Nouveau domaine, redirections 301, Search Console</td><td>5 jours</td><td class="num">200 €</td></tr>
-            <tr><th scope="row">Audit de performance</th><td>Nettoyage des scripts et styles, vitesse</td><td>7 jours</td><td class="num">250 €</td></tr>
-            <tr><th scope="row">Optimisation du référencement</th><td>H1, méta-descriptions, textes alternatifs, URLs, fil d'Ariane</td><td>10 jours</td><td class="num">350 €</td></tr>
-            <tr><th scope="row">Suivi mensuel</th><td>Référencement continu, articles, statistiques, conseils</td><td>Mensuel</td><td class="num">149 €/mois</td></tr>
+          <tbody role="rowgroup">
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#diagnostic-express">Diagnostic Express</a></th>
+              <td role="cell">Cinq constats sourcés, avec le lien de chaque page</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 48 heures</td>
+              <td role="cell" class="num">0 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#audit-360">Audit 360°</a></th>
+              <td role="cell">Dix spécialités, le volume réel, un devis ferme</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 3 jours</td>
+              <td role="cell" class="num">290 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#pack-conformite">Pack Conformité</a></th>
+              <td role="cell">Mentions légales, CGV, confidentialité, pied de page</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 5 jours</td>
+              <td role="cell" class="num">150 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#migration-domaine">Migration de domaine</a></th>
+              <td role="cell">Nouveau domaine, redirections 301, Search Console</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 5 jours</td>
+              <td role="cell" class="num">200 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#audit-performance">Audit de performance</a></th>
+              <td role="cell">Nettoyage des scripts et styles, vitesse</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 7 jours</td>
+              <td role="cell" class="num">250 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#optimisation-seo">Optimisation du référencement</a></th>
+              <td role="cell">H1, méta-descriptions, textes alternatifs, URLs, fil d'Ariane — jusqu'à 60 fiches produit</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 10 jours</td>
+              <td role="cell" class="num">350 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#kit-visuel">Kit Visuel</a></th>
+              <td role="cell">Mini-charte, quatre visuels dessinés, trois blocs</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 3 jours</td>
+              <td role="cell" class="num">290 €</td>
+            </tr>
+            <tr role="row" class="phare">
+              <th role="rowheader" scope="row"><a href="#pack-reboot">Pack Reboot Complet</a></th>
+              <td role="cell">Les quatre prestations + trois articles de blog — jusqu'à 60 fiches produit</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> 20 jours</td>
+              <td role="cell" class="num">850 €</td>
+            </tr>
+            <tr role="row">
+              <th role="rowheader" scope="row"><a href="#suivi-mensuel">Suivi mensuel</a></th>
+              <td role="cell">Un article, corrections SEO continues, récapitulatif daté</td>
+              <td role="cell"><span class="etiq">Délai&nbsp;:</span> mensuel</td>
+              <td role="cell" class="num">149 €/mois</td>
+            </tr>
           </tbody>
-          <tfoot>
-            <tr><th scope="row">Pack Reboot Complet</th><td>Les quatre prestations + trois articles de blog</td><td>20 jours</td><td class="num">850 €</td></tr>
-          </tfoot>
         </table>
       </div>
       <p class="fine" style="margin-top:16px">Les quatre prestations prises séparément reviennent à 950 €. Le pack les rassemble à 850 € et ajoute trois articles.</p>
@@ -339,16 +448,16 @@
       <div class="appel appel--fort appel--centre">
         <p class="surtitre">Pour commencer</p>
         <h2>Vous savez déjà ce qu'il vous faut ?</h2>
-        <p>Commandez directement la prestation concernée. Si vous hésitez entre deux, le rapport d'audit gratuit vous dira laquelle passe en premier, et pourquoi.</p>
+        <p>Commandez directement la prestation concernée. Si vous hésitez encore, le Diagnostic Express vous aidera à choisir — ce n'est pas une version gratuite de l'Audit 360°, c'est l'étape d'avant.</p>
         <div class="actions">
           <a class="bouton" href="https://buy.stripe.com/4gMfZh2C8d9lfQ55qS6kg0b">Commander le Pack Reboot — 850 €</a>
           <a class="bouton contour" href="https://buy.stripe.com/7sYfZhfoUglx6fv06y6kg0e">En deux fois — 2 × 425 €</a>
-          <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Rapport%20d%27audit">Demander le rapport d'audit</a>
+          <a class="bouton secondaire" href="mailto:contact@apexautomation.fr?subject=Diagnostic%20Express">Demander mon Diagnostic Express</a>
         </div>
         <!-- Pas de .note-siret dans ce bloc : il contient un bouton GRATUIT
-             (« Demander le rapport d'audit »). Une note placée au-dessus des
+             (« Demander mon Diagnostic Express »). Une note placée au-dessus des
              trois dirait qu'un rapport gratuit exige un SIRET. Voir site.css. -->
-        <p class="apres-bouton">Commander demande un SIRET. Le rapport d'audit est gratuit et sans engagement, envoyé sous 48 heures.</p>
+        <p class="apres-bouton">Commander demande un SIRET. Le Diagnostic Express est gratuit et sans engagement, envoyé sous 48 heures.</p>
       </div>
     </div>
   </section>

@@ -255,7 +255,12 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;
 }
-@media (max-width: 430px) {
+/* `screen and` — durcissement du 31/08/2026, voir le bloc TARIFS en fin de
+   fichier : une page A4 mesure 793,7 px, donc TOUT palier d'écran relevé
+   au-dessus descendrait dans le bac d'imprimante sans que rien ne le signale.
+   Aucun des trois paliers ci-dessous ne déclenche à l'impression aujourd'hui —
+   c'est une parade, pas un correctif. Coût : trois mots. */
+@media screen and (max-width: 430px) {
   .menu__bouton { padding: 0; width: 44px; justify-content: center; }
   .menu__bouton .menu__mot {
     position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -464,7 +469,7 @@ strong { color: var(--text-strong); font-weight: var(--fw-semibold); }
 .actions--ancres { gap: 10px; }
 .actions--ancres .bouton { min-height: 44px; padding: 11px 16px; font-size: var(--fs-sm); }
 
-@media (max-width: 560px) {
+@media screen and (max-width: 560px) {
   .actions { flex-direction: column; gap: 12px; }
   .actions .bouton { width: 100%; }
 
@@ -571,7 +576,7 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
 /* ── LE MENU DÉROULANT, sous 720 px ──────────────────────────────────────────
    720 et non 640 : à 700 px les quatre entrées tiennent, mais collées au logo.
    Mesuré — le premier confort revient vers 730. */
-@media (max-width: 720px) {
+@media screen and (max-width: 720px) {
   .menu__bouton { display: inline-flex; }
 
   /* Le panneau se pose sous l'en-tête, pleine largeur. Le repère de position
@@ -655,4 +660,218 @@ tfoot th, tfoot td { font-weight: var(--fw-bold); color: var(--text); background
 
   a { color: #111; text-decoration: underline; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #3a3a3a; word-break: break-all; }
+}
+
+/* ============================================================================
+   RÉCAPITULATIF DES TARIFS, CHEMIN D'ENTRÉE, PAIEMENT EN DEUX FOIS
+   Agent design — prescrit le 30/08/2026, posé et vérifié ici le 31/08/2026.
+   ----------------------------------------------------------------------------
+   ⛔ LE DÉFAUT, ET CE QUE LA MESURE DE LARGEUR NE DIT PAS.
+   Mesuré sur cette page à 375 px, AVANT : tableau de 620 px (`min-width:620px`)
+   dans un conteneur de 341. Colonne PRIX à x=543, colonne DÉLAI à x=451 — hors
+   champ toutes les deux — et la mention TVA du <caption>, large de 620 px,
+   coupée net sur « …TVA non applicable, article ».
+
+   Le conteneur défilait, et proprement (`overflow-x:auto`, `tabindex="0"`,
+   `role="region"`, `aria-label`). C'est EXACTEMENT ce qui rendait le défaut
+   invisible : aucun dégradé de bord, aucune ombre, aucune flèche — le tableau
+   s'arrêtait net sur une colonne pleine. Le lecteur ne cherchait pas le prix :
+   il concluait qu'il n'y en avait pas. Sur la page titrée « Chaque prestation
+   a un prix. Il est écrit ici. »
+   Un défilement horizontal non signalé n'est pas une gêne, c'est une affirmation
+   d'exhaustivité fausse — la seule erreur qu'un lecteur ne peut pas rattraper.
+
+   MESURÉ APRÈS, à 375 px : les neuf prix ont leur bord droit au même x, zéro
+   débordement de page et de conteneur, mention TVA entière. À 722 px : le
+   tableau redevient un tableau, inchangé.
+
+   POURQUOI LE PALIER EST À 720 ET PAS À 560 : le tableau réclame 620 px, il
+   déborderait encore à 600. Et 720 reste SOUS les 793,7 px d'une feuille A4 —
+   l'impression n'en voit rien. (Panne du 28/08 : un palier d'écran au-dessus de
+   793,7 descend dans le bac d'imprimante. Tout palier d'écran s'écrit donc
+   `screen and`, ici et dans les trois paliers plus haut dans ce fichier.)
+   ============================================================================ */
+
+/* L'en-tête est `sticky` et mesure 69 px. Sans cette ligne, tout saut d'ancre
+   dépose la cible SOUS la barre : le lecteur arrive sur un prix sans son titre.
+   C'est `scroll-padding` sur le conteneur de défilement qu'il faut, PAS
+   `scroll-margin` sur `:target` — ce dernier ne s'applique que si l'élément est
+   déjà la cible, donc jamais au premier saut. */
+html { scroll-padding-top: 88px; }
+
+/* ---------------------------------------------------------------------------
+   LE CHEMIN D'ENTRÉE — neuf offres, un point d'entrée
+   ---------------------------------------------------------------------------
+   Deux fonctions à la fois, et c'est voulu : point d'entrée pour neuf offres
+   qui n'en avaient aucun, et SEUL sommaire d'une page de plus de 10 000 px sur
+   téléphone. Le prix est calé à droite sur une colonne : les neuf bords droits
+   tombent au même x, ce qui rend la comparaison possible d'un regard — au lieu
+   de neuf allers-retours de 1 200 px dans la page.
+   Aucune pastille de classement : nous n'avons pas le volume de ventes qui
+   autoriserait un « le plus choisi », et un chiffre inventé n'a pas sa place.
+   --------------------------------------------------------------------------- */
+.chemin { list-style: none; margin: var(--space-5) 0 0; padding: 0; display: grid; gap: 10px; }
+.chemin > li { margin: 0; }
+.chemin a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline; column-gap: var(--space-4); row-gap: 6px;
+  height: 100%; padding: 14px 16px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--ink-1); text-decoration: none;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.chemin a:hover { border-color: var(--violet-300); background: var(--ink-2); }
+.chemin a:focus-visible { outline: none; box-shadow: var(--focus-ring); border-color: var(--violet-300); }
+
+.chemin__cas   { grid-column: 1 / -1; font-size: var(--fs-body); color: var(--text-body); }
+.chemin__offre { grid-column: 1; font-weight: var(--fw-semibold); color: var(--cyan-300); }
+.chemin__prix  { grid-column: 2; text-align: right; white-space: nowrap;
+                 font-weight: var(--fw-black); color: var(--text);
+                 font-variant-numeric: tabular-nums; }
+
+@media screen and (min-width: 721px) { .chemin { grid-template-columns: 1fr 1fr; gap: 12px; } }
+
+/* ---------------------------------------------------------------------------
+   LE PAIEMENT EN DEUX FOIS — la réassurance monte CONTRE le prix
+   ---------------------------------------------------------------------------
+   Contradiction assumée le 30/08, et c'est elle qui a été retenue : ce qu'il
+   fallait remonter, c'est l'INFORMATION, pas le poids du bouton. Le bouton
+   « En deux fois » reste en .contour — cette hiérarchie-là est juste, elle a
+   été créée le 24/08 pour séparer une action qui débite une carte d'une action
+   qui envoie un courriel, et deux boutons pleins côte à côte forceraient le
+   lecteur à choisir un MODE DE PAIEMENT avant d'avoir choisi d'ACHETER.
+   Le vrai défaut était ailleurs : l'objection ne se forme pas devant le bouton,
+   elle se forme devant le montant. Le lecteur lit « 850 » en 43 px de haut, et
+   la réponse était 300 px plus bas, en gris, après qu'il a tranché.
+   ✅ Modalité vérifiée le 31/08 sur le lien Stripe : il débite 425,00 €, et son
+   libellé produit porte « acompte 50 pourcent a la commande (solde 425 EUR a la
+   livraison) ». La mention n'est pas écrite sur une promesse non contrôlée.
+   La marge sous le montant est annulée pour que les deux se lisent d'un seul
+   regard : sans cela, la gouttière de .offre (16 px) S'AJOUTE à la marge basse
+   du paragraphe (16 px) et repousse la ligne à 32 px du prix. */
+.offre .montant:has(+ .paiement-alt) { margin-bottom: 0; }
+.paiement-alt { margin: 0; font-size: var(--fs-sm); line-height: 1.4; color: var(--text-body); }
+.paiement-alt b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------------------
+   LE TABLEAU
+   --------------------------------------------------------------------------- */
+
+/* Le libellé repris dans chaque fiche empilée. Muet tant que le tableau est un
+   tableau : la colonne porte déjà son en-tête. */
+.tarifs .etiq { display: none; }
+
+/* Un prix ne se coupe pas en deux lignes. Vu à l'impression, où le tableau
+   retombe à 778 px : « 149 €/mois » passait sur deux lignes au milieu d'une
+   colonne dont le seul travail est d'être balayée de haut en bas. Le défaut est
+   antérieur à ce correctif, il se voyait seulement moins dans un tableau
+   incomplet. Vérifié après : aucun débordement, ni à l'écran ni sur la feuille. */
+.tarifs td.num { white-space: nowrap; }
+
+/* La ligne phare remplace l'ancien <tfoot>, qui logeait le Pack Reboot. Même
+   effet visuel, mais à sa place dans l'ordre de la page. */
+.tarifs tr.phare th, .tarifs tr.phare td {
+  background: var(--grad-brand-soft);
+  border-top: 1px solid var(--violet-300);
+  border-bottom: 1px solid var(--violet-300);
+  font-weight: var(--fw-bold); color: var(--text);
+}
+
+@media screen and (max-width: 720px) {
+
+  /* 1. Le conteneur cesse de défiler : plus rien ne dépasse, donc plus rien à
+        signaler. On supprime la cause, on n'ajoute pas un indice de défilement. */
+  .defile--tarifs { overflow: visible; border: 0; background: none; border-radius: 0; }
+
+  /* 2. Le tableau se démonte. `min-width:620px` est la cause première du défaut. */
+  .tarifs { display: block; min-width: 0; }
+  .tarifs caption { display: block; padding: 0 0 var(--space-4); }
+  /* Masqué à l'œil, PAS retiré : les en-têtes de colonne restent annoncés. */
+  .tarifs thead {
+    position: absolute; width: 1px; height: 1px; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .tarifs tbody { display: block; }
+
+  /* 3. Chaque ligne devient une fiche. Le nom et le prix partagent la première
+        ligne : le prix retrouve un x fixe et la colonne se lit de haut en bas.
+        C'est tout ce qu'on demande à cette page. Un tableau qui défile déporte
+        le prix ET fait sortir le nom par la gauche — on lit un montant sans
+        savoir de quoi. Ici les deux restent ensemble, toujours. */
+  .tarifs tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "nom   prix"
+      "livre livre"
+      "delai delai";
+    column-gap: var(--space-4);
+    align-items: baseline;
+    padding: 14px 16px;
+    margin: 0 0 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--ink-1);
+  }
+  .tarifs tbody tr:last-child { margin-bottom: 0; }
+
+  .tarifs tbody th, .tarifs tbody td { display: block; padding: 0; border: 0; }
+
+  .tarifs tbody th               { grid-area: nom;   font-size: var(--fs-body); }
+  .tarifs tbody td:nth-of-type(1){ grid-area: livre; margin-top: 8px;
+                                   font-size: var(--fs-sm); color: var(--text-body); }
+  .tarifs tbody td:nth-of-type(2){ grid-area: delai; margin-top: 6px;
+                                   font-size: var(--fs-sm); color: var(--muted); }
+  .tarifs tbody td.num {
+    grid-area: prix; text-align: right; white-space: nowrap;
+    font-size: 1.3rem; line-height: 1.1; font-weight: var(--fw-black);
+    color: var(--text); letter-spacing: -.02em;
+  }
+
+  .tarifs .etiq { display: inline; color: var(--muted); }
+
+  /* La teinte passe sur la FICHE, pas sur ses cellules : posée deux fois, un
+     dégradé semi-transparent double sa densité. */
+  .tarifs tr.phare { background: var(--grad-brand-soft); border-color: var(--violet-300); }
+  .tarifs tr.phare th, .tarifs tr.phare td { background: none; border: 0; }
+
+}
+
+/* ⛔ UNE RÈGLE D'ALIGNEMENT JUSTE SUR GRILLE DEVIENT UNE BANDE MORTE EN COLONNE
+   UNIQUE — ET LE PALIER OÙ ELLE SE RELÂCHE N'EST PAS CELUI DU TABLEAU.
+   `.offre .nom{min-height:2.6em}` réserve deux lignes de titre pour que les prix
+   tombent à la même hauteur d'une carte à l'autre. C'est juste TANT QUE deux
+   cartes partagent une rangée ; dès qu'il n'y en a qu'une, il n'y a plus rien à
+   aligner et il reste 24 px de vide entre le titre et son montant, neuf fois.
+
+   ⚠️ Ma prescription du 30/08 relâchait la règle à 720 px, avec le tableau.
+   MESURÉ ICI LE 31/08, c'était FAUX pour cinq cartes sur neuf : les deux grilles
+   ne se replient pas à la même largeur, parce qu'elles n'ont pas le même
+   `minmax()`.
+       .grille   (les cinq « à l'unité », minmax 238px) → 1 colonne à ≤ 540 px
+                 mesuré : 2 colonnes de 246,8 px encore à 560, de 330 px à 743
+       .grille-2 (Diagnostic/Audit 360°, Reboot/Suivi, minmax 330px)
+                 → 1 colonne à ≤ 742 px, 2 colonnes de 330,2 px dès 743
+   Un palier unique à 720 aurait donc SUPPRIMÉ l'alignement des cinq cartes « à
+   l'unité » entre 541 et 720 px — là où elles sont encore côte à côte — et
+   l'aurait laissé en place sur les quatre autres entre 721 et 742, où elles sont
+   déjà seules. Deux paliers, un par grille, chacun mesuré.
+
+   Les deux restent SOUS les 793,7 px d'une feuille A4 : l'impression n'en voit
+   rien, et `screen and` le garantit de toute façon.
+   ⚠️ Ces deux nombres sont liés au `minmax()` de chaque grille et au clamp de
+   --gutter. Si l'un des trois bouge, les REMESURER — ils ne se devinent pas. */
+@media screen and (max-width: 540px)  { .grille   .offre .nom { min-height: 0; } }
+@media screen and (max-width: 742px)  { .grille-2 .offre .nom { min-height: 0; } }
+
+@media print {
+  /* Le chemin est un dispositif de NAVIGATION : sur papier il n'y a rien à
+     atteindre, et le récapitulatif ci-dessous liste déjà les neuf offres avec
+     leur prix. Même logique que l'en-tête et le menu, masqués plus haut. */
+  .chemin { display: none; }
+  /* --grad-brand-soft vaut `none` à l'impression : la ligne phare perdrait
+     toute marque. Le contour survit même si l'imprimante refuse les fonds. */
+  .tarifs tr.phare th, .tarifs tr.phare td {
+    background: #f2f0fb; border-top: 1px solid #5B21B6; border-bottom: 1px solid #5B21B6;
+  }
 }

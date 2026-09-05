@@ -5,28 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Assistance à domicile — papiers et ordinateur, en Martinique</title>
-<meta name="description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier et crédit d'impôt de 50 % expliqué en deux temps.">
+<meta name="description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier, crédit d'impôt de 50 % expliqué, et l'avance immédiate pour ne régler que la moitié le jour même.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Assistance à domicile — papiers et ordinateur, en Martinique">
+<meta property="og:description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier, crédit d'impôt de 50 % expliqué, et l'avance immédiate pour ne régler que la moitié le jour même.">
+<meta property="og:locale" content="fr_FR">
 <style>
-:root{
-  /* Charte de la maison — config/charte-graphique.md */
-  --encre:#1B365D;        /* 12,1:1 sur blanc — corps, traits           */
-  --encre-forte:#12233D;  /* 15,8:1 — titres                            */
-  --gris:#4A4E5A;         /*  8,3:1 — mentions légales uniquement       */
-  --or:#C8941E;           /*  2,7:1 — aplats et filets, JAMAIS un mot   */
-  --papier:#FFFFFF;
-  --papier-bloc:#F4F5F8;
+/* =====================================================================
+   PAGE SAP — reprise visuelle du 04/09/2026, agent design.
+   Charte d'execution : livrables/offres/page-vente-sap-charte.md
+   Lecteur vise : 70-80 ans, souvent sur telephone. Plancher AAA 7:1,
+   corps 20 px, rien sous 17 px, aucune police telechargee, aucun script,
+   aucune image distante.
 
-  /* Teintes d'illustration — 25/08/2026, agent design.
-     Elles n'existent QUE dans les dessins : aucun texte ne se pose
-     dessus, aucune information n'en dépend. Même statut que l'or.
-     Déposées ici en hexadécimal, comme l'exige la règle du 22/08. */
-  --ill-ciel:#E8F1F4;
-  --ill-mer:#7FB6C4;
-  --ill-morne:#5C8F6B;
-  --ill-sable:#F2E4CE;
-  --ill-bois:#C79A62;
-  color-scheme: only light;
+   CE QUI EST EMPRUNTE A ADOMSAP, ET RELEVE AU PIXEL SUR LEURS FICHES
+   METIER (livrables/supports-commerciaux/adomsap-ressources/) :
+     papier          #FFFFFF   46 % de leur page
+     panneau contenu #D8F6F6   24 %
+     panneau regle   #F6E9D8   17 %
+     vague lavande   #D7C0F4    3 %
+     encre           #071E6C    2 %
+     turquoise       #00C2CB   0,3 %
+   Sont repris : les DEUX SURFACES (bleu = contenu, peche = cadre
+   reglementaire), les coins tres arrondis, le cadre pointille, la vague.
+   NE SONT PAS REPRIS : leur encre #071E6C (nous gardons le marine de la
+   maison, voir plus bas) et surtout leur turquoise EN TEXTE — mesure sur
+   leur propre fiche, « Prestations expressement eligibles » en #00C2CB
+   sur #D8F6F6 donne 1,92:1. Chez nous le turquoise ne porte jamais un mot,
+   dans aucun des deux themes.
+   ===================================================================== */
+
+:root{
+  color-scheme: light dark;
+
+  /* — Notre encre. Marine de la maison, pas celle d'AdomSAP : cette page
+       est signee par nous, AdomSAP y est nomme comme prestataire. Porter
+       leur encre ferait croire qu'on est sur leur site, ce qui est
+       exactement la confusion dont ce public doit etre protege. — */
+  --encre:        #1B365D;  /* 12,12:1 sur blanc · 10,64 sur le panneau   */
+  --encre-forte:  #12233D;  /* 15,75:1 — titres                            */
+  --gris:         #474B57;  /*  8,71 blanc · 7,64 bleu · 7,28 peche        */
+  --papier:       #FFFFFF;
+
+  /* — Citations AdomSAP — */
+  --panneau:      #D8F6F6;  /* CONTENU : ce qu'on vous apporte             */
+  --regle:        #F6E9D8;  /* CADRE   : limites, mentions, ce qu'on refuse*/
+  --lavande:      #D7C0F4;  /* decor seul, une seule vague, aucun mot      */
+  --deco:         #D8F6F6;  /* la vague d'ouverture. Jeton distinct du
+                               panneau : en sombre, la teinte du panneau
+                               tombe a 1,15:1 sur le fond et la vague
+                               disparait — la page reperd le geste qu'on
+                               vient de lui donner.                        */
+  --turquoise:    #00C2CB;  /* 2,19:1 sur blanc — AUCUN mot, jamais        */
+  --or:           #C8941E;  /* 2,72:1 sur blanc — AUCUN mot, jamais        */
+
+  --bord:         #1B365D;  /* le bloc est porte par sa BORDURE : la teinte
+                               du panneau ne vaut que 1,14:1 sur le papier,
+                               elle disparait sur un ecran ancien.          */
+  --filet:        #C3CBD8;
+  --note-fond:    #EDEEF1;  /* bande de travail : --gris y tient 7,50:1   */
+
+  /* — CE QUI COMPTE S'INVERSE. Deux blocs seulement sur toute la page :
+       le credit d'impot et le telephone. Dans les deux themes ils sont
+       le contraire de leur page — c'est ce qui les rend impossibles a
+       manquer sans un seul badge ni une seule ombre portee. — */
+  --inverse-fond:    #1B365D;
+  --inverse-encre:   #FFFFFF;  /* 12,12:1 */
+  --inverse-filet:   #6E86A8;  /*  3,25:1 sur le fond inverse — c'est un
+                                  BORD, pas un decor : il delimite la fiche
+                                  qui porte les montants, donc 1.4.11 le
+                                  veut a 3:1. Le premier essai (#26456F)
+                                  donnait 1,25:1 et n'existait pas.       */
+  --inverse-mention: #C9D8EE;  /*  8,39:1 sur --inverse-fond              */
+  --focus:        #12233D;
 }
+
+/* SOMBRE — bloc 1/2 : reglage du systeme.
+   ⛔ 04/09 : un jeton corrige dans un seul bloc n'est corrige que dans un
+   theme. Toute valeur ajoutee ici doit l'etre AUSSI dans le bloc 2, et le
+   controle se fait en COMPTANT les definitions, pas en lisant le CSS. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --encre:        #E6EDF7;  /* 14,65:1 sur le fond · 12,79 sur le panneau */
+    --encre-forte:  #FFFFFF;  /* 17,26:1 */
+    --gris:         #AFBBCD;  /*  8,89 fond · 7,76 panneau · 8,65 regle    */
+    --papier:       #0F1B2E;
+    --panneau:      #16273E;
+    --regle:        #2A2016;  /* la peche devient un brun chaud : la
+                                 distinction contenu/cadre survit          */
+    --lavande:      #3A2E52;  /* 1,39:1 sur le fond — visible en teinte    */
+    --deco:         #213B5A;  /* 1,51:1 sur le fond                        */
+    --turquoise:    #00C2CB;
+    --or:           #C8941E;
+    --bord:         #63809F;  /* 4,21 fond · 3,67 panneau · 4,09 regle     */
+    --filet:        #3A4A61;
+    --note-fond:    #1A2233;  /* --gris y tient 8,19:1 */
+    --inverse-fond:    #D8F6F6;
+    --inverse-encre:   #12233D;  /* 13,82:1 */
+    --inverse-filet:   #6B7F86;  /*  3,68:1 sur #D8F6F6 */
+    --inverse-mention: #3C4657;  /*  8,36:1 sur --inverse-fond */
+    --focus:        #FFD166;  /* 11,97:1 */
+  }
+}
+/* SOMBRE — bloc 2/2 : choix manuel du lecteur (l'hote d'artifact pose
+   data-theme sur la racine). Copie conforme du bloc ci-dessus. */
+:root[data-theme="dark"]{
+    --encre:        #E6EDF7;
+    --encre-forte:  #FFFFFF;
+    --gris:         #AFBBCD;
+    --papier:       #0F1B2E;
+    --panneau:      #16273E;
+    --regle:        #2A2016;
+    --lavande:      #3A2E52;
+    --deco:         #213B5A;
+    --turquoise:    #00C2CB;
+    --or:           #C8941E;
+    --bord:         #63809F;
+    --filet:        #3A4A61;
+    --note-fond:    #1A2233;
+    --inverse-fond:    #D8F6F6;
+    --inverse-encre:   #12233D;
+    --inverse-filet:   #6B7F86;
+    --inverse-mention: #3C4657;
+    --focus:        #FFD166;
+}
+
 *{box-sizing:border-box}
 html{font-size:100%;-webkit-text-size-adjust:100%}
 body{
@@ -34,590 +137,1129 @@ body{
   background:var(--papier);
   color:var(--encre);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:1.25rem;
+  font-size:1.25rem;      /* 20 px — plancher de confort du public senior */
   line-height:1.65;
   font-weight:400;
   -webkit-font-smoothing:antialiased;
   overflow-wrap:break-word;
 }
-.page{max-width:44rem;margin:0 auto;padding:0 1.25rem 4rem}
-.prose{max-width:36rem}
+.page{max-width:50rem;margin:0 auto;padding:0 1.25rem}
+.prose{max-width:36rem}   /* 58-60 signes : au-dela l'oeil perd la ligne */
 p{margin:0 0 1.25rem}
-strong{font-weight:700}
+p:last-child{margin-bottom:0}
+strong{font-weight:700;color:var(--encre-forte)}
 a{color:var(--encre-forte)}
-a:focus-visible{outline:3px solid var(--encre);outline-offset:2px}
+a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 
-.filet{display:flex;height:5px}
-.filet i{flex:1 1 auto;background:var(--encre)}
-.filet b{flex:0 0 6rem;background:var(--or)}
-
-.epreuve{
-  border:3px solid var(--encre);
-  border-left-width:12px;
-  padding:1.25rem 1.5rem;
-  margin:1.5rem 0 2rem;
-  font-size:1.0625rem;
-  line-height:1.6;
+h1,h2,h3{color:var(--encre-forte)}
+h1{font-size:2.25rem;line-height:1.2;font-weight:700;margin:.75rem 0 1rem;max-width:34rem;letter-spacing:-.005em}
+h2{font-size:1.75rem;line-height:1.3;font-weight:700;margin:0 0 1.25rem}
+/* LE SOULIGNE TURQUOISE — la signature d'AdomSAP, et le seul emploi que
+   je donne a leur couleur. Sur leurs propres fiches, ce turquoise porte
+   du TEXTE sur le panneau bleu pale : mesure, 1,92:1. Ici il ne porte
+   jamais un mot, dans aucun des deux themes ; il souligne, et le titre
+   au-dessus est en marine a 15,75:1. La structure de la page tient a la
+   taille des titres et au blanc entre les sections — ce filet est un
+   accent, il ne separe rien tout seul. */
+h2::after{
+  content:"";display:block;width:3rem;height:4px;border-radius:2px;
+  background:var(--turquoise);margin-top:.625rem;
 }
-.epreuve p{margin:0 0 .75rem}
-.epreuve p:last-child{margin:0}
-.epreuve .titre{font-size:1.375rem;font-weight:700;color:var(--encre-forte);display:block;margin-bottom:.5rem}
+h3{font-size:1.5rem;line-height:1.35;font-weight:700;margin:0 0 .5rem}
+section{margin-top:4rem}
 
-.acompleter{
-  display:block;
-  border:2px dashed var(--encre);
-  padding:.75rem 1rem;
-  margin:0 0 1.25rem;
-  font-size:1.0625rem;
-  line-height:1.55;
-  color:var(--encre-forte);
-  font-weight:600;
+/* ── LE DECOR. Deux vagues, pas une de plus, et aucune ne touche un mot.
+      Les vagues d'AdomSAP sont belles et couteuses en attention : sur une
+      page que le lecteur doit croire, elles ne servent qu'a marquer le
+      DEBUT et la FIN. Nulle part le long du texte. ─────────────────── */
+.deco{display:block;width:100%;height:auto}
+.deco-haut{fill:var(--deco)}
+.deco-bas{fill:var(--lavande);margin-top:4rem}
+
+/* ── NOTE DE TRAVAIL. Bande grise, angles VIFS, pleine largeur : c'est
+      exactement le contraire du document (arrondi, teinte, encadre), donc
+      personne ne la prend pour une partie de l'offre.
+      ⛔ Premier essai le 04/09 : un cadre pointille arrondi — soit la
+      grammaire exacte du bloc d'identite, qui est l'element de confiance
+      le plus important de la page. Une note temporaire ne peut pas porter
+      le meme habit que la piece maitresse. Elle se retire en supprimant
+      ce seul element. ─────────────────────────────────────────────── */
+.note-interne{
+  background:var(--note-fond);
+  border-bottom:2px solid var(--filet);
+  font-size:1.0625rem;line-height:1.55;color:var(--gris);
 }
+.note-interne .cadre{max-width:50rem;margin:0 auto;padding:1.25rem}
+.note-interne .titre{
+  display:block;font-weight:700;color:var(--encre-forte);
+  font-size:1.0625rem;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:.375rem;
+}
+.note-interne ul{margin:.5rem 0 0;padding-left:1.25rem}
+.note-interne li{margin-bottom:.375rem}
+.note-interne li:last-child{margin-bottom:0}
 
+/* ── L'EN-TETE. Bloc-marque typographique + filet or : notre papier a
+      lettres. Aucun logo invente, aucun logo emprunte. ─────────────── */
+.entete{padding-top:1.5rem}
+.marque{
+  font-size:1.375rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--encre-forte);line-height:1.3;
+  margin:0 0 .625rem;
+}
+.marque-filet{display:flex;height:5px;max-width:16rem;margin:0 0 2rem;border-radius:3px;overflow:hidden}
+.marque-filet i{flex:1 1 auto;background:var(--bord)}
+.marque-filet b{flex:0 0 4rem;background:var(--or)}
+
+/* ── LE BLOC D'IDENTITE. Cadre pointille arrondi : le seul emprunt de
+      FORME a AdomSAP, place exactement la ou AdomSAP est nomme. C'est la
+      carte professionnelle qu'on tend sur le pas de la porte. ──────── */
 .identite{
-  border:2px solid var(--encre);
+  border:2px dotted var(--bord);
+  border-radius:22px;
+  background:var(--papier);
   padding:1.5rem 1.75rem;
-  margin-top:2.5rem;
-  font-size:1.125rem;
-  line-height:1.6;
-  display:flex;
-  gap:1.5rem;
-  align-items:flex-start;
+  font-size:1.125rem;line-height:1.6;
 }
-.identite .texte{flex:1 1 18rem;min-width:0}
 .identite p{margin:0 0 1rem}
 .identite p:last-child{margin:0}
-.portrait{flex:0 0 8.5rem;max-width:8.5rem}
-.portrait svg{display:block;width:100%;height:auto;border:2px solid var(--encre)}
-.portrait .legende{
-  display:block;
-  border:2px dashed var(--encre);
-  border-top:0;
-  padding:.5rem .625rem;
-  font-size:1.0625rem;   /* plancher absolu du document : 17 px */
-  line-height:1.4;
-  font-weight:600;
-  color:var(--encre-forte);
+/* ⛔ LE PREMIER POINT D'ACTION SE SITUE, IL NE SE COMPTE PAS — 30/08.
+   Mesure le 04/09 sur cette page : le premier numero TAPABLE arrivait a
+   54,7 % de la hauteur, soit 8 ecrans de telephone sans une seule sortie
+   vers nous. Le telephone figurait pourtant deja dans le bloc d'identite
+   prescrit par la charte du 20/08 (« Nom, activite, Martinique, SIRET,
+   n° SAP, telephone ») — il en avait ete oublie. */
+.identite .ligne-tel{
+  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+  margin-top:1rem;padding-top:1rem;border-top:1px solid var(--filet);
 }
-@media (max-width:34rem){
-  .identite{display:block}
-  .portrait{max-width:7rem;margin:0 0 1.25rem}
-  .portrait .legende{font-size:.9375rem;padding:.375rem .5rem}
+.identite .ligne-tel .lien-tel{
+  display:inline-flex;align-items:center;min-height:3.5rem;padding:0 .25rem;
+  font-size:1.375rem;font-weight:800;font-variant-numeric:tabular-nums;
+  color:var(--encre-forte);text-decoration:none;white-space:nowrap;
 }
-
-/* Illustrations — dessinées pour ce document, aucune ressource distante.
-   Le trait marine porte le dessin ; les aplats sont un bonus qui peut
-   disparaître chez une imprimante qui refuse les fonds. */
-.illustration{
-  display:block;width:100%;height:auto;
-  border:2px solid var(--encre);
-  margin:2.5rem 0 0;
+.identite .ligne-tel .lien-tel span{border-bottom:3px solid var(--or);padding-bottom:3px}
+/* ⛔ NE JAMAIS APPELER CETTE CLASSE « .num » : c'est le nom du carre
+   numerote des etapes, qui impose 42x42 px, un fond inverse et un rayon.
+   Pose ici par erreur le 04/09, le numero SAP sortait en pastille bleue
+   debordant du cadre — vu a la capture, pas au CSS. */
+.identite .numero{
+  font-variant-numeric:tabular-nums;font-weight:700;
+  letter-spacing:.02em;color:var(--encre-forte);white-space:nowrap;
 }
-.horizon{display:block;width:100%;height:auto;margin-top:3rem}
-.horizon + footer{margin-top:1.25rem;border-top:0;padding-top:0}
-.vignette{flex:0 0 auto;width:4.5rem;height:4.5rem}
 
 .eyebrow{
-  margin-top:3rem;
-  font-size:1.125rem;
-  font-weight:600;
-  letter-spacing:.01em;
-  color:var(--encre);
+  margin:2.5rem 0 0;font-size:1.125rem;font-weight:600;
+  letter-spacing:.01em;color:var(--encre);
 }
-h1{font-size:2.25rem;line-height:1.2;font-weight:700;color:var(--encre-forte);margin:.75rem 0 1rem;max-width:34rem}
-.chapeau{font-size:1.4375rem;line-height:1.55;max-width:36rem;margin:0 0 1.25rem}
-h2{font-size:1.75rem;line-height:1.3;font-weight:700;color:var(--encre-forte);margin:0 0 1.25rem}
-h3{font-size:1.5rem;line-height:1.35;font-weight:700;color:var(--encre-forte);margin:0 0 .5rem}
-section{margin-top:3.5rem}
+.chapeau{font-size:1.4375rem;line-height:1.55;max-width:36rem;margin:0}
 
-.bloc{border:2px solid var(--encre);padding:1.5rem 1.75rem;margin-top:1.5rem}
-.bloc-fort{border-left-width:10px}
-.bloc p:last-child,.bloc ul:last-child{margin-bottom:0}
-.sous-titre{
-  font-size:1.3125rem;font-weight:700;line-height:1.35;
-  color:var(--encre-forte);
-  margin:1.75rem 0 .5rem;
+/* ── LES PANNEAUX. Deux surfaces, deux roles, et jamais l'inverse.
+      bleu  = ce qu'on vous apporte
+      peche = le cadre, les limites, ce qu'on refuse de faire
+      La bordure porte le bloc ; la teinte n'est qu'un confort. ─────── */
+.panneau,.panneau-regle{
+  border:2px solid var(--bord);
+  border-radius:22px;
+  padding:1.75rem 1.875rem;
 }
-.bloc > .sous-titre:first-of-type{margin-top:.5rem}
+.panneau{background:var(--panneau)}
+.panneau-regle{background:var(--regle);border-left-width:10px}
+.panneau > :last-child,.panneau-regle > :last-child{margin-bottom:0}
 
-.pictos{display:flex;align-items:center;gap:.875rem;margin-bottom:.25rem;flex-wrap:wrap}
+/* ── LES TROIS ETAPES. Une frise verticale dans un seul panneau : le
+      trait qui relie les numeros dit « c'est une suite », ce que trois
+      blocs identiques empiles ne disaient pas. ─────────────────────── */
+.etapes{list-style:none;margin:0;padding:0;position:relative}
+.etape{display:flex;gap:1.25rem;align-items:flex-start;padding-bottom:2rem;position:relative}
+.etape:last-child{padding-bottom:0}
+.etape::before{
+  content:"";position:absolute;left:1.4375rem;top:3rem;bottom:.5rem;
+  width:2px;background:var(--bord);opacity:.45;
+}
+.etape:last-child::before{display:none}
+.num{
+  flex:0 0 auto;width:3rem;height:3rem;border-radius:14px;
+  background:var(--inverse-fond);color:var(--inverse-encre);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;font-weight:700;line-height:1;position:relative;z-index:1;
+}
+/* 34rem = 544 px ≈ 55 signes en Arial : dans la fourchette de lecture, et
+   le panneau ne garde plus que 124 px de teinte vide a droite (17 %) au
+   lieu de 156. On borne la boite ou le contenu, mais on mesure l'ecart. */
+.etape .txt{max-width:34rem;padding-top:.25rem}
+.etape .txt p{margin:0}
+.etape h3{margin-bottom:.25rem;font-size:1.375rem}
+
+/* ── LES DEUX FORMULES. Cote a cote des qu'il y a la place : c'est une
+      comparaison, et une comparaison sur deux ecrans n'en est plus une. */
+.formules{display:grid;gap:1.5rem}
+.formule{display:flex;flex-direction:column}
+.pictos{display:flex;align-items:center;gap:.875rem;margin-bottom:.75rem}
 .pictos svg{flex:0 0 auto}
-.pictos h3{flex:1 1 12rem;min-width:0}
+.pictos h3{margin:0;font-size:1.5rem}
+.formule .prix{
+  font-size:3rem;font-weight:800;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--encre-forte);
+  margin:.5rem 0 .25rem;
+}
+.formule .reste{font-size:1.5rem;font-weight:600;line-height:1.3;margin:0;color:var(--encre-forte)}
+.formule .reste-exp{font-size:1.125rem;line-height:1.55;margin:.5rem 0 1.25rem;color:var(--gris)}
+.formule .critere{margin:0 0 .75rem}
 
 ul.liste{list-style:none;margin:0 0 1.25rem;padding:0}
-ul.liste li{position:relative;padding-left:1.75rem;margin-bottom:.625rem}
+ul.liste:last-child{margin-bottom:0}
+ul.liste li{position:relative;padding-left:1.75rem;margin-bottom:.75rem}
 ul.liste li:last-child{margin-bottom:0}
 ul.liste li::before{
   content:"";position:absolute;left:0;top:.62em;
-  width:.55rem;height:.55rem;background:var(--encre);
+  width:.55rem;height:.55rem;border-radius:2px;background:var(--bord);
 }
+.colonnes{margin-bottom:0}
 
-.deux{display:flex;flex-wrap:wrap;gap:2rem}
-.deux > div{flex:1 1 17rem;min-width:0}
-
-.cumul{
-  border:2px solid var(--encre);
-  border-left-width:10px;
-  background:var(--papier-bloc);
-  padding:1.5rem 1.75rem;
-  margin-top:2rem;
-  font-size:1.4375rem;
-  line-height:1.5;
-  font-weight:600;
-  color:var(--encre-forte);
+/* ── LE CREDIT D'IMPOT. Le seul bloc inverse de la page, et le seul
+      tableau. C'est l'argument qui fait basculer : il ne peut pas rester
+      noye dans un pave. Aucun badge, aucun prix barre, aucune urgence —
+      la force vient de l'inversion et du chiffre, pas du vocabulaire. */
+.credit{
+  background:var(--inverse-fond);color:var(--inverse-encre);
+  border:2px solid var(--bord);border-radius:22px;
+  padding:1.75rem 1.875rem;
 }
-.cumul p{margin:0 0 .75rem}
-.cumul p:last-child{margin:0;font-size:1.25rem;font-weight:400;line-height:1.6}
+.credit h2,.credit h3,.credit strong{color:var(--inverse-encre)}
+.credit > :last-child{margin-bottom:0}
+.credit .mention{color:var(--inverse-mention);font-size:1.0625rem;line-height:1.6;margin:1.25rem 0 0}
+.credit ul.liste li::before{background:var(--inverse-encre)}
 
-.tab-enveloppe{overflow-x:auto;border:2px solid var(--encre)}
-.tab-enveloppe:focus-visible{outline:3px solid var(--encre);outline-offset:3px}
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{
-  border:1px solid var(--encre);
-  padding:.75rem .875rem;
-  text-align:left;
-  vertical-align:top;
-  font-size:1.125rem;
-  line-height:1.45;
+.grille-credit{width:100%;border-collapse:collapse;margin:0 0 1.5rem;text-align:left}
+.grille-credit caption{
+  text-align:left;font-size:1.125rem;line-height:1.5;
+  color:var(--inverse-mention);padding-bottom:.75rem;
 }
-thead th{
-  background:var(--papier-bloc);
-  font-weight:700;
-  color:var(--encre-forte);
-  font-size:1.0625rem;
-  vertical-align:bottom;
+.grille-credit th,.grille-credit td{
+  padding:.875rem 1rem;border-bottom:2px solid var(--inverse-filet);
+  vertical-align:baseline;
 }
-th.num,td.num{text-align:right;white-space:nowrap}
-/* Le montant reste insécable, sa mention se replie. Sans cette ligne, le
-   nowrap est hérité par le .sub et gonfle la largeur minimale du tableau
-   au-delà de la colonne : mesuré 672 px pour 664 disponibles, le 25/08. */
-td .sub{white-space:normal}
-tbody th{font-weight:700;color:var(--encre-forte);font-size:1.1875rem}
-.sub{display:block;font-weight:400;font-size:1.0625rem;color:var(--gris);line-height:1.4}
-/* Les deux montants ont exactement le même poids typographique.
-   Décision du 25/08 : le relevé de prix martiniquais montre que nous
-   sommes +67 % en prix affiché sur l'administratif et −17 % en reste
-   à charge. Toute la comparaison se joue sur la colonne de droite ;
-   la mettre en second plan, c'est perdre le prospect avant qu'il
-   comprenne. Les deux temps restent écrits, aucun n'est omis. */
-td.paye,td.rendu{font-weight:800;font-size:1.5rem;color:var(--encre-forte);line-height:1.2}
-td.rendu{border-left-width:3px}
-tr.cle th,tr.cle td{border-top-width:3px;border-bottom-width:3px}
-.marque-cle{display:block;font-weight:600;font-size:1.0625rem;color:var(--encre);line-height:1.4;margin-top:.25rem}
-.etq{display:none}
+.grille-credit thead th{
+  font-size:1.0625rem;font-weight:600;line-height:1.4;
+  color:var(--inverse-mention);border-bottom-width:2px;
+}
+/* Les deux colonnes de montants font la meme largeur : sans cela elles
+   epousent la longueur de leur INTITULE (mesure : 219,5 et 287,6 px), et
+   les chiffres cessent de se lire sur une grille. Les deux montants ont
+   la meme taille et la meme graisse, delibererement : la formulation « a
+   un seul temps » — n'annoncer que le reste a charge — a ete jugee
+   trompeuse le 25/08, et un ecart TYPOGRAPHIQUE la produirait aussi. */
+.grille-credit th:first-child{width:34%}
+.grille-credit th:nth-child(2),.grille-credit th:nth-child(3){width:33%}
+.grille-credit tbody th{font-size:1.25rem;font-weight:700;padding-left:0}
+/* ⛔ 05/09 — UNE CLASSE PORTEE PAR LE HTML ET ABSENTE DE LA FEUILLE NE SE
+   VOIT PAS AU CSS, ELLE SE VOIT AU RENDU. « .sub » qualifie chaque formule
+   du tableau des prix ; il n'etait defini nulle part. Mesure au navigateur :
+   le libelle sortait en 20 px / 700 dans la couleur du titre, colle au nom
+   sans une espace — le lecteur avait « Séance à domicile2 heures chez vous »,
+   et sur la troisieme ligne un pave gras de 191 px de haut a l'interieur du
+   <th>. C'est la ligne d'entete du tableau des prix, c'est-a-dire l'endroit
+   exact ou le lecteur decide. Meme reglage que « .etq », qui est son
+   symetrique dans la meme fiche : 17 px, graisse 400, --inverse-mention
+   (8,39:1 en clair, 8,36 en sombre, 8,71 a l'impression). */
+.grille-credit tbody th .sub{
+  display:block;margin-top:.25rem;
+  font-size:1.0625rem;line-height:1.45;font-weight:400;
+  color:var(--inverse-mention);
+}
+.grille-credit tbody tr:last-child th,
+.grille-credit tbody tr:last-child td{border-bottom:0}
+.grille-credit .val{
+  font-size:1.75rem;font-weight:800;line-height:1.2;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.grille-credit .etq{display:none}
 
-.apres-tab{font-size:1.125rem;line-height:1.6;margin:1rem 0 0}
+/* ── LE SECOND POINT D'ACTION, a mi-page. Sans lui, il n'existe aucune
+      sortie entre l'en-tete et le pied — mesure en fin de fichier. ── */
+.rappel-tel{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.25rem;
+  border:2px solid var(--bord);border-radius:18px;
+  padding:1rem 1.25rem;margin-top:1.5rem;background:var(--papier);
+}
+.rappel-tel p{margin:0;font-size:1.125rem;flex:1 1 14rem}
+/* Cible tactile 56 px : une motricite fine reduite ne vise pas 44 px.
+   Un lien telephone en simple souligne mesure 30 px de haut — il n'est
+   pas ratable a l'oeil, il est ratable au doigt. */
+.rappel-tel .lien-tel{
+  display:inline-flex;align-items:center;min-height:3.5rem;
+  font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;
+  color:var(--encre-forte);text-decoration:none;white-space:nowrap;
+  padding:0 .25rem;
+}
+/* Le filet or reste colle au texte : porte par un span interieur et non
+   par le bord de la cible tactile, sinon il flotte 20 px sous le chiffre.
+   `border-bottom` et non `box-shadow` : une ombre ne sort pas du bac. */
+.rappel-tel .lien-tel span{border-bottom:3px solid var(--or);padding-bottom:3px}
 
-.phrase-seule{font-size:1.4375rem;line-height:1.55;max-width:36rem;margin:3.5rem 0 0;font-weight:600;color:var(--encre-forte)}
+/* ── LES QUESTIONS. Rien ne se replie : un contenu cache est un contenu
+      qu'on soupconne. Filets fins pour changer de texture sans ajouter
+      un cinquieme encadre. ────────────────────────────────────────── */
+.qr{max-width:36rem;padding:1.5rem 0;border-top:1px solid var(--filet)}
+.qr:first-of-type{border-top:0;padding-top:0}
+.qr:last-of-type{padding-bottom:0}
+.qr h3{font-size:1.375rem;margin-bottom:.375rem}
+.qr p{margin:0}
 
-.contact{border:3px solid var(--encre);padding:1.75rem}
+/* ── LE CONTACT. Le second bloc inverse. Cible tactile 64 px : une
+      motricite fine reduite ne vise pas 44 px. ─────────────────────── */
+.contact{
+  background:var(--panneau);border:2px solid var(--bord);
+  border-radius:22px;padding:1.75rem 1.875rem;
+}
 .contact p{max-width:32rem}
 .tel{
-  display:block;
-  border:3px solid var(--encre);
-  padding:1rem 1.25rem;
-  min-height:4rem;
-  font-size:2rem;font-weight:700;line-height:1.4;
-  font-variant-numeric:tabular-nums;
+  display:flex;align-items:center;justify-content:center;gap:.75rem;
+  background:var(--inverse-fond);color:var(--inverse-encre);
+  border:2px solid var(--bord);border-radius:16px;
+  padding:1rem 1.25rem;min-height:4.5rem;
+  font-size:clamp(1.625rem,7vw,2rem);font-weight:800;line-height:1.2;
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;
   text-align:center;text-decoration:none;
-  color:var(--encre-forte);
   margin:1.5rem 0 1rem;
 }
-.mail{font-size:1.25rem;margin:0}
+.tel svg{flex:0 0 auto}
+.mail{font-size:1.25rem;margin:0 0 1rem}
+/* ⛔ UNE ADRESSE COUPEE NE SE RECOPIE PLUS — 28/08, re-mesure le 04/09.
+   Mesure au canvas dans la police du LECTEUR (Arial/Roboto d'Android, pas
+   Segoe UI du poste) : l'adresse de courriel de la maison fait 300,1 px a
+   20 px, pour 303 px disponibles a 375 et 248 a 320 — donc elle se cassait
+   sur « gmail.co / m ». Coupee APRES l'arobase (208,9 + 91,1 px), elle
+   tient partout et reste lisible et dictable. Les deux moities sont
+   insecables ; le <wbr> est le SEUL endroit ou la coupure est permise. */
+.insec{white-space:nowrap}
 
 footer{
-  margin-top:3.5rem;
-  border-top:2px solid var(--encre);
-  padding-top:1.5rem;
-  font-size:1.0625rem;
-  line-height:1.6;
-  color:var(--gris);
+  background:var(--regle);
+  border-top:2px solid var(--bord);
+  padding:2.5rem 0 3rem;
+  font-size:1.0625rem;line-height:1.6;color:var(--gris);
 }
-footer p{margin:0 0 1rem}
+footer .page{padding-top:0}
+footer p{margin:0 0 1rem;max-width:44rem}
 footer p:last-child{margin:0}
-footer strong{color:var(--encre)}
+footer strong{color:var(--encre-forte)}
 
-@media (max-width:40rem){
+/* ─────────────────────────────────────────────────────────────────────
+   PALIERS QUI AJOUTENT. ⛔ 31/08 : on n'ecrit PAS « screen and » sur un
+   min-width. La feuille A4 imprimee mesure 180 mm utiles (~680 px) et
+   passe donc naturellement sous ces paliers : les blocs s'y empilent,
+   ce qui est le bon comportement papier. « screen and » ne protege que
+   de ce qu'on RETIRE a l'etroit, jamais de ce qu'on ajoute au large.
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width:48rem){
+  /* ⛔ `stretch` (le defaut d'une grille) etirait « Dossier accompagne » a
+     la hauteur de « Coup de main » et sa liste de neuf points : mesure le
+     04/09, 460,6 px de fond cyan vide en bas de carte, soit 45 % de sa
+     hauteur. Un panneau teinte a moitie vide se lit comme un bloc mal
+     monte — et, a cote d'un panneau plein, comme la formule la moins
+     fournie. Les deux cartes commencent a la meme hauteur et finissent ou
+     leur contenu finit ; les deux PRIX, eux, restent au meme y (mesure :
+     ecart 0), et c'est le seul alignement que la comparaison exige. */
+  .formules{grid-template-columns:1fr 1fr;align-items:start}
+  .colonnes{columns:2;column-gap:2.5rem}
+  .colonnes li{break-inside:avoid}
+  h1{font-size:2.625rem}
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PALIERS QUI DEGRADENT — reserves a l'ecran.
+   ───────────────────────────────────────────────────────────────────── */
+@media screen and (max-width:40rem){
   h1{font-size:1.875rem}
   h2{font-size:1.5rem}
-  .chapeau,.cumul,.phrase-seule{font-size:1.3125rem}
-  .bloc,.contact,.identite,.cumul{padding:1.25rem}
+  section{margin-top:3rem}
+  .panneau,.panneau-regle,.credit,.contact{padding:1.25rem}
+  .identite{padding:1.25rem 1.375rem}
+  .formule .prix{font-size:2.5rem}
+  .formule .reste{font-size:1.375rem}
 
-  /* Sous 640 px, le tableau devient des blocs empilés.
-     Motif mesuré le 25/08 : en tableau, il faisait 548 px dans une
-     enveloppe de 335 px — la colonne du crédit d'impôt était hors
-     champ, et c'est elle qui décide. Un lecteur de 80 ans ne fait
-     pas glisser un tableau du doigt pour voir un prix. */
-  .tab-enveloppe{border:0;overflow:visible}
-  table{width:100%}
-  thead{display:none}
-  tbody,tr,th,td{display:block}
-  tr{
-    border:2px solid var(--encre);
-    padding:1.125rem 1.25rem;
-    margin-bottom:1.25rem;
+  /* ⛔ 30/08 : un tableau qui deborde sans marque de troncature AFFIRME
+     etre complet. Ici il ne deborde pas — il devient une fiche par ligne,
+     libelle a gauche, montant cale a droite. */
+  .grille-credit,.grille-credit tbody,.grille-credit tr,
+  .grille-credit td,.grille-credit th{display:block}
+  /* ⛔ Le <caption> reste en `table-caption` quand la table passe en bloc :
+     il se fabrique alors une table anonyme vide et sa largeur tombe a la
+     largeur du mot le plus long. Mesure le 04/09 : la phrase d'introduction
+     sortait sur 55 px de large, un mot par ligne. */
+  .grille-credit caption{display:block;width:100%}
+  .grille-credit thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .grille-credit tbody tr{
+    border:2px solid var(--inverse-filet);border-radius:14px;
+    padding:.875rem 1rem;margin-bottom:1rem;
   }
-  tr:last-child{margin-bottom:0}
-  tr.cle{border-width:4px}
-  th,td{border:0;padding:0;text-align:left}
-  th.num,td.num{text-align:left;white-space:normal}
-  tbody th{font-size:1.375rem;margin-bottom:.875rem}
-  .marque-cle{margin-top:.5rem}
-  td{margin-top:.875rem}
-  .etq{
-    display:block;
-    font-size:1.0625rem;font-weight:600;line-height:1.4;
-    color:var(--encre);
+  .grille-credit tbody tr:last-child{margin-bottom:0}
+  /* width:auto : les largeurs de colonne du mode tableau enfermeraient le
+     titre de ligne dans 34 % de la fiche une fois passe en bloc. */
+  .grille-credit th,.grille-credit td{border-bottom:0;padding:0;width:auto}
+  /* ⛔ 05/09 — CETTE REGLE NE GAGNAIT PAS, ET SON COMMENTAIRE AFFIRMAIT LE
+     CONTRAIRE. « .grille-credit th » pese (0,1,1) ; « .grille-credit
+     th:first-child{width:34%} », ecrit plus haut pour le mode tableau, pese
+     (0,2,1) et l'emportait — une media query n'ajoute aucun poids. Mesure a
+     320 px : le titre de ligne restait enferme dans 71 px sur 210, soit
+     exactement les 34 % que la ligne au-dessus pretend annuler ; « Forfait
+     mensuel « Tranquillité » » descendait sur 489 px de haut, six a sept
+     signes par ligne. Le defaut existait depuis le 04/09 et il etait
+     invisible : le CSS dit la bonne intention, la cascade fait l'inverse.
+     Meme poids, ecrit plus tard : la regle passe devant. */
+  .grille-credit th:first-child{width:auto}
+  .grille-credit tbody th{margin-bottom:.5rem}
+  /* ⛔ 05/09 — L'ETIQUETTE ET LE MONTANT NE TIENNENT PAS TOUJOURS SUR UNE
+     LIGNE, ET C'EST LE MONTANT QUI SORTAIT. Mesure a 320 px : « 84,50 €/mois »
+     fait 168 px insecables, l'etiquette ne descend pas sous 58 px, la gouttiere
+     en prend 16 — 242 px pour 210 disponibles. Le montant depassait de 32 px et
+     passait PAR-DESSUS le bord arrondi de sa propre fiche. C'est le plus gros
+     chiffre du tableau qui s'echappait de sa boite, sur la seule page ou le
+     lecteur compare des prix. `flex-wrap` le fait descendre d'une ligne quand
+     il ne tient pas ; `margin-left:auto` le garde cale a droite meme seul sur
+     sa ligne, donc les six montants conservent le meme bord droit (mesure
+     apres correction : 265 px pour les six). */
+  .grille-credit td{
+    display:flex;align-items:baseline;justify-content:space-between;
+    flex-wrap:wrap;gap:.25rem 1rem;padding:.375rem 0;
   }
-  td.paye,td.rendu{font-size:1.75rem;line-height:1.15}
-  td.rendu{border-left-width:0}
-  td .sub{font-size:1.125rem;margin-top:.125rem}
+  .grille-credit .etq{
+    display:block;font-size:1.0625rem;line-height:1.4;font-weight:400;
+    color:var(--inverse-mention);flex:1 1 auto;
+  }
+  .grille-credit .val{flex:0 0 auto;margin-left:auto}
 }
-@media (max-width:26rem){
-  .tel{font-size:1.5rem;padding:1rem .5rem}
+/* ⛔ 05/09 — UNE LIGNE SUR SIX TRAITEE AUTREMENT SE LIT COMME UN DEFAUT, PAS
+   COMME UNE ADAPTATION. Le repli ci-dessus reglait le debordement, il laissait
+   une fiche incoherente : mesure a 320 px, « Le jour de la visite » (136) +
+   gouttiere (16) + « 90 € » (58) = 210 pour 210 disponibles — cette ligne-la
+   tenait, les cinq autres passaient a la ligne. Dans la MEME fiche, un montant
+   a droite de son etiquette et le suivant en dessous.
+   Le premier palier ou les six tiennent vraiment se calcule : pire cas
+   « Après crédit d'impôt » (135) + 16 + « 84,50 €/mois » (168) = 319 px, et la
+   cellule vaut la largeur d'ecran moins 108 — donc 427 px. C'est douze pixels
+   sous l'iPhone Pro Max et trente-sept au-dessus de l'iPhone 14 : un seuil pose
+   la se joue a l'appareil pres (defaut du 31/08). 30 rem = 480 px, ou la ligne
+   redevient CONFORTABLE — 45 px de reserve sur le pire cas. En dessous, les six
+   s'empilent, montant cale a droite : les six bords droits restent au meme x. */
+@media screen and (max-width:30rem){
+  .grille-credit td{display:block;padding:.5rem 0}
+  .grille-credit .etq{margin-bottom:.125rem}
+  .grille-credit .val{display:block;text-align:right}
+}
+@media screen and (max-width:26rem){
+  .page{padding:0 1rem}
+  .etape{gap:.875rem}
+  .etape::before{left:1.28125rem}
+  .num{width:2.625rem;height:2.625rem;font-size:1.375rem}
+  .marque{font-size:1.1875rem;letter-spacing:.08em}
+  .tel{padding:1rem .5rem}
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   L'IMPRESSION. On concoit pour l'imprimante qui refuse les fonds :
+   chaque bloc garde sa BORDURE, et les deux blocs inverses redeviennent
+   blancs a encre marine — sinon ils disparaissent. Aucun texte essentiel
+   en blanc sur marine sur du papier.
+   ───────────────────────────────────────────────────────────────────── */
 @media print{
   @page{size:A4;margin:15mm}
-  body{font-size:12.5pt;line-height:1.55;color:#1B365D}
+  /* ⛔ `!important` N'EST PAS UN CONFORT ICI, C'EST LE FILET — 31/08.
+     Ce bloc pese (0,1,0) comme `:root`. Le bloc de theme manuel, lui,
+     est `:root[data-theme="dark"]` et pese (0,2,0) : sans `!important`
+     il BAT le bloc d'impression. Une page imprimee depuis le theme
+     sombre serait sortie en aplat marine plein a texte blanc — et une
+     imprimante qui refuse les fonds aurait rendu une feuille vide.
+     Le defaut n'existe que dans un cas de figure que personne ne teste,
+     ce qui est exactement la raison de le verrouiller. */
+  :root{
+    --papier:#FFFFFF!important;--encre:#1B365D!important;
+    --encre-forte:#12233D!important;--gris:#474B57!important;
+    --panneau:#FFFFFF!important;--regle:#FFFFFF!important;
+    --bord:#1B365D!important;--filet:#C3CBD8!important;
+    --note-fond:#FFFFFF!important;--deco:#FFFFFF!important;
+    --lavande:#FFFFFF!important;
+    --inverse-fond:#FFFFFF!important;--inverse-encre:#12233D!important;
+    --inverse-filet:#1B365D!important;--inverse-mention:#474B57!important;
+    --focus:#12233D!important;
+  }
+  body{font-size:12.5pt;line-height:1.55;background:#FFFFFF;color:#1B365D}
   .page{max-width:none;padding:0}
-  section{margin-top:20pt}
-  h1{font-size:22pt;margin-top:8pt}
-  h2{font-size:16.5pt}
-  h3{font-size:13.5pt}
+  .deco,.note-interne{display:none}
+  section{margin-top:22pt}
+  h1{font-size:22pt}h2{font-size:17pt}h3{font-size:14pt}
   .chapeau{font-size:14pt}
-  .cumul{font-size:13.5pt;background:transparent}
-  .cumul p:last-child{font-size:12pt}
-  .eyebrow{font-size:11.5pt;margin-top:10pt}
-  .identite,.epreuve,.acompleter,.apres-tab{font-size:11.5pt}
-  th,td{font-size:11.5pt;padding:5pt 6pt}
-  thead th{font-size:11pt;background:transparent}
-  tbody th{font-size:12pt}
-  /* Sans cette ligne, le .sub reste en rem (17 px ≈ 12,75 pt) et devient
-     plus gros que le texte de sa propre cellule à l'impression. */
-  .sub{font-size:11pt}
-  td.paye{font-size:16pt}
-  td.rendu{font-size:13pt}
-  .marque-cle{font-size:11pt}
-  .phrase-seule{font-size:13pt;margin-top:20pt}
-  .tel{font-size:20pt;border-width:2pt;min-height:0;padding:8pt}
-  .mail{font-size:12pt}
-  footer{font-size:11pt;margin-top:20pt}
-  .tab-enveloppe{overflow:visible;border:2px solid #1B365D}
-  table{width:100%}
-  thead{display:table-header-group}
-  tbody{display:table-row-group}
-  tr{display:table-row;border:0;padding:0;margin:0}
-  th,td{display:table-cell;border:1px solid #1B365D}
-  th.num,td.num{text-align:right;white-space:nowrap}
-  .etq{display:none}
-  .illustration{margin-top:14pt;max-height:66mm}
-  .horizon{margin-top:16pt;max-height:20mm}
-  .horizon + footer{margin-top:8pt}
-  .portrait{flex-basis:32mm;max-width:32mm}
-  .portrait .legende{font-size:10.5pt}
-  .vignette{width:14mm;height:14mm}
-  .illustration,.horizon,.identite,.pictos{break-inside:avoid}
-  .epreuve,.identite,.contact,.bloc,.cumul,.tab-enveloppe{break-inside:avoid}
-  tr{break-inside:avoid}
-  a{color:#1B365D;text-decoration:none}
+  .eyebrow{font-size:11.5pt;margin-top:12pt}
+  .formule .prix{font-size:26pt}
+  .formule .reste{font-size:16pt}
+  .identite,.reste-exp,.credit .mention{font-size:11.5pt}
+  .credit{border-width:3pt}
+  .tel{font-size:20pt;min-height:0;padding:8pt;border-width:2pt}
+  footer{font-size:11pt;margin-top:22pt;padding:12pt 0 0;background:#FFFFFF}
+  .identite,.formule,.panneau,.panneau-regle,.credit,.contact,.qr,.etape,.rappel-tel{break-inside:avoid}
+  a{color:#12233D;text-decoration:none}
 }
+
+/* Contraste force (Windows) : les fonds systeme remplacent les notres.
+   On garde les bordures, sinon les blocs se soudent. */
+/* `!important` pour la meme raison qu'au bloc `print` : un garde-fou se
+   place au-dessus de tout ce qui viendra apres lui, sinon il ne protege
+   que le code deja ecrit (31/08). */
+@media (forced-colors: active){
+  .panneau,.panneau-regle,.credit,.contact,.identite,.tel,.num,.rappel-tel,
+  .grille-credit tbody tr{
+    border:2px solid CanvasText!important;
+  }
+  .marque-filet i,.marque-filet b,ul.liste li::before,h2::after{background:CanvasText!important}
+  .deco{display:none!important}
+}
+
+  /* --- Les trois scenes, posees par APEX le 04/09/2026 -------------------------------
+     Revu par l'agent design le 05/09/2026. Trois corrections, chacune mesuree au
+     navigateur sur sap-final.html ; le detail est dans le rapport de veto.
+
+     ⚠️ Ce bloc est un litteral gabarit JavaScript : aucun accent grave ici, il
+        fermerait la chaine et l'assemblage sortirait une page sans feuille de style.
+
+     1. ⛔ LE FLOAT EST RETIRE, ET IL NE PEUT PAS ETRE REMIS TEL QUEL.
+        « float:right » a ete pose sur une figure placee APRES le panneau des etapes.
+        Un float ne remonte jamais a cote d'un bloc qui le precede : il descend sous
+        lui, puis deborde de sa section, faute de conteneur de flottants.
+        Mesure a 1280 px : la scene sortait de 239 px sous sa propre section (bas de
+        section 2890, bas de la scene 3129) et venait se poser a cote du titre
+        « Les tarifs, ecrits en entier » (y 2953). Mesure a 900 px : 240 px de
+        debordement, meme resultat. Et en tombant la, elle retrecissait la scene 3 a
+        408 px au lieu de 760 — 46 % de largeur en moins, hauteur 144 au lieu de 266.
+        Donc : l'illustration des ETAPES illustrait les TARIFS, et ecrasait au passage
+        l'illustration des tarifs. Invisible sous 832 px, invisible dans le CSS.
+        Pour obtenir vraiment « en regard des etapes », c'est le HTML qui bouge : la
+        <figure> entre DANS le .panneau, juste avant <ol class="etapes">. Le float
+        pourra alors revenir — un conteneur flex (.etape) ne chevauche pas un flottant.
+        Tant que la figure reste apres le panneau, aucun float n'est correct ici.
+
+     2. Le cadre entre dans la famille du document. Il etait a 1 px et 12 %
+        d'opacite : 1,21:1 sur le fond en sombre. Or le fond propre des scenes 1 et 3
+        est #EDF5F4, soit 1,07:1 sur le papier blanc — sans bord reel, le haut de
+        l'illustration se dissout dans la page et personne ne voit ou commence
+        l'image. Les onze autres blocs de la page portent 2 px de --bord et un rayon
+        de 22 px ; les trois scenes portent maintenant le meme habit.
+
+     3. La marge basse etait nulle. Mesure a 375 px : la scene 1 touchait le chapeau
+        (ecart 0 px) et la scene 3 touchait le pave marine du credit (ecart 0 px),
+        avec 32 px au-dessus. Une figure calee 32/0 se lit comme le titre du bloc
+        suivant. Marge symetrique.
+
+     4. « forced-color-adjust:none » sur le dessin. En contraste force (Windows),
+        « fill » et « stroke » sont forces comme « color » : les trois dessins
+        seraient sortis en aplats systeme. Le bord, lui, reste force — il devient
+        CanvasText, donc l'image garde un cadre visible.                          --- */
+  .scene{
+    margin:2rem 0; padding:0; border-radius:22px; overflow:hidden;
+    background:var(--panneau); border:2px solid var(--bord);
+  }
+  /* La scene 2 est passee DANS le panneau des etapes le 05/09. Une figure en
+     tete d'un bloc qui a deja son rembourrage ne remet pas sa marge haute :
+     mesure a 832 px avant correction, 62 px de teinte vide au-dessus du dessin
+     (28 de rembourrage + 32 de marge + 2 de bord) au lieu de 30. */
+  .scene:first-child{margin-top:0}
+  .scene svg{display:block; width:100%; height:auto; forced-color-adjust:none}
+  /* La classe existait sans regle. Une classe qui ne fait rien finit par etre
+     supposee faire quelque chose : on ecrit ce qu'elle vaut. */
+  .scene-large{max-width:none}
+  /* La scene 2 est vue petite : elle ne prend pas toute la largeur de lecture. */
+  .scene-carre{max-width:24rem}
+  @media print{ .scene{break-inside:avoid; margin:14pt 0} .scene-carre{max-width:16rem} }
+  footer .credit-images{font-size:1.0625rem; color:var(--gris); margin-top:1.25rem}
 </style>
 </head>
 <body>
+<svg class="deco deco-haut" viewBox="0 0 1440 108" preserveAspectRatio="none" role="presentation" aria-hidden="true" focusable="false">
+  <path d="M0 0h1440v58c-120 30-240 40-360 30s-240-40-360-44S480 58 360 66 120 74 0 54Z"/>
+</svg>
+
 <div class="page">
 
-  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+  <header class="entete">
+    <p class="marque">Assistance à domicile · Martinique</p>
+    <div class="marque-filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
 
-  <!-- Illustration d'en-tête. Dessinée pour ce document le 25/08/2026 :
-       aucune banque d'images, aucun fichier distant, aucun droit à céder.
-       La scène est celle de la visite — la table du client, ses papiers,
-       son ordinateur, et la fenêtre ouverte sur la Martinique. -->
-  <svg class="illustration" viewBox="0 0 720 250" role="img"
-       aria-label="Dessin : la table d'un particulier, avec une chemise de dossiers, un ordinateur portable et deux tasses. Au-dessus, une étagère de classeurs ; à droite, une fenêtre ouverte sur la mer, une case au toit de tôle, un cocotier et les mornes de la Martinique.">
-    <rect x="0" y="0" width="720" height="250" fill="#FFFFFF"/>
-
-    <!-- Étagère de classeurs : le classement, qui est la moitié du métier -->
-    <rect x="70" y="46" width="22" height="46" fill="#F2E4CE"/>
-    <rect x="96" y="52" width="18" height="40" fill="#C8941E"/>
-    <rect x="118" y="42" width="24" height="50" fill="#7FB6C4"/>
-    <rect x="146" y="56" width="20" height="36" fill="#FFFFFF"/>
-    <rect x="176" y="72" width="66" height="20" fill="#FFFFFF"/>
-    <g fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round">
-      <rect x="70" y="46" width="22" height="46"/>
-      <rect x="96" y="52" width="18" height="40"/>
-      <rect x="118" y="42" width="24" height="50"/>
-      <rect x="146" y="56" width="20" height="36"/>
-      <rect x="176" y="72" width="66" height="20"/>
-    </g>
-    <path d="M56 92h256M84 100v10M290 100v10" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
-
-    <!-- Fenêtre : la Martinique, dehors -->
-    <rect x="436" y="16" width="264" height="140" fill="#E8F1F4"/>
-    <path d="M436 112h264v44H436z" fill="#7FB6C4"/>
-    <path d="M436 112c30-36 54-40 82-14 24 20 36 20 56-4 18-20 40-20 60 2 16 18 34 20 66 2v14H436z" fill="#5C8F6B"/>
-    <path d="M666 112c-2-24 2-38 10-48" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M676 64c-12-8-24-7-32 2M676 64c14-7 25-3 30 7M676 64c-7-12-3-23 7-28M676 64c12 2 18 10 18 22" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M474 112V86h48v26z" fill="#F2E4CE"/>
-    <path d="M466 86l32-20 32 20z" fill="#C8941E"/>
-    <path d="M474 112V86h48v26zM466 86l32-20 32 20z" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linejoin="round"/>
-    <path d="M490 112V99h14v13z" fill="none" stroke="#1B365D" stroke-width="3.5"/>
-    <path d="M436 16h264v140H436z" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M568 16v140M436 86h264" fill="none" stroke="#1B365D" stroke-width="4"/>
-
-    <!-- La table -->
-    <path d="M30 196h660v14H30z" fill="#C79A62"/>
-    <path d="M30 196h660v14H30zM66 210v34M654 210v34" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-
-    <!-- Chemise ouverte et ses feuilles -->
-    <path d="M100 130h84v22h-84z" fill="#FFFFFF"/>
-    <path d="M86 196l14-46h96l-14 46z" fill="#C8941E"/>
-    <path d="M100 130h84v22h-84zM86 196l14-46h96l-14 46z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M112 140h56M112 168h48M108 180h40" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
-
-    <!-- Ordinateur portable, ouvert vers la personne -->
-    <path d="M236 190l16-78h104l16 78z" fill="#E8F1F4"/>
-    <path d="M254 118h100l11 60H243z" fill="#FFFFFF"/>
-    <path d="M236 190l16-78h104l16 78zM254 118h100l11 60H243z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M266 138h66M266 152h48M266 166h58" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
-    <path d="M224 196h156" fill="none" stroke="#1B365D" stroke-width="6" stroke-linecap="round"/>
-
-    <!-- Deux tasses : on est deux à cette table -->
-    <path d="M436 196v-30h34v30z" fill="#FFFFFF"/>
-    <path d="M470 172h12a9 9 0 0 1 0 18h-12" fill="none" stroke="#1B365D" stroke-width="4"/>
-    <path d="M436 196v-30h34v30z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M508 196v-24h30v24z" fill="#FFFFFF"/>
-    <path d="M538 178h10a7 7 0 0 1 0 14h-10" fill="none" stroke="#1B365D" stroke-width="4"/>
-    <path d="M508 196v-24h30v24z" fill="none" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
-  </svg>
-
-  <div class="identite">
-    <div class="texte">
-      <p><strong>Qui vient chez vous&nbsp;: Nathanaël Anglio</strong>, assistant administratif et informatique à domicile, en Martinique.</p>
-      <p><strong>Votre prestataire officiel&nbsp;: la coopérative AdomSAP</strong>, déclarée organisme de services à la personne sous le numéro <strong>SAP944666189</strong>. C'est AdomSAP qui établit votre facture et votre attestation fiscale annuelle. Nathanaël Anglio y est partenaire indépendant.</p>
-      <p>Ce numéro de déclaration se vérifie sur le site public des services à la personne&nbsp;: servicesalapersonne.gouv.fr</p>
+    <div class="identite">
+      <p><strong>Qui vous accompagne à domicile&nbsp;: Nathanaël Anglio.</strong></p>
+      <p><strong>Votre prestataire officiel&nbsp;: la coopérative AdomSAP</strong>, déclarée organisme de services à la personne sous le numéro <span class="numero">SAP944666189</span>. C'est AdomSAP qui établit votre facture et votre attestation fiscale annuelle.</p>
+      <p>Nathanaël Anglio y est <strong>partenaire indépendant</strong>. Ce numéro de déclaration se vérifie sur le site public des services à la personne&nbsp;: <span class="insec">servicesalapersonne.gouv.fr</span></p>
+      <p class="ligne-tel">Téléphone&nbsp;: <a class="lien-tel" href="tel:+596696884814"><span>06 96 88 48 14</span></a></p>
     </div>
-  </div>
 
-  <p class="eyebrow">À domicile, partout en Martinique · Service à la personne déclaré</p>
+    <p class="eyebrow">À domicile, partout en Martinique · Service à la personne déclaré</p>
+    <h1>On vient chez vous, pour vos papiers et pour votre ordinateur.</h1>
 
-  <h1>On vient chez vous, pour vos papiers et pour votre ordinateur.</h1>
+    <figure class="scene scene-large"><svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640"
+     role="img" aria-labelledby="t1 d1">
+  <title id="t1">Deux personnes assises côte à côte devant des papiers, à une table, dans un intérieur martiniquais</title>
+  <desc id="d1">Dessin au trait marine. Une dame âgée à lunettes et une intervenante sont assises côte à côte à une table de salle à manger. Devant elles, une chemise ouverte, des feuilles, deux tasses et une plante. Derrière, une étagère de classeurs et une fenêtre ouverte sur un morne vert, une case au toit de tôle, un cocotier et la mer.</desc>
 
-  <p class="chapeau">Assistance administrative et assistance informatique, à votre table. Vous réglez la visite&nbsp;; la moitié de la somme vous revient ensuite en crédit d'impôt.</p>
+  <defs>
+    <clipPath id="fenetre">
+      <rect x="1150" y="90" width="420" height="340"/>
+    </clipPath>
+  </defs>
 
-  <p class="prose">Il n'y a pas d'autre tarif que ceux de cette page&nbsp;: pas de frais de déplacement, pas de frais de dossier.</p>
+  <!-- ============ MUR ============ -->
+  <rect x="0" y="0" width="1600" height="474" fill="#EDF5F4"/>
+
+  <!-- ============ FENETRE : la Martinique, en plein jour ============ -->
+  <g clip-path="url(#fenetre)">
+    <rect x="1150" y="90" width="420" height="340" fill="#CDE9F3"/>
+    <circle cx="1236" cy="164" r="34" fill="#F3CB6A"/>
+    <path d="M1150 316c46-49 86-55 129-20 37 29 65 26 95-6 31-32 71-29 101 6 20 22 46 26 92 8v126H1150Z" fill="#4FA36B"/>
+
+    <!-- la case au toit de tole -->
+    <path d="M1400 396v-46h68v46z" fill="#FBEBD2"/>
+    <path d="M1386 350l48-34 48 34z" fill="#C46A45"/>
+    <path d="M1400 396v-46h68v46zM1386 350l48-34 48 34z" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="1422" y="364" width="24" height="32" fill="#3E8FB0" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- le cocotier -->
+    <path d="M1512 398c-8-52 0-76 20-96" fill="none" stroke="#1B365D" stroke-width="7" stroke-linecap="round"/>
+    <g fill="none" stroke="#2E7A4A" stroke-width="10" stroke-linecap="round">
+      <path d="M1532 302c-24-8-44 0-53 17"/>
+      <path d="M1532 302c24-8 43 0 52 17"/>
+      <path d="M1532 302c-17-15-20-35-12-49"/>
+      <path d="M1532 302c17-14 38-12 50 2"/>
+      <path d="M1532 302c-23 5-38 17-42 32"/>
+    </g>
+    <circle cx="1532" cy="302" r="8" fill="#2E7A4A"/>
+
+    <!-- la mer, en bas de la fenetre -->
+    <rect x="1150" y="396" width="420" height="34" fill="#3E9BA8"/>
+    <path d="M1178 412h30M1252 419h24M1330 411h28M1436 418h26M1508 412h30"
+          fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <path d="M1360 90v340" fill="none" stroke="#1B365D" stroke-width="6"/>
+  <rect x="1150" y="90" width="420" height="340" fill="none" stroke="#1B365D" stroke-width="7"/>
+  <rect x="1134" y="430" width="452" height="20" fill="#E9C08A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- ============ ETAGERE : les classeurs, qui sont la moitie du metier ============ -->
+  <g stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round">
+    <rect x="74" y="206" width="36" height="100" fill="#DC7F72"/>
+    <rect x="116" y="222" width="30" height="84" fill="#EFC15E"/>
+    <rect x="152" y="198" width="38" height="108" fill="#2AA5A0"/>
+    <rect x="196" y="214" width="32" height="92" fill="#FFFFFF"/>
+    <rect x="234" y="230" width="34" height="76" fill="#C0AEE0"/>
+    <rect x="274" y="210" width="36" height="96" fill="#4FA36B"/>
+  </g>
+  <g stroke="#1B365D" stroke-width="3" fill="#FFFFFF">
+    <rect x="80" y="224" width="24" height="16"/>
+    <rect x="158" y="216" width="26" height="16"/>
+    <rect x="280" y="228" width="24" height="16"/>
+  </g>
+  <path d="M56 306h300v16H56z" fill="#E9C08A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M84 322v18M328 322v18" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ============ LA DAME ============ -->
+  <path d="M626 296h48v54h-48z" fill="#B07B52" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M524 476v-44c0-34 22-59 55-69l43-13h56l43 13c33 10 55 35 55 69v44z"
+        fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M622 350l28 46 28-46" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <circle cx="650" cy="250" r="60" fill="#B07B52" stroke="#1B365D" stroke-width="5"/>
+  <!-- la chevelure : ligne de front irreguliere, deux golfes aux tempes. Un arc lisse
+       d'epaisseur constante ne se lit pas comme des cheveux mais comme un bonnet. -->
+  <path d="M588 264A70 70 0 1 1 712 264C702 250 690 226 672 218C660 234 640 234 628 218C610 226 598 250 588 264Z"
+        fill="#DCD8D2" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <g fill="none" stroke="#1B365D" stroke-width="4">
+    <circle cx="628" cy="256" r="19"/>
+    <circle cx="672" cy="256" r="19"/>
+    <path d="M647 256h6"/>
+  </g>
+  <circle cx="628" cy="257" r="5.5" fill="#12233D"/>
+  <circle cx="672" cy="257" r="5.5" fill="#12233D"/>
+  <path d="M632 288c12 12 24 12 36 0" fill="none" stroke="#12233D" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ============ L'INTERVENANTE ============ -->
+  <path d="M908 300h44v52h-44z" fill="#A9714A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M812 476v-40c0-32 21-55 51-64l40-12h52l40 12c30 9 51 32 51 64v40z"
+        fill="#2AA5A0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M903 352l27 42 27-42" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <circle cx="930" cy="254" r="56" fill="#A9714A" stroke="#1B365D" stroke-width="5"/>
+  <path d="M868 268A68 68 0 1 1 992 268A62 48 0 0 0 868 268Z" fill="#2E2018" stroke="#2E2018" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="910" cy="256" r="6" fill="#12233D"/>
+  <circle cx="950" cy="256" r="6" fill="#12233D"/>
+  <path d="M912 288c12 12 24 12 36 0" fill="none" stroke="#12233D" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ============ LA TABLE ============ -->
+  <rect x="-10" y="474" width="1620" height="22" fill="#D9A86A"/>
+  <rect x="-10" y="496" width="1620" height="154" fill="#EFCB99"/>
+  <path d="M-10 474h1620M-10 496h1620" fill="none" stroke="#1B365D" stroke-width="6"/>
+
+  <!-- la plante, bout de table -->
+  <path d="M320 540v-38M348 540v-58M376 540v-32" fill="none" stroke="#2E7A4A" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="320" cy="494" r="17" fill="#DC7F72" stroke="#1B365D" stroke-width="4"/>
+  <circle cx="348" cy="476" r="19" fill="#EFC15E" stroke="#1B365D" stroke-width="4"/>
+  <circle cx="376" cy="502" r="15" fill="#2AA5A0" stroke="#1B365D" stroke-width="4"/>
+  <path d="M298 586l8-46h84l8 46z" fill="#C46A45" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- la tasse de gauche -->
+  <path d="M460 546h18a16 16 0 0 1 0 32h-18" fill="none" stroke="#1B365D" stroke-width="5"/>
+  <path d="M404 586v-52h56v52z" fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- les feuilles posees, en eventail -->
+  <path d="M600 574l12-54h148l-12 54z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M566 586l14-58h150l-14 58z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M588 550h104M584 566h76" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- la chemise ouverte, au centre -->
+  <path d="M754 596l22-92h268l-22 92z" fill="#C0AEE0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M786 586l16-66h196l-16 66z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M812 542h150M806 558h112M800 572h130" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- le bras de l'intervenante, en avant sur la table, et sa main posee au bord de la chemise.
+       Le bras est dessine APRES la table et les papiers : c'est ce qui le fait passer devant.
+       Il est rempli sans contour, puis ses deux aretes sont tracees a part - sinon le contour
+       du haut dessinerait une ligne marine en travers de l'epaule. -->
+  <path d="M884 402C866 452 840 492 816 520L784 502C812 470 836 434 848 396Z" fill="#2AA5A0"/>
+  <path d="M884 402C866 452 840 492 816 520" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M848 396C836 434 812 470 784 502" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="782" cy="524" rx="27" ry="19" transform="rotate(-24 782 524)" fill="#A9714A" stroke="#1B365D" stroke-width="4.5"/>
+
+  <!-- la tasse de droite -->
+  <path d="M1134 546h16a14 14 0 0 1 0 28h-16" fill="none" stroke="#1B365D" stroke-width="5"/>
+  <path d="M1084 582v-46h50v46z" fill="#EFC15E" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- la pile de chemises deja rangees, bout de table a droite : c'est ce qui remplit
+       le quart droit, et c'est le sujet, pas du decor -->
+  <path d="M1236 600l10-26h228l-10 26z" fill="#2AA5A0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M1246 574l10-26h228l-10 26z" fill="#FBEBD2" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M1256 548l10-26h228l-10 26z" fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="1310" y="528" width="52" height="15" fill="#FFFFFF" stroke="#1B365D" stroke-width="3"/>
+</svg></figure>
+
+    <p class="chapeau">Vous réglez la visite&nbsp;; la moitié de la somme vous revient ensuite en crédit d'impôt. Un seul tarif, pas de frais de déplacement, pas de frais de dossier.</p>
+  </header>
 
   <section>
     <h2>Deux aides, un seul déplacement</h2>
 
-    <div class="deux">
-      <div>
+    <div class="formules">
+      <div class="formule panneau">
         <div class="pictos">
-          <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
-            <rect x="2" y="2" width="68" height="68" fill="#F2E4CE"/>
-            <path d="M20 14h22l10 10v34H20z" fill="#FFFFFF"/>
-            <path d="M42 14v10h10" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M20 14h22l10 10v34H20z" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M27 34h18M27 42h18M27 50h11" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
-            <path d="M50 56l8-22 6 3-9 21z" fill="#C8941E" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-            <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
+          <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">
+            <path d="M12 5h18l8 8v30H12z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M30 5v8h8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M18 23h16M18 30h16M18 37h10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <h3>Les papiers</h3>
         </div>
         <ul class="liste">
           <li>Lire et expliquer un courrier</li>
-          <li>Remplir un formulaire avec vous</li>
-          <li>Créer ou retrouver un accès en ligne&nbsp;: CAF, CGSS, Ameli, impots.gouv, France&nbsp;Travail</li>
+          <li>Remplir un formulaire</li>
+          <li>Créer ou retrouver un accès en ligne (CAF, CGSS, Ameli, impots.gouv, France Travail)</li>
           <li>Réunir les pièces d'un dossier&nbsp;: retraite, réversion, MDPH, APA, logement social, CAF</li>
-          <li>Préparer votre déclaration de revenus avec vous</li>
+          <li>Préparer la déclaration de revenus</li>
           <li>Résilier un contrat, signaler un changement d'adresse, télécharger une attestation</li>
-          <li>Trier et classer vos papiers</li>
+          <li>Trier et classer les papiers</li>
         </ul>
       </div>
-      <div>
+
+      <div class="formule panneau">
         <div class="pictos">
-          <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
-            <rect x="2" y="2" width="68" height="68" fill="#E8F1F4"/>
-            <rect x="12" y="16" width="40" height="28" fill="#FFFFFF"/>
-            <rect x="12" y="16" width="40" height="28" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M6 52h52l-6-8H12z" fill="#7FB6C4" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M20 26h20M20 34h13" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
-            <rect x="48" y="30" width="16" height="26" rx="2" fill="#FFFFFF"/>
-            <rect x="48" y="30" width="16" height="26" rx="2" fill="none" stroke="#1B365D" stroke-width="3"/>
-            <path d="M53 51h6" fill="none" stroke="#1B365D" stroke-width="3" stroke-linecap="round"/>
-            <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
+          <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">
+            <rect x="5" y="9" width="38" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M16 41h16M20 35v6M28 35v6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M13 17h14M13 23h20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <h3>L'ordinateur</h3>
         </div>
         <ul class="liste">
-          <li>Installer un ordinateur neuf, une imprimante, une tablette</li>
-          <li>Raccorder une box internet</li>
+          <li>Installer un ordinateur, une imprimante, une tablette</li>
+          <li>Raccorder la box internet</li>
           <li>Remettre en marche ce qui ne répond plus&nbsp;: connexion perdue, imprimante muette, mise à jour bloquée</li>
           <li>Ouvrir et organiser une boîte mail</li>
-          <li>Apprendre à s'en servir&nbsp;: smartphone, visioconférence, site administratif</li>
+          <li>Apprendre à se servir d'un smartphone, d'une visioconférence, d'un site administratif</li>
           <li>Choisir un mot de passe, activer une sauvegarde</li>
           <li>Reconnaître un courriel frauduleux</li>
         </ul>
       </div>
     </div>
 
-    <div class="cumul">
-      <p>La même visite peut servir aux deux&nbsp;: un dossier de retraite à remplir <em>et</em> une imprimante qui ne répond plus.</p>
-      <p>Un seul rendez-vous, un seul déplacement, un seul tarif. Vous n'avez pas à choisir entre les deux, ni à faire venir deux personnes.</p>
+    <p class="prose" style="margin-top:1.5rem"><strong>Un seul rendez-vous, un seul déplacement, un seul tarif.</strong> Vous n'avez pas à choisir entre les deux&nbsp;: si l'imprimante ne marche plus et que le courrier de la CAF attend, on règle les deux dans la même visite.</p>
+  </section>
+
+  <section>
+    <h2>Comment ça se passe</h2>
+    <div class="panneau">
+      <figure class="scene scene-carre"><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900"
+     role="img" aria-labelledby="t2 d2">
+  <title id="t2">Un monsieur accueille sur le pas de sa porte, sous la veranda d'une case creole</title>
+  <desc id="d2">Dessin au trait marine. Vu depuis la veranda, un monsieur age aux cheveux blancs se tient dans l'encadrement de sa porte ouverte, la main posee sur le battant. A gauche, la veranda s'ouvre sur le ciel et un massif de feuillages en fleurs ; a droite, une persienne et une grande jardiniere. Le cadrage coupe a hauteur de hanche.</desc>
+
+  <!-- Cadrage : coupe a hauteur de hanche. Aucune ligne de sol n'est donc visible -
+       elle tomberait tres au-dessous du cadre. Tout ce qui est vertical (poteau,
+       chambranle, battant, jardiniere) est coupe par le bord bas : c'est ce qui rend
+       la profondeur juste. -->
+
+  <!-- ============ LE MUR DE LA CASE ============ -->
+  <rect x="0" y="0" width="1200" height="900" fill="#FBEBD2"/>
+
+  <!-- le cote ouvert de la veranda : ciel, feuillages, fleurs -->
+  <rect x="0" y="66" width="300" height="834" fill="#CDE9F3"/>
+  <circle cx="140" cy="190" r="50" fill="#F3CB6A"/>
+  <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <ellipse cx="96" cy="620" rx="88" ry="40" transform="rotate(-34 96 620)" fill="#4FA36B"/>
+    <ellipse cx="214" cy="694" rx="82" ry="38" transform="rotate(26 214 694)" fill="#2E7A4A"/>
+    <ellipse cx="76" cy="774" rx="86" ry="40" transform="rotate(-12 76 774)" fill="#4FA36B"/>
+    <ellipse cx="212" cy="856" rx="80" ry="37" transform="rotate(34 212 856)" fill="#4FA36B"/>
+  </g>
+  <g fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round">
+    <path d="M24 664L168 576"/>
+    <path d="M140 662L288 730"/>
+    <path d="M-6 796L158 754"/>
+    <path d="M152 826L272 886"/>
+  </g>
+  <path d="M248 586C246 618 238 640 220 664M206 536C204 568 198 592 180 616"
+        fill="none" stroke="#2E7A4A" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="248" cy="562" r="24" fill="#DC7F72" stroke="#1B365D" stroke-width="5"/>
+  <circle cx="206" cy="518" r="18" fill="#C0AEE0" stroke="#1B365D" stroke-width="5"/>
+
+  <!-- le poteau de veranda -->
+  <rect x="300" y="66" width="44" height="834" fill="#E4B36A" stroke="#1B365D" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- la poutre du toit, qui ferme le haut -->
+  <rect x="0" y="0" width="1200" height="66" fill="#C8823F"/>
+  <path d="M0 66h1200" fill="none" stroke="#1B365D" stroke-width="7"/>
+
+  <!-- ============ LA PERSIENNE ============ -->
+  <rect x="1032" y="196" width="136" height="300" fill="#9FD8D4" stroke="#1B365D" stroke-width="7" stroke-linejoin="round"/>
+  <g fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round">
+    <path d="M1044 226h112M1044 254h112M1044 282h112M1044 310h112M1044 338h112M1044 366h112M1044 394h112M1044 422h112M1044 450h112M1044 478h112"/>
+  </g>
+
+  <!-- ============ LA JARDINIERE, coupee par le bord bas ============ -->
+  <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <ellipse cx="1050" cy="596" rx="68" ry="31" transform="rotate(-38 1050 596)" fill="#4FA36B"/>
+    <ellipse cx="1164" cy="610" rx="64" ry="29" transform="rotate(28 1164 610)" fill="#2E7A4A"/>
+  </g>
+  <g fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round">
+    <path d="M1004 628L1096 564"/>
+    <path d="M1106 588L1218 632"/>
+  </g>
+  <path d="M1030 650l14 250h132l14-250z" fill="#C46A45" stroke="#1B365D" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M1034 690h152" fill="none" stroke="#1B365D" stroke-width="5"/>
+
+  <!-- ============ LA PORTE OUVERTE, et l'interieur a l'ombre ============ -->
+  <rect x="420" y="150" width="440" height="750" fill="#7A6650"/>
+  <rect x="420" y="150" width="440" height="750" fill="none" stroke="#1B365D" stroke-width="8" stroke-linejoin="round"/>
+
+  <!-- le battant, ouvert vers nous -->
+  <rect x="876" y="150" width="132" height="750" fill="#E4B36A" stroke="#1B365D" stroke-width="7" stroke-linejoin="round"/>
+  <g fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <rect x="898" y="186" width="88" height="176"/>
+    <rect x="898" y="404" width="88" height="176"/>
+  </g>
+  <circle cx="892" cy="626" r="12" fill="#1B365D"/>
+
+  <!-- ============ LE MONSIEUR ============ -->
+  <path d="M604 398h56v72h-56z" fill="#A9714A" stroke="#1B365D" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M492 900V590c0-46 30-80 74-93l58-18h26l58 18c44 13 74 47 74 93v310z"
+        fill="#DC7F72" stroke="#1B365D" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M604 476l28 58 28-58" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linejoin="round"/>
+  <path d="M632 534v366" fill="none" stroke="#1B365D" stroke-width="5"/>
+  <circle cx="632" cy="608" r="7" fill="#1B365D"/>
+  <circle cx="632" cy="700" r="7" fill="#1B365D"/>
+  <circle cx="632" cy="792" r="7" fill="#1B365D"/>
+  <rect x="694" y="570" width="62" height="52" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="632" cy="320" r="78" fill="#A9714A" stroke="#1B365D" stroke-width="6"/>
+  <!-- la chevelure : la ligne de front est irreguliere, avec deux golfes aux tempes.
+       Un arc lisse d'epaisseur constante ne se lit pas comme des cheveux, mais comme un bonnet. -->
+  <path d="M554 336A86 86 0 1 1 710 336C700 320 686 288 664 278C652 296 612 296 600 278C578 288 564 320 554 336Z"
+        fill="#DCD8D2" stroke="#1B365D" stroke-width="5.5" stroke-linejoin="round"/>
+  <circle cx="606" cy="324" r="8" fill="#12233D"/>
+  <circle cx="658" cy="324" r="8" fill="#12233D"/>
+  <path d="M608 364c16 16 32 16 48 0" fill="none" stroke="#12233D" stroke-width="6.5" stroke-linecap="round"/>
+
+  <!-- le bras, la main posee sur le battant : aplat sans contour, aretes tracees a part,
+       sinon le contour du haut barrerait l'epaule d'une ligne marine -->
+  <path d="M766 546C804 540 842 530 874 516L892 566C854 586 812 598 770 602Z" fill="#DC7F72"/>
+  <path d="M766 546C804 540 842 530 874 516" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M770 602C812 598 854 586 892 566" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <ellipse cx="908" cy="542" rx="38" ry="28" transform="rotate(-24 908 542)" fill="#A9714A" stroke="#1B365D" stroke-width="5.5"/>
+</svg></figure>
+      <ol class="etapes">
+        <li class="etape">
+          <span class="num" aria-hidden="true">1</span>
+          <div class="txt">
+            <h3>Vous nous dites ce qui vous arrive</h3>
+            <p>Un message ou un appel. Vous expliquez le courrier, le dossier ou la panne, avec vos mots.</p>
+          </div>
+        </li>
+        <li class="etape">
+          <span class="num" aria-hidden="true">2</span>
+          <div class="txt">
+            <h3>On vient chez vous</h3>
+            <p>À un moment qui vous convient, où que vous soyez en Martinique.</p>
+          </div>
+        </li>
+        <li class="etape">
+          <span class="num" aria-hidden="true">3</span>
+          <div class="txt">
+            <h3>On avance ensemble</h3>
+            <p>On lit avec vous, on remplit avec vous, on classe avec vous. C'est vous qui validez, vous qui signez. <strong>Et c'est vous qui saisissez vos identifiants, jamais nous</strong> — on reste à côté de vous.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
   <section>
     <h2>Les tarifs, écrits en entier</h2>
 
-    <div class="tab-enveloppe" tabindex="0" role="region" aria-label="Tableau des tarifs">
-      <table>
+    <figure class="scene scene-large"><svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560"
+     role="img" aria-labelledby="t3 d3">
+  <title id="t3">Des papiers qu'on trie : la pile en vrac devient un classement</title>
+  <desc id="d3">Dessin au trait marine, sans visage. Sur une table, a gauche une pile de feuilles en vrac posees de travers ; au centre une chemise ouverte avec des intercalaires de couleur, et deux mains, l'une en manche corail, l'autre en manche turquoise, posees dessus ; a droite, cinq chemises rangees et alignees en pile nette. Les feuilles ne portent aucun texte lisible.</desc>
+
+  <!-- Aucune feuille ne porte de mot, d'en-tete ni de logo : le trace d'ecriture est
+       une suite de traits neutres. Rien ici ne doit pouvoir se lire comme un document
+       officiel. -->
+
+  <!-- ============ LE MUR ET LA TABLE ============ -->
+  <rect x="0" y="0" width="1600" height="92" fill="#EDF5F4"/>
+  <rect x="-10" y="92" width="1620" height="28" fill="#D9A86A"/>
+  <rect x="-10" y="120" width="1620" height="450" fill="#EFCB99"/>
+  <path d="M-10 92h1620M-10 120h1620" fill="none" stroke="#1B365D" stroke-width="6"/>
+
+  <!-- ============ A GAUCHE : la pile en vrac ============ -->
+  <!-- Les traits d'ecriture d'une feuille sont dessines DANS son propre groupe, juste
+       apres elle : places a la fin, ils passeraient par-dessus la feuille qui la
+       recouvre et deborderaient sur le bois. -->
+  <g fill="#FFFFFF" stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <g transform="rotate(-14 200 435)"><rect x="70" y="350" width="260" height="170"/></g>
+    <g transform="rotate(8 230 395)"><rect x="100" y="310" width="260" height="170"/></g>
+    <g transform="rotate(-5 192 357)">
+      <rect x="62" y="272" width="260" height="170"/>
+      <path d="M86 306h180M86 336h124" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(17 245 315)">
+      <rect x="115" y="230" width="260" height="170"/>
+      <path d="M139 268h190M139 298h140M139 328h166" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- ============ AU CENTRE : la chemise ouverte et ses intercalaires ============ -->
+  <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <rect x="700" y="216" width="62" height="36" fill="#2AA5A0"/>
+    <rect x="800" y="216" width="62" height="36" fill="#EFC15E"/>
+    <rect x="900" y="216" width="62" height="36" fill="#DC7F72"/>
+  </g>
+  <path d="M556 512l30-262h520l-30 262z" fill="#C0AEE0" stroke="#1B365D" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M600 500l22-226h430l-22 226z" fill="#FFFFFF" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M628 330h330M622 366h250M616 402h300M610 438h220"
+        fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- ============ A DROITE : le classement, aligne ============ -->
+  <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+    <path d="M1196 424l14-34h320l-14 34z" fill="#2AA5A0"/>
+    <path d="M1210 390l14-34h320l-14 34z" fill="#FBEBD2"/>
+    <path d="M1224 356l14-34h320l-14 34z" fill="#DC7F72"/>
+    <path d="M1238 322l14-34h320l-14 34z" fill="#C0AEE0"/>
+    <path d="M1252 288l14-34h320l-14 34z" fill="#EFC15E"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#1B365D" stroke-width="3">
+    <rect x="1288" y="362" width="62" height="18"/>
+    <rect x="1316" y="294" width="62" height="18"/>
+  </g>
+
+  <!-- ============ LES DEUX MAINS ============ -->
+  <!-- Chaque avant-bras est un aplat sans contour ; ses deux longues aretes sont
+       tracees a part, pour qu'aucune ligne marine ne barre le poignet. -->
+  <path d="M452 560L556 560L678 434L618 376Z" fill="#DC7F72"/>
+  <path d="M556 560L678 434" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M618 376L452 560" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <ellipse cx="662" cy="396" rx="48" ry="35" transform="rotate(-44 662 396)" fill="#B07B52" stroke="#1B365D" stroke-width="5.5"/>
+
+  <path d="M1188 560L1292 560L1116 404L1058 462Z" fill="#2AA5A0"/>
+  <path d="M1292 560L1116 404" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M1058 462L1188 560" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+  <ellipse cx="1062" cy="412" rx="48" ry="35" transform="rotate(44 1062 412)" fill="#A9714A" stroke="#1B365D" stroke-width="5.5"/>
+</svg></figure>
+
+    <div class="credit">
+      <table class="grille-credit">
+        <caption>Vous réglez le montant de la colonne du milieu le jour de l'intervention. La moitié vous est rendue ensuite, sous forme de crédit d'impôt.</caption>
         <thead>
           <tr>
-            <th scope="col">Ce que c'est</th>
-            <th scope="col" class="num">Vous réglez<br>le jour de la visite</th>
-            <th scope="col" class="num">Ce que la visite vous coûte<br>au bout du compte</th>
+            <th scope="col">La formule</th>
+            <th scope="col">Le jour de la visite</th>
+            <th scope="col">Après crédit d'impôt</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Séance à domicile<span class="sub">2 heures chez vous</span></th>
-            <td class="num paye"><span class="etq">Vous réglez le jour de la visite</span>90&nbsp;€</td>
-            <td class="num rendu"><span class="etq">Ce que la visite vous coûte au bout du compte</span>45&nbsp;€<span class="sub">après le crédit d'impôt</span></td>
+            <td><span class="etq">Le jour de la visite</span><span class="val">90&nbsp;€</span></td>
+            <td><span class="etq">Après crédit d'impôt</span><span class="val">45&nbsp;€</span></td>
           </tr>
           <tr>
             <th scope="row">Séance longue<span class="sub">3 heures chez vous</span></th>
-            <td class="num paye"><span class="etq">Vous réglez le jour de la visite</span>135&nbsp;€</td>
-            <td class="num rendu"><span class="etq">Ce que la visite vous coûte au bout du compte</span>67,50&nbsp;€<span class="sub">après le crédit d'impôt</span></td>
+            <td><span class="etq">Le jour de la visite</span><span class="val">135&nbsp;€</span></td>
+            <td><span class="etq">Après crédit d'impôt</span><span class="val">67,50&nbsp;€</span></td>
           </tr>
-          <tr class="cle">
-            <th scope="row">Forfait mensuel «&nbsp;Tranquillité&nbsp;»<span class="sub">2 séances de 2 heures, chaque mois</span><span class="marque-cle">Deux séances prises séparément coûtent 180&nbsp;€.</span></th>
-            <td class="num paye"><span class="etq">Vous réglez chaque mois</span>169&nbsp;€<span class="sub">par mois</span></td>
-            <td class="num rendu"><span class="etq">Ce que le mois vous coûte au bout du compte</span>84,50&nbsp;€<span class="sub">par mois, après le crédit d'impôt</span></td>
+          <tr>
+            <th scope="row">Forfait mensuel «&nbsp;Tranquillité&nbsp;»<span class="sub">2 séances de 2 heures, chaque mois — deux séances prises séparément coûtent 180&nbsp;€</span></th>
+            <td><span class="etq">Le jour de la visite</span><span class="val">169&nbsp;€<small>/mois</small></span></td>
+            <td><span class="etq">Après crédit d'impôt</span><span class="val">84,50&nbsp;€<small>/mois</small></span></td>
           </tr>
         </tbody>
       </table>
+      <p class="mention">Prix TTC, TVA de 2,1&nbsp;% comprise (taux réduit applicable dans les départements d'outre-mer). Pas de frais de déplacement, pas de frais de dossier.</p>
     </div>
 
-    <p class="apres-tab">Prix TTC. Vous réglez le montant de la colonne du milieu le jour de l'intervention&nbsp;; la moitié vous est rendue ensuite, ce qui ramène la dépense au montant de la colonne de droite. Le mécanisme est expliqué juste en dessous.</p>
+    <div class="rappel-tel">
+      <p>Vous ne savez pas laquelle vous convient&nbsp;? Dites-nous ce qui vous arrive, on vous le dira.</p>
+      <a class="lien-tel" href="tel:+596696884814"><span>06 96 88 48 14</span></a>
+    </div>
 
-    <!-- Textes de conformité rendus le 25/08/2026, insérés mot pour mot.
-         Regroupés ici plutôt que dispersés : ce qui engage sur le forfait
-         doit se lire d'un seul tenant, sinon il ne s'en lit qu'un tiers.
-         Aucun montant en gros caractères dans ce bloc — « la moitié du
-         forfait » ne doit entrer en concurrence avec aucun chiffre. -->
-    <div class="bloc bloc-fort" id="forfait-conditions">
+    <div class="panneau" style="margin-top:1.5rem">
+      <h3>Le coup de main solidaire</h3>
+      <p>Jusqu'à 30&nbsp;minutes chez vous, au tarif d'une courte visite&nbsp;: <strong>30&nbsp;€</strong> — soit <strong>15&nbsp;€</strong> après le crédit d'impôt. Un courrier à comprendre, une attestation à télécharger, un mot de passe à retrouver, une imprimante à rebrancher.</p>
+      <p>Pour une intervention aussi courte, le tarif horaire est plus élevé que sur une séance longue&nbsp;: il couvre le déplacement au même titre qu'une visite de deux heures. Appelez, dites ce dont il s'agit, nous vous dirons tout de suite si cela tient dans ce format ou s'il faut une séance complète.</p>
+    </div>
+
+    <div class="panneau-regle" style="margin-top:1.5rem">
       <h3>Le forfait mensuel, en clair</h3>
-
-      <p class="sous-titre">Vous l'arrêtez quand vous voulez</p>
-      <p>Le forfait n'a pas de durée d'engagement. C'est un abonnement simple que vous arrêtez quand vous voulez, par un appel au 06 96 88 48 14 — rien à écrire, rien à signer. Le mois commencé va à son terme&nbsp;; le mois suivant n'est plus facturé.</p>
-
-      <p class="sous-titre">Vous avez 14 jours pour changer d'avis</p>
-      <p>Vous disposez de 14 jours après votre inscription pour changer d'avis, sans avoir à vous justifier. Si vous voulez que la première séance ait lieu avant la fin de ces 14 jours, dites-le-nous&nbsp;: nous vous faisons signer un accord simple avant de venir. Si vous changez d'avis après cette première séance, vous ne payez que celle-ci — la moitié du forfait — et le reste vous est remboursé.</p>
-
-      <p class="sous-titre">Les séances du mois se prennent dans le mois</p>
-      <p>Les deux séances du mois sont prévues pour ce mois-là. Si l'une d'elles ne peut pas avoir lieu, prévenez-nous au moins 48 heures avant&nbsp;: nous la reprogrammons dans le mois. Passé le mois, une séance non prise n'est ni reportée, ni remboursée.</p>
-    </div>
-
-    <div class="bloc bloc-fort">
-      <h3>Quand choisir quoi</h3>
       <ul class="liste">
-        <li><strong>Séance à domicile —</strong> la visite de base. Papiers, informatique, ou les deux dans le même rendez-vous.</li>
-        <li><strong>Séance longue —</strong> pour un gros dossier qu'on veut finir en une fois&nbsp;: une demande de retraite, un dossier MDPH, une installation complète.</li>
-        <li><strong>Forfait mensuel —</strong> pour ce qui ne se règle pas en une visite&nbsp;: une retraite en cours d'instruction, un suivi CAF, ou l'envie d'apprendre l'ordinateur à son rythme. Le rendez-vous est fixé à l'avance, tous les mois.</li>
+        <li><strong>Vous l'arrêtez quand vous voulez.</strong> Sans engagement, par un simple appel. Le mois commencé va à son terme&nbsp;; le mois suivant n'est plus facturé.</li>
+        <li><strong>Vous avez 14 jours pour changer d'avis</strong>, sans avoir à vous justifier. Si la première séance a lieu dans ce délai, votre accord écrit est recueilli avant. Après cette séance, vous ne réglez qu'elle et le reste vous est remboursé.</li>
+        <li><strong>Les deux séances du mois sont prévues pour ce mois-là.</strong> On peut les reprogrammer avec 48&nbsp;heures de préavis. Passé le mois, une séance non prise n'est ni reportée, ni remboursée.</li>
       </ul>
     </div>
 
-    <!-- Le Coup de main est délibérément HORS du tableau (25/08).
-         À 30 € pour une intervention courte, il se lirait comme la ligne
-         la plus chère de la gamme si on le posait dans une colonne qui
-         invite au calcul. Ce n'est pas un tarif horaire : c'est un forfait
-         de déplacement pour une démarche unique. Il se présente comme tel. -->
-    <div class="bloc bloc-fort" id="coup-de-main">
-      <div class="pictos">
-        <svg class="vignette" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
-          <rect x="2" y="2" width="68" height="68" fill="#E8F1F4"/>
-          <path d="M14 22h34v28H14z" fill="#FFFFFF"/>
-          <path d="M14 22l17 14 17-14" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M14 22h34v28H14z" fill="none" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
-          <circle cx="52" cy="46" r="14" fill="#C8941E"/>
-          <path d="M46 46l5 5 9-10" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="52" cy="46" r="14" fill="none" stroke="#1B365D" stroke-width="3"/>
-          <rect x="2" y="2" width="68" height="68" fill="none" stroke="#1B365D" stroke-width="3"/>
-        </svg>
-        <h3>Le coup de main solidaire</h3>
-      </div>
-      <p><strong>Une seule démarche, réglée en une fois&nbsp;: 30&nbsp;€ — soit 15&nbsp;€ après le crédit d'impôt.</strong> Un courrier à comprendre, une attestation à télécharger, un mot de passe à retrouver, une imprimante à rebrancher.</p>
-      <p>Ce n'est pas une séance&nbsp;: c'est un déplacement pour régler une chose précise, sans ouvrir de dossier ni prendre d'abonnement. Quand votre demande tient en une fois, nous ne vous facturons pas une séance entière — appelez, dites ce dont il s'agit, nous vous dirons tout de suite si cela relève de ce format.</p>
-    </div>
+    <h3 style="margin-top:2rem">Quand choisir quoi</h3>
+    <ul class="liste prose">
+      <li><strong>Séance à domicile —</strong> la visite de base. Papiers, informatique, ou les deux dans le même rendez-vous.</li>
+      <li><strong>Séance longue —</strong> pour un gros dossier qu'on veut finir en une fois&nbsp;: une demande de retraite, un dossier MDPH, une installation complète.</li>
+      <li><strong>Forfait mensuel —</strong> pour ce qui ne se règle pas en une visite&nbsp;: une retraite en cours d'instruction, un suivi CAF, ou l'envie d'apprendre l'ordinateur à son rythme. Le rendez-vous est fixé à l'avance, tous les mois.</li>
+    </ul>
   </section>
 
   <section>
     <h2>Le crédit d'impôt, en deux temps</h2>
-    <div class="bloc bloc-fort">
-      <p><strong>Premier temps&nbsp;:</strong> vous réglez le prix affiché, en entier, le jour de l'intervention.</p>
-      <p><strong>Second temps&nbsp;:</strong> la moitié de cette somme vous revient ensuite, sous forme de <strong>crédit d'impôt</strong> — 50&nbsp;% du montant payé.</p>
+
+    <div class="credit">
       <ul class="liste">
-        <li><strong>Si vous payez des impôts</strong>&nbsp;: la somme vient en déduction de votre impôt sur le revenu, l'année suivante, lors de votre déclaration.</li>
-        <li><strong>Si vous ne payez pas d'impôts</strong>&nbsp;: l'administration fiscale vous <strong>rembourse directement</strong> cette somme, par virement ou par chèque du Trésor Public. C'est automatique une fois la prestation déclarée.</li>
+        <li><strong>Vous réglez le prix affiché</strong>, en entier, le jour de l'intervention.</li>
+        <li><strong>La moitié vous revient ensuite</strong>, sous forme de crédit d'impôt — 50&nbsp;% du montant payé.</li>
       </ul>
-      <p style="margin-top:1.25rem">AdomSAP vous remet une <strong>attestation fiscale annuelle</strong>&nbsp;: c'est le document qui vous sert au moment de votre déclaration. Le crédit d'impôt est un dispositif national&nbsp;; les règles sont consultables sur impots.gouv.fr.</p>
+      <ul class="liste" style="margin-top:1.25rem">
+        <li><strong>Si vous payez des impôts</strong>&nbsp;: la somme vient en déduction de votre impôt sur le revenu, l'année suivante.</li>
+        <li><strong>Si vous ne payez pas d'impôts</strong>&nbsp;: l'administration fiscale vous <strong>rembourse directement</strong>, par virement ou par chèque du Trésor Public. C'est automatique.</li>
+      </ul>
+      <p class="mention">AdomSAP vous remet une <strong>attestation fiscale annuelle</strong>&nbsp;: c'est le document qui vous sert au moment de votre déclaration.</p>
+    </div>
+
+    <div class="panneau" style="margin-top:1.5rem">
+      <h3>Vous préférez ne pas avancer le prix plein&nbsp;?</h3>
+      <p>C'est possible&nbsp;: <strong>l'avance immédiate</strong> est un service national qui permet de ne régler que le reste à charge le jour même — par exemple <strong>45&nbsp;€ au lieu de 90&nbsp;€</strong> pour une Séance à domicile.</p>
+      <p>C'est vous qui l'activez, depuis votre espace personnel, en quelques minutes&nbsp;; nous pouvons vous accompagner pour le faire si vous le souhaitez. Sans cette activation, vous réglez le prix affiché le jour de la visite et récupérez la moitié l'année suivante, comme expliqué ci-dessus.</p>
+    </div>
+
+    <div class="rappel-tel">
+      <p>Une question sur le crédit d'impôt&nbsp;? Appelez, on vous l'explique.</p>
+      <a class="lien-tel" href="tel:+596696884814"><span>06 96 88 48 14</span></a>
     </div>
   </section>
 
   <section>
+    <h2>Vous vous reconnaissez peut-être dans un de ces dossiers</h2>
+    <ul class="liste colonnes">
+      <li>Une demande de retraite (régime général et complémentaire)</li>
+      <li>Une pension de réversion après un décès</li>
+      <li>Une déclaration de revenus — la première fois, ou après un changement de situation</li>
+      <li>Un dossier MDPH — AAH, PCH, carte mobilité inclusion</li>
+      <li>Une demande d'APA, l'allocation personnalisée d'autonomie</li>
+      <li>Les démarches après un décès, en dehors de ce que fait le notaire</li>
+      <li>Un dossier de surendettement auprès de la Banque de France</li>
+      <li>Une demande ou un renouvellement de logement social</li>
+      <li>Un dossier MaPrimeRénov' ou ANAH</li>
+      <li>Un dossier CAF après un changement de situation</li>
+      <li>Une bourse ou un logement étudiant (CROUS)</li>
+      <li>Un ordinateur à installer, une boîte mail à ouvrir, une connexion à rétablir</li>
+    </ul>
+    <p class="prose" style="margin-top:1.5rem">On mène votre dossier jusqu'à son dépôt complet, dans les délais imposés par l'organisme. <strong>La décision, elle, appartient à l'administration</strong>&nbsp;: personne ne peut vous la garantir, et nous ne le ferons pas.</p>
+  </section>
+
+  <section>
     <h2>Ce que nous ne faisons pas</h2>
-    <div class="bloc bloc-fort">
-      <p>Nous vous aidons à remplir, nous ne décidons pas à votre place. Si une question demande un conseil — un choix à trancher, un recours à écrire — nous vous le disons, et nous vous orientons vers un professionnel du droit ou des impôts.</p>
-      <p><strong>C'est vous qui saisissez vos identifiants et vos mots de passe, jamais nous.</strong> Vous vous connectez, vous validez&nbsp;; nous restons à côté de vous. Nous n'en conservons aucun.</p>
-      <p>Nous n'intervenons pas sur les titres de séjour, la naturalisation, ni sur un recours devant un tribunal — ces démarches relèvent d'un avocat. Nous ne donnons pas non plus de conseil pour payer moins d'impôts.</p>
-      <p>Côté informatique&nbsp;: nous installons, nous configurons et nous dépannons — nous n'intervenons pas en profondeur. Un composant à changer, un disque à récupérer, un virus installé&nbsp;: cela relève d'un réparateur informatique professionnel, et nous vous le dirons.</p>
-      <p><strong>Nous n'intervenons jamais sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</strong></p>
-      <p>La décision d'un organisme ne nous appartient pas. Nous menons votre dossier jusqu'à son dépôt complet, dans les délais imposés&nbsp;; l'issue, elle, appartient à l'administration.</p>
+    <div class="panneau-regle">
+      <ul class="liste">
+        <li>Nous vous aidons à remplir, <strong>nous ne décidons pas à votre place</strong>. Si une question demande un conseil, on vous le dit et on vous oriente vers un professionnel du droit ou des impôts.</li>
+        <li><strong>C'est vous qui saisissez vos identifiants et vos mots de passe, jamais nous.</strong> Vous vous connectez, vous validez&nbsp;; nous restons à côté de vous. Nous ne conservons rien.</li>
+        <li>Pas de titres de séjour, pas de naturalisation, pas de recours devant un tribunal — ces démarches relèvent d'un avocat. Pas de conseil pour payer moins d'impôts.</li>
+        <li>Pas de réparation informatique en profondeur&nbsp;: remplacement de composants, récupération de disque, désinfection lourde.</li>
+        <li><strong>Nous n'intervenons jamais sur la personne</strong>&nbsp;: uniquement sur les papiers et sur le matériel.</li>
+      </ul>
+      <p style="margin-top:1.25rem">Vous pouvez demander à un proche d'être présent pendant la visite. C'est même une bonne idée.</p>
     </div>
   </section>
 
-  <p class="phrase-seule">Vous pouvez demander à un proche d'être présent pendant la visite. C'est même une bonne idée.</p>
+  <section>
+    <h2>Vos questions</h2>
+    <div class="qr">
+      <h3>Est-ce que vous avez accès à mes comptes&nbsp;?</h3>
+      <p>Non. C'est vous qui saisissez vos identifiants. Nous restons à côté de vous, nous ne les gardons pas.</p>
+    </div>
+    <div class="qr">
+      <h3>Est-ce que je récupère vraiment la moitié du prix&nbsp;?</h3>
+      <p>Oui, sous forme de crédit d'impôt, même si vous n'êtes pas imposable. Et si vous activez l'avance immédiate, vous ne réglez que la moitié dès le jour de la visite.</p>
+    </div>
+    <div class="qr">
+      <h3>Vous pouvez m'aider pour ma déclaration de revenus&nbsp;?</h3>
+      <p>Oui, pour la remplir avec vous. Pas pour vous dire comment payer moins — ça, c'est le métier d'un professionnel du droit ou des impôts.</p>
+    </div>
+    <div class="qr">
+      <h3>Et si mon dossier ne tient pas dans une seule séance&nbsp;?</h3>
+      <p>On vous le dit avant de commencer, et on prévoit ce qu'il faut&nbsp;: une séance longue, ou le forfait mensuel si le suivi doit durer.</p>
+    </div>
+    <div class="qr">
+      <h3>Et si je change d'avis&nbsp;?</h3>
+      <p>Vous disposez de 14 jours pour vous rétracter, sans avoir à vous justifier. Si vous souhaitez être aidé tout de suite, sans attendre la fin de ce délai, nous vous le faisons écrire et signer avant de commencer — c'est la loi, et c'est expliqué à ce moment-là.</p>
+    </div>
+  </section>
 
   <section>
     <h2>Prendre rendez-vous</h2>
     <div class="contact">
       <p>Un appel suffit. Dites-nous ce qui vous embête — vous, ou vos enfants pour vous.</p>
       <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
-      <p class="mail">Ou par courriel&nbsp;: backoffice.martinique@gmail.com</p>
+      <p class="mail">Ou par courriel&nbsp;: <span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></p>
       <p style="margin-top:1rem;margin-bottom:0">À domicile, partout en Martinique. Il n'y a rien à remplir en ligne, rien à créer comme compte.</p>
     </div>
   </section>
 
-  <!-- Ligne d'horizon : la Martinique, en deux traits. Ferme le document
-       sur le lieu plutôt que sur une mention légale. -->
-  <svg class="horizon" viewBox="0 0 720 84" role="img" aria-label="Dessin : la côte de la Martinique, ses mornes et ses cocotiers.">
-    <path d="M0 84V56c40-22 74-24 104-6 24 14 42 12 56-6 18-22 42-22 62 2 16 20 34 22 56 6 26-20 56-18 90 6 28 20 52 20 74-2 24-24 52-22 82 6 26 24 52 26 78 6 6-4 12-8 18-12v28z" fill="#E8F1F4"/>
-    <path d="M0 84V70c46-16 82-14 108 6 20 16 38 16 54 0 20-20 44-18 66 6 18 20 38 22 60 6 30-22 60-20 90 6 24 20 46 20 66 0 22-22 48-20 78 6 22 20 44 22 66 6l32-16v-6" fill="#7FB6C4" opacity=".55"/>
-    <path d="M112 66c-2-16 2-27 10-35" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M122 31c-10-7-21-6-28 2M122 31c12-6 22-3 27 6M122 31c-6-10-3-20 6-24M122 31c10 1 16 9 16 19" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M596 66c-2-14 2-24 9-31" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M605 35c-9-6-18-5-24 2M605 35c10-5 19-2 23 5M605 35c-5-9-2-17 5-21M605 35c9 1 14 8 14 17" fill="none" stroke="#1B365D" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M0 84h720" fill="none" stroke="#1B365D" stroke-width="5"/>
-  </svg>
-
-  <footer>
-    <p><strong>Assistance administrative à domicile</strong> (activité n°&nbsp;14) et <strong>assistance informatique à domicile</strong> (activité n°&nbsp;11) de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong> — société par actions simplifiée coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon. Organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
-    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — contact@sasmediationsolution-conso.fr</p>
-    <!-- RGPD : volontairement absent. Contrôle de conformité du 25/08/2026 —
-         l'article 13 s'attache au support et au moment de la collecte réelle.
-         Ce flyer porte un numéro de téléphone et aucun champ : il ne collecte
-         rien. L'obligation naîtra sur l'accord signé avant la première
-         intervention, document qui reste à rédiger. Ne pas ajouter ici une
-         mention RGPD « par précaution » : elle serait hors sujet et allongerait
-         un pied de page déjà dense. -->
-
-    <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime différent, réservé à d'autres prestations. Nous n'intervenons pas sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</p>
-    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, partenaire indépendant d'AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: backoffice.martinique@gmail.com</p>
-    <p>Prix TTC, TVA 2,1&nbsp;% comprise (taux réduit applicable dans les départements d'outre-mer). Facture et attestation fiscale annuelle établies par AdomSAP. Le crédit d'impôt de 50&nbsp;% s'applique dans la limite de 12&nbsp;000&nbsp;€ de dépenses de services à la personne par an et par foyer, dont 3&nbsp;000&nbsp;€ pour l'assistance informatique — des plafonds que ces tarifs n'approchent pas.</p>
-    <p><strong>Droit de rétractation&nbsp;:</strong> 14 jours à compter de la conclusion du contrat, sans justification (articles L.221-18 et suivants du code de la consommation). Si la prestation démarre à votre demande avant la fin de ce délai, votre accord exprès est recueilli par écrit avant l'intervention.</p>
-  </footer>
-
 </div>
+
+<svg class="deco deco-bas" viewBox="0 0 1440 108" preserveAspectRatio="none" role="presentation" aria-hidden="true" focusable="false">
+  <path d="M0 54c120-20 240-12 360-4s240 22 360 26 240-14 360-24 240-10 360 20v36H0Z"/>
+</svg>
+
+<footer>
+  <div class="page">
+    <p><strong>Activités n°&nbsp;14</strong> (assistance administrative) <strong>et n°&nbsp;11</strong> (assistance informatique) au titre de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong>, société par actions simplifiée coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon — organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
+
+    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — téléphone 04 82 53 93 06 — <span class="insec">contact@sasmediationsolution-conso.fr</span></p>
+
+    <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime différent, réservé à d'autres prestations.</p>
+
+    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, <strong>partenaire indépendant</strong> de la coopérative AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: <span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></p>
+
+    <p>Prix TTC, TVA 2,1&nbsp;%. Facture et attestation fiscale annuelle établies par AdomSAP. Le crédit d'impôt de 50&nbsp;% s'applique dans la limite de <strong>12&nbsp;000&nbsp;€</strong> de dépenses de services à la personne par an et par foyer, <strong>dont 3&nbsp;000&nbsp;€ pour l'assistance informatique</strong>.</p>
+
+    <p><strong>Droit de rétractation&nbsp;:</strong> 14 jours à compter de la conclusion du contrat, sans justification (articles L.221-18 et suivants du code de la consommation). Si la prestation démarre à votre demande avant la fin de ce délai, votre accord exprès est recueilli par écrit avant l'intervention.</p>
+
+    <p class="credit-images">Illustrations originales — aucune photographie, aucune personne réelle.</p>
+  </div>
+</footer>
+
 </body>
 </html>

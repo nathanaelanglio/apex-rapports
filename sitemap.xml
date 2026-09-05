@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Mis a jour le 05/09/2026. Il manquait les DEUX pages qui vendent :
+     /audit-automatique/ (le produit d'entree a 29 EUR, vers lequel menent tous nos
+     mails de prospection) et /aide/ (l'offre de services a la personne, la moins
+     chere de la maison et subventionnee a 50 %). Aucune des deux n'etait declaree ;
+     /aide/ portait en plus un noindex, retire le meme jour.
+     Trouve par Camille (defense-consommateur) en inventoriant nos supports :
+     « ce qui se vend le mieux est ce qu'on cache le mieux ».
+     Ne PAS ajouter /sap/flyer ni /sap/partenaires : le flyer est la version
+     imprimable d'/aide/, l'indexer creerait un doublon qui dessert les deux ;
+     la page partenaires ne s'adresse pas au public. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://apexautomation.fr/</loc><lastmod>2026-08-24</lastmod><priority>1.0</priority></url>
+  <url><loc>https://apexautomation.fr/audit-automatique/</loc><lastmod>2026-09-05</lastmod><priority>0.9</priority></url>
   <url><loc>https://apexautomation.fr/offres/</loc><lastmod>2026-08-24</lastmod><priority>0.9</priority></url>
+  <url><loc>https://apexautomation.fr/aide/</loc><lastmod>2026-09-05</lastmod><priority>0.9</priority></url>
   <url><loc>https://apexautomation.fr/contact/</loc><lastmod>2026-08-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://apexautomation.fr/mentions-legales/</loc><lastmod>2026-08-24</lastmod><priority>0.3</priority></url>
 </urlset>

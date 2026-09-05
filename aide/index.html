@@ -672,6 +672,11 @@ footer strong{color:var(--encre-forte)}
   .scene-carre{max-width:24rem}
   @media print{ .scene{break-inside:avoid; margin:14pt 0} .scene-carre{max-width:16rem} }
   footer .credit-images{font-size:1.0625rem; color:var(--gris); margin-top:1.25rem}
+
+/* Ajoute le 05/09/2026 : les adresses ecrites en clair etaient inertes. */
+a.lien-texte{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
+@media print{a.lien-texte{text-decoration:none}}
 </style>
 </head>
 <body>
@@ -688,7 +693,7 @@ footer strong{color:var(--encre-forte)}
     <div class="identite">
       <p><strong>Qui vous accompagne à domicile&nbsp;: Nathanaël Anglio.</strong></p>
       <p><strong>Votre prestataire officiel&nbsp;: la coopérative AdomSAP</strong>, déclarée organisme de services à la personne sous le numéro <span class="numero">SAP944666189</span>. C'est AdomSAP qui établit votre facture et votre attestation fiscale annuelle.</p>
-      <p>Nathanaël Anglio y est <strong>partenaire indépendant</strong>. Ce numéro de déclaration se vérifie sur le site public des services à la personne&nbsp;: <span class="insec">servicesalapersonne.gouv.fr</span></p>
+      <p>Nathanaël Anglio y est <strong>partenaire indépendant</strong>. Ce numéro de déclaration se vérifie sur le site public des services à la personne&nbsp;: <a class="lien-texte" href="https://www.servicesalapersonne.gouv.fr/" rel="noopener"><span class="insec">servicesalapersonne.gouv.fr</span></a></p>
       <p class="ligne-tel">Téléphone&nbsp;: <a class="lien-tel" href="tel:+596696884814"><span>06 96 88 48 14</span></a></p>
     </div>
 
@@ -1232,7 +1237,7 @@ footer strong{color:var(--encre-forte)}
     <div class="contact">
       <p>Un appel suffit. Dites-nous ce qui vous embête — vous, ou vos enfants pour vous.</p>
       <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
-      <p class="mail">Ou par courriel&nbsp;: <span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></p>
+      <p class="mail">Ou par courriel&nbsp;: <a class="lien-texte" href="mailto:backoffice.martinique@gmail.com"><span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></a></p>
       <p style="margin-top:1rem;margin-bottom:0">À domicile, partout en Martinique. Il n'y a rien à remplir en ligne, rien à créer comme compte.</p>
     </div>
   </section>
@@ -1247,11 +1252,11 @@ footer strong{color:var(--encre-forte)}
   <div class="page">
     <p><strong>Activités n°&nbsp;14</strong> (assistance administrative) <strong>et n°&nbsp;11</strong> (assistance informatique) au titre de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong>, société par actions simplifiée coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon — organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
 
-    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — téléphone 04 82 53 93 06 — <span class="insec">contact@sasmediationsolution-conso.fr</span></p>
+    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — téléphone 04 82 53 93 06 — <a class="lien-texte" href="mailto:contact@sasmediationsolution-conso.fr"><span class="insec">contact@sasmediationsolution-conso.fr</span></a></p>
 
     <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime différent, réservé à d'autres prestations.</p>
 
-    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, <strong>partenaire indépendant</strong> de la coopérative AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: <span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></p>
+    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, <strong>partenaire indépendant</strong> de la coopérative AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: <a class="lien-texte" href="mailto:backoffice.martinique@gmail.com"><span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></a></p>
 
     <p>Prix TTC, TVA 2,1&nbsp;%. Facture et attestation fiscale annuelle établies par AdomSAP. Le crédit d'impôt de 50&nbsp;% s'applique dans la limite de <strong>12&nbsp;000&nbsp;€</strong> de dépenses de services à la personne par an et par foyer, <strong>dont 3&nbsp;000&nbsp;€ pour l'assistance informatique</strong>.</p>
 

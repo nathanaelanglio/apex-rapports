@@ -10,11 +10,34 @@
      supports. Le flyer /sap/flyer, lui, RESTE en noindex : c'est la version imprimable
      du meme contenu, et l'indexer creerait un doublon qui dessert les deux pages. -->
 <meta name="robots" content="index, follow">
-<title>Assistance à domicile — papiers et ordinateur, en Martinique</title>
-<meta name="description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier, crédit d'impôt de 50 % expliqué, et l'avance immédiate pour ne régler que la moitié le jour même.">
+<!-- ⛔ TERRITOIRE, 12/09/2026 — « en Martinique » promettait toute l'île.
+     C'est faux : nous couvrons le sud. Le Président a répondu « plus sud pour
+     l'instant » à la directrice du CCAS de Saint-Esprit, qui a donné la
+     formulation retenue : « Territoire de l'Espace Sud ».
+     ⚠️ Le nom de l'île RESTE dans le titre et la description : cette page est
+     indexée depuis le 05/09, et « Martinique » est le mot que les gens tapent.
+     On précise la zone, on ne se retire pas du moteur. La rédaction exacte de
+     ces deux balises relève de Thomas (production-ecommerce) : à lui de
+     confirmer, c'est sa spécialité, pas la mienne.
+     ⛔ CONFIRMÉ PAR THOMAS, 12/09/2026 — deux défauts sur la version précédente :
+     (1) la meta description faisait ~240 signes, largement au-delà des
+     150-160 recommandés (§2 du skill) : Google l'aurait tronquée ou
+     réécrite dans l'immense majorité des cas ; (2) « Martinique » était
+     placé APRÈS « Espace Sud », donc dans la zone la plus exposée à une
+     troncature du <title> — exactement l'inverse de l'échelle de repli du
+     skill (« jamais le mot-clé qu'on cherche à garder en dernier »). Le
+     mot-clé recherché reste devant, la précision géographique (nouvelle,
+     secondaire) passe en dernier et peut être coupée sans dommage. La
+     description reprend le prix d'appel (90 €/45 €) et le taux du crédit
+     d'impôt : plus fort en clic que des adjectifs, et vérifié dans le
+     corps de la page (tableau des tarifs). CTA aligné sur le vrai parcours
+     de la page (« Un appel suffit », pas de formulaire ni de prise de
+     rendez-vous en ligne — la page n'en propose pas). -->
+<title>Assistance à domicile — papiers et ordinateur · Martinique (Espace Sud)</title>
+<meta name="description" content="Assistance administrative et informatique à domicile en Martinique (Espace Sud). 90 €, 45 € après crédit d'impôt de 50 %. Un appel suffit, sans formulaire.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Assistance à domicile — papiers et ordinateur, en Martinique">
-<meta property="og:description" content="Assistance administrative et assistance informatique à domicile en Martinique. Tarifs écrits en entier, crédit d'impôt de 50 % expliqué, et l'avance immédiate pour ne régler que la moitié le jour même.">
+<meta property="og:title" content="Assistance à domicile — papiers et ordinateur · Martinique (Espace Sud)">
+<meta property="og:description" content="Assistance administrative et informatique à domicile en Martinique (Espace Sud). 90 €, 45 € après crédit d'impôt de 50 %. Un appel suffit, sans formulaire.">
 <meta property="og:locale" content="fr_FR">
 <style>
 /* =====================================================================
@@ -676,6 +699,24 @@ footer strong{color:var(--encre-forte)}
   .scene-large{max-width:none}
   /* La scene 2 est vue petite : elle ne prend pas toute la largeur de lecture. */
   .scene-carre{max-width:24rem}
+  /* ── L'IMAGE GÉNÉRÉE : l'emplacement est prêt, l'image n'est pas là ──
+     12/09/2026. Le Président génère le visuel lui-même dans ChatGPT
+     (méthode des affiches de la Pharmacie des Alizés) ; le prompt est dans
+     livrables/offres/prompts-image-ia-fiche-partenaires-sap.md et la MÊME
+     image sert les trois documents de la ligne SAP — c'est ce qui fait la
+     cohérence, une image par page ferait exactement l'inverse.
+     Ces règles ne changent rien tant qu'aucune <img> n'est posée.
+     La légende prend les jetons de la page, donc elle suit le thème sombre
+     toute seule : --gris sur --panneau donne 7,76:1 en sombre (valeur
+     déclarée ligne 91) et 7,65:1 en clair. */
+  .scene img{display:block; width:100%; height:auto}
+  .scene-large img{aspect-ratio:1600/460; object-fit:cover; object-position:50% 42%}
+  .scene figcaption{
+    padding:.625rem 1.125rem;
+    border-top:2px solid var(--bord);
+    background:var(--panneau);
+    font-size:1.0625rem; line-height:1.4; color:var(--gris);
+  }
   @media print{ .scene{break-inside:avoid; margin:14pt 0} .scene-carre{max-width:16rem} }
   footer .credit-images{font-size:1.0625rem; color:var(--gris); margin-top:1.25rem}
 
@@ -693,7 +734,7 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 <div class="page">
 
   <header class="entete">
-    <p class="marque">Assistance à domicile · Martinique</p>
+    <p class="marque">Assistance à domicile · Espace Sud, Martinique</p>
     <div class="marque-filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
 
     <div class="identite">
@@ -703,9 +744,63 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
       <p class="ligne-tel">Téléphone&nbsp;: <a class="lien-tel" href="tel:+596696884814"><span>06 96 88 48 14</span></a></p>
     </div>
 
-    <p class="eyebrow">À domicile, partout en Martinique · Service à la personne déclaré</p>
+    <!-- LA COUVERTURE EST DITE ICI, ET UNE SEULE FOIS DANS LA PAGE : c'est
+         l'endroit le plus lu, juste avant le titre. Le lecteur a 70 ou 80 ans
+         et sa première question n'est pas le prix, c'est « est-ce que ça vient
+         jusque chez moi ». Trois éléments, et chacun répond à une question
+         différente — c'est pour ça qu'aucun des trois n'est de trop :
+           · « douze communes » .......... quelle étendue (décision du Président,
+             12/09 : on quantifie, on n'énumère pas — une liste nominative
+             engagerait commune par commune et vieillirait mal) ;
+           · « de l'Espace Sud » ............ le nom, celui que la directrice du
+             CCAS de Saint-Esprit a elle-même donné ;
+           · « le sud de la Martinique » ..... où c'est, pour qui ne connaît pas
+             le nom de son agglomération.
+
+         ⛔ POURQUOI PAS « du territoire de l'Espace Sud » ICI, alors que c'est
+            la formulation retenue. Parce que cette ligne est un SUR-TITRE : au
+            delà d'une certaine longueur, elle cesse d'annoncer le titre et se
+            met à lui faire concurrence. Mesuré le 12/09, en nombre de lignes
+            à 264 / 390 / 800 px :
+              « partout en Martinique » (l'ancienne, fausse) ....... 3 / 2 / 1
+              avec « du territoire de l'Espace Sud » ............... 6 / 4 / 2
+              sans « du territoire » (retenue) .................... 5 / 3 / 2
+            Deux mots coûtaient une ligne pleine sur toutes les largeurs, et
+            six lignes de sur-titre repoussent le h1 sous la ligne de flottaison
+            d'un téléphone. La formulation complète et engageante reste écrite
+            deux fois plus bas — « Zone d'intervention : Territoire de l'Espace
+            Sud » au pied, qui est la mention qui fait foi.
+
+         ⛔ Ne pas répéter ce triplet ailleurs dans la page : les autres
+            occurrences gardent la formulation nue. Répété à chaque section, un
+            argument de réassurance se lit comme une justification. -->
+    <p class="eyebrow">À domicile, dans les douze communes de l'Espace Sud — le sud de la Martinique · Service à la personne déclaré</p>
     <h1>On vient chez vous, pour vos papiers et pour votre ordinateur.</h1>
 
+    <!-- ════════════════════════════════════════════════════════════════════
+         EMPLACEMENT RÉSERVÉ — L'IMAGE GÉNÉRÉE PAR IA (12/09/2026)
+         Elle remplacera CE dessin-ci, et lui seul : les deux autres scènes de
+         la page (le classement, l'accueil sur le pas de la porte) restent des
+         dessins. Une seule image générée pour les trois documents SAP.
+         Prompt et liste de contrôle :
+         livrables/offres/prompts-image-ia-fiche-partenaires-sap.md
+
+         LA BASCULE — remplacer tout ce <figure> par :
+           <figure class="scene scene-large">
+             <img src="accueil-a-domicile.jpg"
+                  alt="Un intervenant et une dame âgée assis côte à côte à une table, chez elle, devant des papiers et un ordinateur portable."
+                  width="1536" height="1024">
+             <figcaption>Illustration générée par intelligence artificielle&nbsp;: aucune personne réelle.</figcaption>
+           </figure>
+         ⛔ src RELATIF au document servi (/aide/), jamais un chemin du dépôt.
+         ⛔ ET CORRIGER LE PIED : la dernière ligne dit « Illustrations
+            originales — aucune photographie, aucune personne réelle. » Avec
+            une image générée, la première moitié devient fausse. Elle devient
+            « Illustrations originales, et une image d'en-tête générée par
+            intelligence artificielle — aucune photographie, aucune personne
+            réelle. » La mention qui décrit un visuel se relit à CHAQUE fois
+            que le visuel change (défaut du 10/09 sur les vitrines Etsy).
+         ════════════════════════════════════════════════════════════════════ -->
     <figure class="scene scene-large"><svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640"
      role="img" aria-labelledby="t1 d1">
   <title id="t1">Deux personnes assises côte à côte devant des papiers, à une table, dans un intérieur martiniquais</title>
@@ -1008,7 +1103,7 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
           <span class="num" aria-hidden="true">2</span>
           <div class="txt">
             <h3>On vient chez vous</h3>
-            <p>À un moment qui vous convient, où que vous soyez en Martinique.</p>
+            <p>À un moment qui vous convient, où que vous soyez sur le territoire de l'Espace Sud.</p>
           </div>
         </li>
         <li class="etape">
@@ -1244,7 +1339,7 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
       <p>Un appel suffit. Dites-nous ce qui vous embête — vous, ou vos enfants pour vous.</p>
       <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
       <p class="mail">Ou par courriel&nbsp;: <a class="lien-texte" href="mailto:backoffice.martinique@gmail.com"><span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></a></p>
-      <p style="margin-top:1rem;margin-bottom:0">À domicile, partout en Martinique. Il n'y a rien à remplir en ligne, rien à créer comme compte.</p>
+      <p style="margin-top:1rem;margin-bottom:0">À domicile, sur tout le territoire de l'Espace Sud. Il n'y a rien à remplir en ligne, rien à créer comme compte.</p>
     </div>
   </section>
 
@@ -1258,11 +1353,22 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
   <div class="page">
     <p><strong>Activités n°&nbsp;14</strong> (assistance administrative) <strong>et n°&nbsp;11</strong> (assistance informatique) au titre de l'article D.7231-1 du code du travail, exercées dans le cadre de la coopérative <strong>AdomSAP</strong>, société par actions simplifiée coopérative à capital variable, capital 25&nbsp;000&nbsp;€, RCS Lyon 944&nbsp;666&nbsp;189, 13 quai du Commerce, 69009 Lyon — organisme de services à la personne <strong>déclaré sous le n° SAP944666189</strong> depuis le 23/05/2025.</p>
 
-    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — téléphone 04 82 53 93 06 — <a class="lien-texte" href="mailto:contact@sasmediationsolution-conso.fr"><span class="insec">contact@sasmediationsolution-conso.fr</span></a></p>
+    <p><strong>Si quelque chose ne va pas.</strong> Écrivez-nous d'abord&nbsp;: adressez votre réclamation à AdomSAP, qui s'engage à vous répondre dans les 15 jours ouvrés. <strong>Si cette réponse ne vous satisfait pas</strong>, vous pouvez ensuite saisir gratuitement le médiateur de la consommation&nbsp;: <strong>Médiation Solution</strong>, 222 chemin de la Bergerie, 01800 Saint-Jean-de-Niost — téléphone 04 82 53 93 06 — <a class="lien-texte" href="mailto:contact@sasmediationsolution-conso.fr"><span class="insec">contact@</span><wbr><span class="insec">sasmediationsolution-conso.fr</span></a></p>
+    <!-- ⛔ DÉFAUT PRÉEXISTANT, MESURÉ ET CORRIGÉ LE 12/09/2026 (agent design).
+         L'adresse du médiateur était enfermée dans UN seul .insec : 297,2 px
+         d'un bloc insécable. Sur un écran de 264 px la page débordait de
+         50 px en horizontal, et elle déborde sur tout téléphone de la classe
+         320 px. Coupure à l'arobase, exactement comme l'adresse
+         backoffice.martinique@gmail.com deux paragraphes plus haut : c'est le
+         motif déjà retenu dans ce fichier, je ne l'invente pas.
+         *Un débordement horizontal ne se voit pas dans une fenêtre de travail
+         large — il ne se voit qu'au téléphone, c'est-à-dire là où le lecteur
+         de cette page se trouve.* -->
+
 
     <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime différent, réservé à d'autres prestations.</p>
 
-    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, <strong>partenaire indépendant</strong> de la coopérative AdomSAP. Zone d'intervention&nbsp;: Martinique. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: <a class="lien-texte" href="mailto:backoffice.martinique@gmail.com"><span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></a></p>
+    <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, <strong>partenaire indépendant</strong> de la coopérative AdomSAP. Zone d'intervention&nbsp;: Territoire de l'Espace Sud. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: <a class="lien-texte" href="mailto:backoffice.martinique@gmail.com"><span class="insec">backoffice.martinique@</span><wbr><span class="insec">gmail.com</span></a></p>
 
     <p>Prix TTC, TVA 2,1&nbsp;%. Facture et attestation fiscale annuelle établies par AdomSAP. Le crédit d'impôt de 50&nbsp;% s'applique dans la limite de <strong>12&nbsp;000&nbsp;€</strong> de dépenses de services à la personne par an et par foyer, <strong>dont 3&nbsp;000&nbsp;€ pour l'assistance informatique</strong>.</p>
 

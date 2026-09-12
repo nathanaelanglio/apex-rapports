@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Aide à domicile en Martinique — papiers et ordinateur</title>
-<meta name="description" content="Flyer : on vient chez vous en Martinique, pour vos papiers et votre ordinateur. Séance de 2 h à 90 €, la moitié rendue en crédit d'impôt.">
+<title>Aide à domicile · Espace Sud, Martinique — papiers et ordinateur</title>
+<meta name="description" content="Flyer : on vient chez vous sur le territoire de l'Espace Sud, en Martinique, pour vos papiers et votre ordinateur. Séance de 2 h à 90 €, la moitié rendue en crédit d'impôt.">
 <style>
 /* ⚠️ MONTANTS : grille horaire du 24/08 (90 € / 135 € / 169 € / 30 € solidaire),
    CELLE AFFICHEE CI-DESSOUS et CELLE DU SITE LIVE apexautomation.fr/aide (verifie le
@@ -63,6 +63,11 @@ body{
    decor. `slice` sur une proportion imposee garde une fenetre
    constante et coupe autour du centre du viewBox. */
 .scene{display:block;width:100%;height:auto;flex:0 0 auto;aspect-ratio:720/140}
+/* L'image generee, quand elle arrivera, prend la meme classe : la bande garde
+   exactement la meme geometrie, donc la feuille A4 ne bouge pas d'un
+   millimetre. C'est la seule raison pour laquelle on peut echanger le dessin
+   contre une image sur CE document-ci sans tout remesurer. */
+img.scene{object-fit:cover;object-position:50% 42%}
 
 main{flex:1 1 auto;display:flex;flex-direction:column;padding:3mm 14mm 0}
 
@@ -323,6 +328,37 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
        TABLE (y=212), qui est une ligne. Tout ce qui est pose dessus reste
        entier ; ce qui est coupe en haut n'est que le cadre de la fenetre
        et le sommet des classeurs, c'est-a-dire des traits. -->
+  <!-- ══════════════════════════════════════════════════════════════════════
+       EMPLACEMENT RÉSERVÉ — L'IMAGE GÉNÉRÉE PAR IA (12/09/2026)
+       Même image que les deux autres documents SAP : une seule génération
+       pour la ligne entière. Prompt et contrôles de réception dans
+       livrables/offres/prompts-image-ia-fiche-partenaires-sap.md
+
+       LA BASCULE — remplacer ce <svg class="scene"> par :
+         <img class="scene" src="accueil-a-domicile.jpg" alt="Dessin : un
+              intervenant et une dame âgée assis côte à côte à une table,
+              chez elle, devant des papiers et un ordinateur portable.">
+       La bande garde sa proportion (aspect-ratio 720/140) : à l'image près,
+       la feuille ne bouge pas.
+
+       ⛔ LA MENTION DE DIVULGATION IA COÛTE UNE LIGNE — mesurée, elle passe.
+          Elle va en fin du SECOND paragraphe du pied :
+            « Illustration d'en-tête générée par intelligence artificielle —
+              aucune personne réelle. »
+          Mesures du 12/09/2026, feuille rendue dans une fenêtre de 900 px
+          (793,7 × 1122,5 px, soit 210 × 297 mm au pixel près) :
+            · pied actuel ................ bas à 288,0 mm — 9,0 mm de blanc
+            · avec la mention IA ......... bas à 293,4 mm — 3,6 mm restants
+          Donc ça tient, et il ne reste RIEN après. Cette feuille a une hauteur
+          FIXE avec overflow:hidden : une ligne de trop ne déborde pas, elle
+          est COUPÉE, et la page continue de ressembler à une page finie —
+          défaut payé le 25/08 pour 2 px, et le 10/09 sur les kits pour 328 mm
+          de contenu invisibles à l'écran.
+          ➜ Après la bascule : remesurer, et n'ajouter plus rien d'autre au
+            pied. Si ça dépasse, on ne raccourcit pas une mention légale pour
+            gagner de la place : c'est au Président de trancher ce qui sort
+            de la feuille.
+       ══════════════════════════════════════════════════════════════════════ -->
   <svg class="scene" viewBox="0 42 720 200" preserveAspectRatio="xMidYMid slice" role="img"
        aria-label="Dessin : deux personnes assises côte à côte à une table, une dame âgée à lunettes et l'assistant qui l'accompagne. Devant elles, une chemise de dossiers, un ordinateur portable, deux tasses et un pot de fleurs. Derrière, une étagère de classeurs et une fenêtre ouverte sur la mer, un morne vert, une case au toit rouge et un cocotier.">
     <rect x="0" y="0" width="720" height="236" fill="#FDF3E3"/>
@@ -408,7 +444,15 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
 
   <main>
 
-    <p class="marque">Assistance à domicile · Martinique <span>Service à la personne déclaré</span></p>
+    <!-- ⛔ TERRITOIRE, 12/09/2026 — et pourquoi ce n'est PAS « Espace Sud,
+         Martinique » ici alors que le titre de la page le dit ainsi.
+         Cette ligne est en capitales espacées (.14em) et la note du 30/08
+         plus haut fixe la limite : au-delà d'une trentaine de signes, on
+         déchiffre au lieu de lire. « ASSISTANCE À DOMICILE · MARTINIQUE »
+         faisait 33 signes ; « · ESPACE SUD » en fait 34. Ajouter aussi le
+         nom de l'île en ferait 45 — le défaut exact corrigé le 30/08.
+         Le lecteur de ce flyer est EN Martinique, on le lui apprend pas. -->
+    <p class="marque">Assistance à domicile · Espace Sud <span>Service à la personne déclaré</span></p>
 
     <h1>On vient chez vous, pour vos papiers et pour votre ordinateur.</h1>
 
@@ -441,7 +485,7 @@ a.lien-texte:focus-visible{outline:3px solid currentColor;outline-offset:2px}
         </svg>
         06 96 88 48 14
       </a>
-      <p class="rassure">Appelez, on regarde ensemble, vous décidez après. <strong>Vous pouvez demander à un proche d'être là.</strong> À domicile, partout en Martinique — rien à remplir en ligne.</p>
+      <p class="rassure">Appelez, on regarde ensemble, vous décidez après. <strong>Vous pouvez demander à un proche d'être là.</strong> À domicile, sur tout le territoire de l'Espace Sud — rien à remplir en ligne.</p>
     </div>
 
     <p class="suite">D'autres tarifs, le crédit d'impôt expliqué et ce que nous ne faisons pas&nbsp;:

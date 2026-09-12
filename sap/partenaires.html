@@ -10,10 +10,27 @@
 :root{
   --encre:#1B365D;
   --encre-forte:#12233D;
-  --gris:#4A4E5A;
+  --gris:#474B57;
   --or:#C8941E;
   --papier:#FFFFFF;
   --papier-bloc:#F4F5F8;
+
+  /* LES TROIS TEINTES DE LA FAMILLE SAP — reprises telles quelles du
+     flyer remis au public. Cette fiche était le seul document de la
+     ligne resté en noir et blanc.
+     Chaque teinte porte UN sens, et toujours le même :
+       bleu pâle #D8F6F6 — ce que nous faisons, du contenu utilisable
+       pêche     #F6E9D8 — un cadre, une limite, une condition
+       lavande   #D7C0F4 — la phrase à dire, UNE seule fois dans la fiche
+     Mesures au navigateur, encre #1B365D : 10,6:1 sur le bleu pâle,
+     10,1:1 sur la pêche, 7,4:1 sur la lavande.
+     ⛔ Le gris passe de #4A4E5A à #474B57 : sur la pêche, l'ancien
+     tombait à 6,9:1, sous le plancher senior de 7:1 de la charte SAP.
+     Le nouveau donne 7,3:1 sur pêche et 7,7:1 sur bleu pâle. */
+  --panneau:#D8F6F6;
+  --regle:#F6E9D8;
+  --lavande:#D7C0F4;
+
   color-scheme: only light;
 }
 *{box-sizing:border-box}
@@ -219,6 +236,167 @@ footer strong{color:var(--encre)}
   .tel{font-size:1.375rem;padding:.875rem .5rem}
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   COULEUR ET ILLUSTRATIONS — ajout du 12/09/2026.
+
+   Retour de Nathalie Pognon, directrice du CCAS de Saint-Esprit, qui se
+   sert réellement de cette fiche : « L'essentiel y est. Mais un peu de
+   fantaisie serait intéressant (couleur, images, ...) ». Et le Président,
+   sur ce qu'il faut garder : « ce qui est bien est que l'on sait à quoi
+   s'en tenir ». Donc on AJOUTE : pas une structure déplacée, pas une
+   phrase réécrite, pas un bloc supprimé.
+
+   Rien n'est inventé ici. Les trois teintes, la vague et les deux dessins
+   viennent du flyer public et du dossier livrables/offres/visuels-sap/ de
+   la même ligne de services. La fiche rentre dans sa famille ; elle ne
+   s'en invente pas une.
+
+   ⛔ LA COULEUR NE PORTE JAMAIS UNE INFORMATION. Chaque bloc teinté garde
+   sa bordure marine. En niveaux de gris, chez un partenaire dont le
+   pilote d'impression refuse les fonds, ou en contraste forcé Windows, la
+   fiche a exactement la même structure sans une seule teinte : un agent
+   d'accueil y retrouve « qui adresser » et « qui ne pas adresser » par le
+   titre, le cadre et le picto, jamais par la couleur seule.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* La vague du flyer n'est PAS reprise ici, et c'est délibéré : sur une
+   feuille unique elle ouvre le document, sur une fiche de trois pages qui
+   porte déjà deux dessins encadrés elle n'aurait été qu'un ornement de
+   plus. Une classe qui ne fait rien finit par être supposée faire
+   quelque chose — donc elle n'existe pas dans cette feuille.
+
+   LES DEUX SCÈNES — dessins originaux de la ligne SAP
+   (livrables/offres/visuels-sap/), INLINÉS et jamais référencés : une
+   <img src="…svg"> locale donnerait une page juste ici et un cadre vide
+   une fois servie sur apexautomation.fr/sap/ — panne silencieuse déjà
+   payée (cf. reference_mise_en_ligne_pannes_silencieuses). */
+.banniere{
+  margin:1.5rem 0 0;
+  border:2px solid var(--encre);
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--panneau);
+}
+.banniere svg{display:block;width:100%;height:auto}
+/* Le recadrage suit une COUTURE, pas le contenu (leçon du flyer, 31/08) :
+   la fenêtre s'arrête AU-DESSOUS des objets posés sur la table (papiers à
+   596, chemises à 600) et au-dessus des visages (le plus haut à 190),
+   jamais au milieu d'une tasse ou d'une tête. */
+.banniere-tete svg{aspect-ratio:1600/460}
+.banniere-suite{margin-top:1.5rem}
+.banniere-suite svg{aspect-ratio:1600/520}
+
+/* ── L'IMAGE GÉNÉRÉE : l'emplacement est prêt, l'image n'est pas encore là ──
+   Le Président génère lui-même le visuel dans ChatGPT à partir du prompt de
+   `prompts-image-ia-fiche-partenaires-sap.md` (même méthode que les affiches
+   de la Pharmacie des Alizés : il génère, je monte).
+
+   Ces règles ne servent à rien tant qu'aucune <img> n'est posée — elles ne
+   changent rien au rendu actuel. Le mode d'emploi de la bascule est en
+   commentaire dans le corps, juste sous la scène de tête.
+
+   `object-position:50% 42%` et non 50% 50% : sur un 3:2 recadré en bandeau à
+   3,48:1, un centrage strict rogne autant en haut qu'en bas. Les visages sont
+   au-dessus du milieu, la table en dessous : on remonte la fenêtre de 8 %
+   pour garder les têtes entières et perdre du plancher, pas des regards. */
+.banniere img{display:block;width:100%;height:auto}
+.banniere-tete img{aspect-ratio:1600/460;object-fit:cover;object-position:50% 42%}
+/* La mention de divulgation IA vit SOUS l'image, dans le cadre, jamais DANS
+   l'image. C'est la leçon du 09/09 sur les trois annonces de la pharmacie :
+   la mention ne se rattrape pas sur une image déjà générée — le bandeau bas
+   est occupé et le seul vide tombe dans la marge de sécurité. Ici la page
+   entoure l'image, donc la place existe par construction et aucune réserve
+   n'est à demander au modèle.
+   #474B57 sur #D8F6F6 : 7,7:1. 17 px, le plancher des mentions de la ligne SAP. */
+.banniere figcaption{
+  padding:.625rem 1rem;
+  border-top:2px solid var(--encre);
+  background:var(--panneau);
+  font-size:1.0625rem;line-height:1.4;
+  color:var(--gris);
+}
+
+/* LES PASTILLES. Jamais une icône sans son mot : seule, elle ne dit rien,
+   elle sort en gris à l'impression et elle n'existe pas pour un lecteur
+   d'écran. Chacune est ici collée au titre qu'elle accompagne. */
+/* ⛔ `align-items:center` a été essayé et mesuré : sur un titre d'une ligne
+   il est parfait, sur les titres qui se replient il est faux. Mesuré à 264 px
+   de largeur de page : « Ce qu'il faut dire exactement sur le crédit d'impôt »
+   tient sur 5 lignes, 128 px de haut — l'icône se posait au MILIEU de ce
+   bloc, à 50 px sous le mot qu'elle annonce, et ne se rattachait plus à
+   rien. Une pastille appartient à la PREMIÈRE ligne de son titre, pas au
+   centre de gravité du paragraphe. `flex-start`, et 28 px au lieu de 32 pour
+   tenir dans la hauteur d'une ligne de titre (25,6 px pour un h3). */
+.ico{flex:0 0 auto;display:block;width:1.75rem;height:1.75rem;margin-top:.0625rem}
+.avec-ico{display:flex;align-items:flex-start;gap:.75rem}
+/* `.usage .titre` porte déjà display:block et pèse 0,2,0 : sans ce
+   sélecteur à 0,3,0, l'icône de tête restait au-dessus du titre au lieu
+   d'être à côté. Le défaut n'existe qu'au rendu, jamais à la lecture. */
+.usage .titre.avec-ico{display:flex}
+
+/* LES TROIS TEINTES, UN SENS CHACUNE — la table est dans :root. */
+.bloc-oui{background:var(--panneau)}
+.bloc-cadre{background:var(--regle)}
+.usage{background:var(--regle);border-radius:18px}
+.identite{border-radius:16px}
+.bloc{border-radius:16px}
+.epreuve{border-radius:16px}
+.acompleter{border-radius:12px}
+.tab-enveloppe{border-radius:16px}
+thead th{background:var(--panneau)}
+/* La ligne du forfait prend la pêche, et ce n'est pas une mise en avant :
+   c'est le seul tarif de la grille qui porte des conditions (engagement,
+   14 jours, séances à prendre dans le mois), et la fiche dit elle-même de
+   le présenter « comme une possibilité, pas comme la formule d'entrée ».
+   La teinte dit la même chose que le texte. */
+tr.cle th,tr.cle td{background:var(--regle)}
+.etapes li::before{background:var(--panneau);border-radius:10px}
+.contact{background:var(--panneau);border-radius:16px}
+.tel{
+  background:var(--papier);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;gap:.75rem;
+}
+.tel .ico{width:1.75rem;height:1.75rem}
+/* La lavande ne sert qu'ici : c'est le seul bloc que le partenaire va
+   réellement réutiliser — il le lit à voix haute ou le recopie sur un
+   papier. Il doit se retrouver d'un coup d'œil à la troisième page. */
+.aditer{background:var(--lavande);border-radius:16px}
+/* ⛔ MESURÉ, PAS ESTIMÉ. La dernière ligne de ce bloc (« Phrase pensée pour
+   être lue à voix haute ») est en --gris : sur le blanc elle donnait 8,7:1,
+   sur la lavande elle tombe à 5,28:1 — sous le plancher de 7:1 de la ligne
+   SAP, et je ne l'aurais jamais vu à l'œil, la lavande paraît claire.
+   Elle repasse en encre : 7,35:1. Sa hiérarchie tient par la taille (17 px
+   contre 20), pas par la couleur — ce qui est de toute façon la règle.
+   *Une teinte de fond ne se choisit pas sans repasser TOUS les textes
+   qu'elle porte, y compris celui qu'on avait écrit pour être discret.* */
+.aditer p:last-child{color:var(--encre)}
+
+@media (max-width:40rem){
+  /* Le dessin de tête garde une fenêtre CONSTANTE quand l'écran maigrit :
+     à sa proportion de bannière il tomberait à 100 px de haut, visages à
+     25 px. `slice` sur une proportion plus haute conserve toute la
+     HAUTEUR du dessin et rogne les côtés — l'étagère à gauche, la pile de
+     chemises à droite, deux décors. Les deux personnes et les papiers,
+     qui sont le sujet, restent entiers. Même correctif que le flyer le
+     28/08. */
+  .banniere-tete svg{aspect-ratio:2.3/1}
+  .ico{width:1.625rem;height:1.625rem}
+  /* Sous 40rem le tableau devient des cartes empilées : la teinte se pose
+     sur la carte entière, sinon elle sort en bandes sur trois lignes. */
+  tr.cle th,tr.cle td{background:transparent}
+  tr.cle{background:var(--regle)}
+}
+
+/* Contraste forcé (Windows) : les fonds système remplacent les nôtres. On
+   garde les bords, sinon les blocs se soudent — et on laisse les dessins
+   tels quels, sans quoi `fill` et `stroke` sortiraient en aplats système
+   et les deux scènes deviendraient des taches. */
+@media (forced-colors:active){
+  .usage,.identite,.bloc,.contact,.tel,.aditer,.banniere{border:2px solid CanvasText!important}
+  .filet i,.filet b{background:CanvasText!important}
+  .banniere svg{forced-color-adjust:none}
+}
+
 @media print{
   @page{size:A4;margin:15mm}
   body{font-size:11.5pt;line-height:1.5;color:#1B365D}
@@ -254,20 +432,227 @@ footer strong{color:var(--encre)}
   tr,.etapes li{break-inside:avoid}
   a{color:#1B365D;text-decoration:none}
 }
+
+@media print{
+  /* LES TEINTES SUR PAPIER — ajout du 12/09/2026.
+     Elles s'impriment quand le pilote les accepte ; quand il les refuse,
+     il ne manque qu'une teinte : toutes les bordures marine restent, et
+     aucun texte essentiel n'est posé en blanc sur un aplat. C'est la
+     règle de la charte SAP (« on conçoit pour l'imprimante qui refuse les
+     fonds ») — un CCAS imprime cette fiche, il ne la lit pas à l'écran. */
+  .usage,.identite,.bloc,.contact,.aditer,.tab-enveloppe,.banniere,
+  thead th,tr.cle th,tr.cle td,.etapes li::before{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  thead th{background:#D8F6F6}
+  tr.cle th,tr.cle td{background:#F6E9D8}
+  .banniere{break-inside:avoid;margin:12pt 0 0;border-radius:10px}
+  .banniere-suite{margin-top:12pt}
+  .usage,.identite,.bloc,.contact,.aditer{border-radius:10px}
+  .ico{width:1.375rem;height:1.375rem}
+}
 </style>
 </head>
 <body>
 <div class="page">
 
+  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+
   <div class="usage">
-    <span class="titre">Fiche à l'usage des professionnels qui orientent</span>
+    <span class="titre avec-ico">
+      <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect x="5.5" y="5.5" width="21" height="23" rx="3" fill="#C0AEE0" stroke="#1B365D" stroke-width="2.5"/>
+        <path d="M12 3.5h8v4h-8z" fill="#FFFFFF" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M11 16h10M11 21h7" fill="none" stroke="#1B365D" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      Fiche à l'usage des professionnels qui orientent
+    </span>
     <p>Elle est faite pour un agent d'accueil, un travailleur social, un pharmacien, un responsable de résidence ou une association d'aidants. Elle dit qui nous adresser et, surtout, <strong>qui ne pas nous adresser</strong>.</p>
     <p><strong>Ne pas la remettre au public&nbsp;:</strong> le document destiné aux particuliers est le flyer «&nbsp;On vient chez vous, pour vos papiers et pour votre ordinateur&nbsp;», qui porte les mêmes tarifs, écrits pour être lus par la personne elle-même.</p>
   </div>
 
-  <div class="filet" role="presentation" aria-hidden="true"><i></i><b></b></div>
+  <!-- LA SCÈNE DE TÊTE — dessin original de la ligne SAP, repris tel quel de
+       livrables/offres/visuels-sap/scene-table.svg. Deux personnes assises
+       côte à côte devant des papiers : c'est exactement ce que la fiche
+       décrit trois lignes plus bas (« un intervenant se déplace chez la
+       personne, à sa table »). Le document parle à des travailleurs
+       sociaux ; ce qu'ils orientent, ce sont des gens, pas des dossiers.
+       viewBox recadré de 0 150 à 610 : au-dessus des visages (le plus haut
+       à 190), au-dessous des papiers (596) et de la pile de chemises
+       (600). Aucun objet n'est coupé, seuls des traits le sont. -->
+  <figure class="banniere banniere-tete">
+    <svg viewBox="0 150 1600 460" preserveAspectRatio="xMidYMid slice"
+         role="img" aria-labelledby="t1 d1">
+      <title id="t1">Deux personnes assises côte à côte devant des papiers, à une table, dans un intérieur martiniquais</title>
+      <desc id="d1">Dessin au trait marine. Une dame âgée à lunettes et une intervenante sont assises côte à côte à une table de salle à manger. Devant elles, une chemise ouverte, des feuilles, deux tasses et une plante. Derrière, une étagère de classeurs et une fenêtre ouverte sur un morne vert, une case au toit de tôle, un cocotier et la mer.</desc>
 
-  <p class="eyebrow">Fiche d'orientation · Martinique</p>
+      <defs>
+        <clipPath id="fenetre">
+          <rect x="1150" y="90" width="420" height="340"/>
+        </clipPath>
+      </defs>
+
+      <rect x="0" y="0" width="1600" height="474" fill="#EDF5F4"/>
+
+      <g clip-path="url(#fenetre)">
+        <rect x="1150" y="90" width="420" height="340" fill="#CDE9F3"/>
+        <circle cx="1236" cy="164" r="34" fill="#F3CB6A"/>
+        <path d="M1150 316c46-49 86-55 129-20 37 29 65 26 95-6 31-32 71-29 101 6 20 22 46 26 92 8v126H1150Z" fill="#4FA36B"/>
+        <path d="M1400 396v-46h68v46z" fill="#FBEBD2"/>
+        <path d="M1386 350l48-34 48 34z" fill="#C46A45"/>
+        <path d="M1400 396v-46h68v46zM1386 350l48-34 48 34z" fill="none" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+        <rect x="1422" y="364" width="24" height="32" fill="#3E8FB0" stroke="#1B365D" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M1512 398c-8-52 0-76 20-96" fill="none" stroke="#1B365D" stroke-width="7" stroke-linecap="round"/>
+        <g fill="none" stroke="#2E7A4A" stroke-width="10" stroke-linecap="round">
+          <path d="M1532 302c-24-8-44 0-53 17"/>
+          <path d="M1532 302c24-8 43 0 52 17"/>
+          <path d="M1532 302c-17-15-20-35-12-49"/>
+          <path d="M1532 302c17-14 38-12 50 2"/>
+          <path d="M1532 302c-23 5-38 17-42 32"/>
+        </g>
+        <circle cx="1532" cy="302" r="8" fill="#2E7A4A"/>
+        <rect x="1150" y="396" width="420" height="34" fill="#3E9BA8"/>
+        <path d="M1178 412h30M1252 419h24M1330 411h28M1436 418h26M1508 412h30"
+              fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <path d="M1360 90v340" fill="none" stroke="#1B365D" stroke-width="6"/>
+      <rect x="1150" y="90" width="420" height="340" fill="none" stroke="#1B365D" stroke-width="7"/>
+      <rect x="1134" y="430" width="452" height="20" fill="#E9C08A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+      <g stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round">
+        <rect x="74" y="206" width="36" height="100" fill="#DC7F72"/>
+        <rect x="116" y="222" width="30" height="84" fill="#EFC15E"/>
+        <rect x="152" y="198" width="38" height="108" fill="#2AA5A0"/>
+        <rect x="196" y="214" width="32" height="92" fill="#FFFFFF"/>
+        <rect x="234" y="230" width="34" height="76" fill="#C0AEE0"/>
+        <rect x="274" y="210" width="36" height="96" fill="#4FA36B"/>
+      </g>
+      <g stroke="#1B365D" stroke-width="3" fill="#FFFFFF">
+        <rect x="80" y="224" width="24" height="16"/>
+        <rect x="158" y="216" width="26" height="16"/>
+        <rect x="280" y="228" width="24" height="16"/>
+      </g>
+      <path d="M56 306h300v16H56z" fill="#E9C08A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M84 322v18M328 322v18" fill="none" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+
+      <path d="M626 296h48v54h-48z" fill="#B07B52" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M524 476v-44c0-34 22-59 55-69l43-13h56l43 13c33 10 55 35 55 69v44z"
+            fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M622 350l28 46 28-46" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <circle cx="650" cy="250" r="60" fill="#B07B52" stroke="#1B365D" stroke-width="5"/>
+      <path d="M588 264A70 70 0 1 1 712 264C702 250 690 226 672 218C660 234 640 234 628 218C610 226 598 250 588 264Z"
+            fill="#DCD8D2" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <g fill="none" stroke="#1B365D" stroke-width="4">
+        <circle cx="628" cy="256" r="19"/>
+        <circle cx="672" cy="256" r="19"/>
+        <path d="M647 256h6"/>
+      </g>
+      <circle cx="628" cy="257" r="5.5" fill="#12233D"/>
+      <circle cx="672" cy="257" r="5.5" fill="#12233D"/>
+      <path d="M632 288c12 12 24 12 36 0" fill="none" stroke="#12233D" stroke-width="5" stroke-linecap="round"/>
+
+      <path d="M908 300h44v52h-44z" fill="#A9714A" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M812 476v-40c0-32 21-55 51-64l40-12h52l40 12c30 9 51 32 51 64v40z"
+            fill="#2AA5A0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M903 352l27 42 27-42" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <circle cx="930" cy="254" r="56" fill="#A9714A" stroke="#1B365D" stroke-width="5"/>
+      <path d="M868 268A68 68 0 1 1 992 268A62 48 0 0 0 868 268Z" fill="#2E2018" stroke="#2E2018" stroke-width="7" stroke-linejoin="round"/>
+      <circle cx="910" cy="256" r="6" fill="#12233D"/>
+      <circle cx="950" cy="256" r="6" fill="#12233D"/>
+      <path d="M912 288c12 12 24 12 36 0" fill="none" stroke="#12233D" stroke-width="5" stroke-linecap="round"/>
+
+      <rect x="-10" y="474" width="1620" height="22" fill="#D9A86A"/>
+      <rect x="-10" y="496" width="1620" height="154" fill="#EFCB99"/>
+      <path d="M-10 474h1620M-10 496h1620" fill="none" stroke="#1B365D" stroke-width="6"/>
+
+      <path d="M320 540v-38M348 540v-58M376 540v-32" fill="none" stroke="#2E7A4A" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="320" cy="494" r="17" fill="#DC7F72" stroke="#1B365D" stroke-width="4"/>
+      <circle cx="348" cy="476" r="19" fill="#EFC15E" stroke="#1B365D" stroke-width="4"/>
+      <circle cx="376" cy="502" r="15" fill="#2AA5A0" stroke="#1B365D" stroke-width="4"/>
+      <path d="M298 586l8-46h84l8 46z" fill="#C46A45" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+      <path d="M460 546h18a16 16 0 0 1 0 32h-18" fill="none" stroke="#1B365D" stroke-width="5"/>
+      <path d="M404 586v-52h56v52z" fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+      <path d="M600 574l12-54h148l-12 54z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M566 586l14-58h150l-14 58z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M588 550h104M584 566h76" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+
+      <path d="M754 596l22-92h268l-22 92z" fill="#C0AEE0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M786 586l16-66h196l-16 66z" fill="#FFFFFF" stroke="#1B365D" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M812 542h150M806 558h112M800 572h130" fill="none" stroke="#1B365D" stroke-width="4" stroke-linecap="round"/>
+
+      <path d="M884 402C866 452 840 492 816 520L784 502C812 470 836 434 848 396Z" fill="#2AA5A0"/>
+      <path d="M884 402C866 452 840 492 816 520" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M848 396C836 434 812 470 784 502" fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+      <ellipse cx="782" cy="524" rx="27" ry="19" transform="rotate(-24 782 524)" fill="#A9714A" stroke="#1B365D" stroke-width="4.5"/>
+
+      <path d="M1134 546h16a14 14 0 0 1 0 28h-16" fill="none" stroke="#1B365D" stroke-width="5"/>
+      <path d="M1084 582v-46h50v46z" fill="#EFC15E" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+
+      <path d="M1236 600l10-26h228l-10 26z" fill="#2AA5A0" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M1246 574l10-26h228l-10 26z" fill="#FBEBD2" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M1256 548l10-26h228l-10 26z" fill="#DC7F72" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="1310" y="528" width="52" height="15" fill="#FFFFFF" stroke="#1B365D" stroke-width="3"/>
+    </svg>
+  </figure>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       EMPLACEMENT RÉSERVÉ — L'IMAGE GÉNÉRÉE PAR IA (12/09/2026)
+
+       Demande du Président : une image générée, sur le principe des affiches
+       saisonnières de la Pharmacie des Alizés — il génère dans ChatGPT, je
+       monte. Le prompt prêt à coller et la liste de contrôle de réception
+       sont dans `livrables/offres/prompts-image-ia-fiche-partenaires-sap.md`.
+
+       ⚠️ TANT QUE L'IMAGE N'EST PAS LÀ, LA FICHE N'A PAS DE TROU : la scène
+       ci-dessus est un état fini, publiable tel quel. On ne laisse pas un
+       cadre gris « visuel à venir » sur une page que des CCAS consultent —
+       un partenaire qui tombe sur un emplacement vide en conclut que le
+       service n'est pas prêt, et c'est exactement ce qu'on ne veut pas dire
+       à quelqu'un qu'on invite à nous adresser des gens.
+
+       ─── LA BASCULE, QUAND LE FICHIER ARRIVE — quatre gestes, pas un ───
+
+       1. Déposer l'image à côté du document servi et remplacer TOUT le
+          <figure class="banniere banniere-tete"> ci-dessus par ceci :
+
+            <figure class="banniere banniere-tete">
+              <img src="accueil-a-domicile.jpg"
+                   alt="Un intervenant et une dame âgée assis côte à côte à une table, chez elle, devant des papiers et un ordinateur portable."
+                   width="1536" height="1024">
+              <figcaption>Illustration générée par intelligence artificielle&nbsp;: aucune personne réelle.</figcaption>
+            </figure>
+
+          ⛔ `src` en chemin RELATIF au document servi (/sap/), jamais un
+             chemin du dépôt ni un file:// : en local tout s'affiche, en
+             ligne c'est un cadre vide et personne ne le voit passer
+             (reference_mise_en_ligne_pannes_silencieuses).
+          ⛔ `width`/`height` aux dimensions RÉELLES du fichier — sans eux la
+             page saute pendant le chargement.
+          ⛔ Le <figcaption> n'est pas optionnel et ne se déplace pas dans
+             l'image : c'est la divulgation IA, et la leçon du 09/09 sur les
+             trois annonces de la pharmacie est qu'elle ne se rattrape pas
+             après coup sur une image déjà générée.
+
+       2. Corriger la ligne du pied. Elle dit aujourd'hui « Les deux dessins
+          de cette fiche ont été réalisés pour ce service… » : avec une image
+          générée en tête, elle devient fausse. Elle devient —
+          « Le dessin de cette fiche a été réalisé pour ce service&nbsp;;
+            l'image d'en-tête est générée par intelligence artificielle.
+            Aucune banque d'images, aucune photographie de personne réelle. »
+          *Défaut déjà payé le 10/09 sur les vitrines Etsy : le produit bouge,
+          la mention qui le décrit reste — et c'est elle qu'on lit.*
+
+       3. Peser le fichier avant de pousser. Au-delà de ~400 Ko, réexporter en
+          JPG qualité 85 : cette fiche s'ouvre au guichet, parfois sur la 4G
+          d'un téléphone de service.
+
+       4. Repasser les DEUX copies (dépôt APEX + apex-rapports) et vérifier
+          qu'elles restent identiques.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <p class="eyebrow">Fiche d'orientation · Territoire de l'Espace Sud</p>
 
   <h1>Assistance administrative et informatique à domicile</h1>
 
@@ -284,8 +669,14 @@ footer strong{color:var(--encre)}
 
     <div class="deux">
       <div>
-        <div class="bloc bloc-fort">
-          <h3>Les papiers</h3>
+        <div class="bloc bloc-fort bloc-oui">
+          <h3 class="avec-ico">
+            <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <path d="M3.5 27.5V6.5h9l3 4.5h13v16.5z" fill="#EFC15E" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+              <rect x="9" y="17" width="11" height="6.5" fill="#FFFFFF" stroke="#1B365D" stroke-width="2"/>
+            </svg>
+            Les papiers
+          </h3>
           <ul class="liste">
             <li>Une personne qui ne parvient pas à créer ou retrouver un accès en ligne&nbsp;: CAF, CGSS, Ameli, impots.gouv, France&nbsp;Travail</li>
             <li>Un dossier à monter&nbsp;: retraite, réversion, MDPH, APA, logement social</li>
@@ -297,8 +688,14 @@ footer strong{color:var(--encre)}
         </div>
       </div>
       <div>
-        <div class="bloc bloc-fort">
-          <h3>L'informatique</h3>
+        <div class="bloc bloc-fort bloc-oui">
+          <h3 class="avec-ico">
+            <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <rect x="6.5" y="6.5" width="19" height="13" rx="1.5" fill="#2AA5A0" stroke="#1B365D" stroke-width="2.5"/>
+              <path d="M2.5 25.5l4-6h19l4 6z" fill="#FFFFFF" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+            L'informatique
+          </h3>
           <ul class="liste">
             <li>Un ordinateur, une imprimante ou une tablette à installer</li>
             <li>Une box internet à raccorder</li>
@@ -311,15 +708,22 @@ footer strong{color:var(--encre)}
       </div>
     </div>
 
-    <div class="bloc">
+    <div class="bloc bloc-oui">
       <p><strong>Les deux à la fois, dans la même visite.</strong> Un dossier de retraite à remplir <em>et</em> une imprimante qui ne répond plus&nbsp;: c'est un seul rendez-vous, un seul déplacement, un seul tarif. C'est le point qui distingue cette offre d'un écrivain public d'un côté et d'un dépanneur informatique de l'autre.</p>
     </div>
   </section>
 
   <section>
-    <h2>Qui ne pas nous adresser</h2>
+    <h2 class="avec-ico">
+      <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M16 29.5V4" fill="none" stroke="#1B365D" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M16 6.5h9l3.5 3.5-3.5 3.5h-9z" fill="#DC7F72" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M16 17.5H7l-3.5 3.5L7 24.5h9z" fill="#FFFFFF" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+      Qui ne pas nous adresser
+    </h2>
 
-    <div class="bloc bloc-fort">
+    <div class="bloc bloc-fort bloc-cadre">
       <p>Cette liste vaut autant que la précédente. Une orientation qui n'aboutit pas coûte à la personne un déplacement, du temps et de la confiance — et elle vous revient.</p>
       <ul class="liste barre">
         <li><strong>Toute aide portant sur la personne elle-même.</strong> Nous n'intervenons que sur les papiers et sur le matériel — jamais sur la personne. Ces prestations relèvent d'un régime distinct que nous n'avons pas&nbsp;: un service d'aide à domicile y répondra, pas nous.</li>
@@ -369,16 +773,32 @@ footer strong{color:var(--encre)}
       </table>
     </div>
 
-    <div class="bloc bloc-fort">
-      <h3>Ce qu'il faut dire exactement sur le crédit d'impôt</h3>
+    <div class="bloc bloc-fort bloc-oui">
+      <h3 class="avec-ico">
+        <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="2.5" y="7.5" width="21" height="13" rx="2" fill="#EFC15E" stroke="#1B365D" stroke-width="2.5"/>
+          <circle cx="13" cy="14" r="3.5" fill="#FFFFFF" stroke="#1B365D" stroke-width="2"/>
+          <circle cx="23" cy="23" r="6.5" fill="#FBEBD2" stroke="#1B365D" stroke-width="2.5"/>
+        </svg>
+        Ce qu'il faut dire exactement sur le crédit d'impôt
+      </h3>
       <p>La personne <strong>règle le prix entier le jour de l'intervention</strong>. La moitié lui revient <strong>ensuite</strong>, sous forme de crédit d'impôt de 50&nbsp;%&nbsp;: en déduction de son impôt sur le revenu l'année suivante si elle est imposable, <strong>remboursée par le Trésor public</strong> si elle ne l'est pas. AdomSAP lui remet une attestation fiscale annuelle qui sert de justificatif.</p>
       <p><strong>Ne dites pas «&nbsp;ça ne lui coûtera que 45&nbsp;€&nbsp;».</strong> Elle avance 90&nbsp;€, et le retour arrive plus tard — pas toujours la même année civile. C'est la seule formulation exacte, et c'est aussi celle qui évite une déception au moment de payer.</p>
       <p><strong>C'est le crédit d'impôt qui distingue cette offre.</strong> Tous les prestataires d'aide administrative ou de dépannage informatique ne sont pas déclarés services à la personne — sans cette déclaration, le client ne récupère rien. À prix affiché comparable, la dépense réelle n'est donc pas la même. C'est le point qui mérite d'être dit à la personne.</p>
       <p>Prix TTC, TVA 2,1&nbsp;% comprise. Pas de frais de déplacement, pas de frais de dossier. Plafond du crédit d'impôt&nbsp;: 12&nbsp;000&nbsp;€ de dépenses de services à la personne par an et par foyer, dont <strong>3&nbsp;000&nbsp;€</strong> pour l'assistance informatique (article D.7233-5 du code du travail).</p>
     </div>
 
-    <div class="bloc bloc-fort">
-      <h3>Le forfait, ce que vous pouvez en dire</h3>
+    <div class="bloc bloc-fort bloc-cadre">
+      <h3 class="avec-ico">
+        <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="3.5" y="6.5" width="25" height="22" rx="2.5" fill="#FBEBD2" stroke="#1B365D" stroke-width="2.5"/>
+          <path d="M3.5 13.5h25" fill="none" stroke="#1B365D" stroke-width="2.5"/>
+          <path d="M10 3.5v6M22 3.5v6" fill="none" stroke="#1B365D" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="9" y="18" width="5.5" height="5.5" fill="#2AA5A0"/>
+          <rect x="17.5" y="18" width="5.5" height="5.5" fill="#2AA5A0"/>
+        </svg>
+        Le forfait, ce que vous pouvez en dire
+      </h3>
       <p><strong>Aucune durée d'engagement.</strong> La personne l'arrête quand elle veut, par un simple appel au 06 96 88 48 14 — rien à écrire, rien à signer. Le mois commencé va à son terme, le mois suivant n'est plus facturé.</p>
       <p><strong>14 jours pour changer d'avis</strong> après l'inscription, sans justification. Si elle veut une première séance avant la fin de ce délai, un accord écrit simple est signé avant la visite. Si elle renonce après cette première séance, elle ne paie que celle-ci — la moitié du forfait — et le reste lui est remboursé.</p>
       <p><strong>Les deux séances du mois se prennent dans le mois.</strong> Un empêchement signalé au moins 48 heures avant donne lieu à une reprogrammation dans le mois. Passé le mois, une séance non prise n'est ni reportée ni remboursée.</p>
@@ -402,6 +822,72 @@ footer strong{color:var(--encre)}
 
   <section>
     <h2>Ce que votre orientation déclenche</h2>
+
+    <!-- LA SECONDE SCÈNE — scene-classement.svg, reprise telle quelle. Elle se
+         lit de gauche à droite : la pile en vrac, les deux mains qui trient,
+         le classement aligné. C'est littéralement ce que la section décrit,
+         et c'est pour ça qu'elle est ici et pas ailleurs.
+         ⛔ Elle n'est JAMAIS recadrée en largeur, à aucune taille d'écran :
+         son sens EST la progression gauche-droite. Rogner un côté, c'est
+         supprimer soit le désordre, soit le résultat. Aucun visage, aucune
+         feuille lisible : rien n'y ressemble à un document officiel. -->
+    <figure class="banniere banniere-suite">
+      <svg viewBox="0 40 1600 520" role="img" aria-labelledby="t3 d3">
+        <title id="t3">Des papiers qu'on trie : la pile en vrac devient un classement</title>
+        <desc id="d3">Dessin au trait marine, sans visage. Sur une table, à gauche une pile de feuilles en vrac posées de travers ; au centre une chemise ouverte avec des intercalaires de couleur, et deux mains, l'une en manche corail, l'autre en manche turquoise, posées dessus ; à droite, cinq chemises rangées et alignées en pile nette. Les feuilles ne portent aucun texte lisible.</desc>
+
+        <rect x="0" y="0" width="1600" height="92" fill="#EDF5F4"/>
+        <rect x="-10" y="92" width="1620" height="28" fill="#D9A86A"/>
+        <rect x="-10" y="120" width="1620" height="450" fill="#EFCB99"/>
+        <path d="M-10 92h1620M-10 120h1620" fill="none" stroke="#1B365D" stroke-width="6"/>
+
+        <g fill="#FFFFFF" stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+          <g transform="rotate(-14 200 435)"><rect x="70" y="350" width="260" height="170"/></g>
+          <g transform="rotate(8 230 395)"><rect x="100" y="310" width="260" height="170"/></g>
+          <g transform="rotate(-5 192 357)">
+            <rect x="62" y="272" width="260" height="170"/>
+            <path d="M86 306h180M86 336h124" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+          </g>
+          <g transform="rotate(17 245 315)">
+            <rect x="115" y="230" width="260" height="170"/>
+            <path d="M139 268h190M139 298h140M139 328h166" fill="none" stroke-width="4.5" stroke-linecap="round"/>
+          </g>
+        </g>
+
+        <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+          <rect x="700" y="216" width="62" height="36" fill="#2AA5A0"/>
+          <rect x="800" y="216" width="62" height="36" fill="#EFC15E"/>
+          <rect x="900" y="216" width="62" height="36" fill="#DC7F72"/>
+        </g>
+        <path d="M556 512l30-262h520l-30 262z" fill="#C0AEE0" stroke="#1B365D" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M600 500l22-226h430l-22 226z" fill="#FFFFFF" stroke="#1B365D" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M628 330h330M622 366h250M616 402h300M610 438h220"
+              fill="none" stroke="#1B365D" stroke-width="4.5" stroke-linecap="round"/>
+
+        <g stroke="#1B365D" stroke-width="5" stroke-linejoin="round">
+          <path d="M1196 424l14-34h320l-14 34z" fill="#2AA5A0"/>
+          <path d="M1210 390l14-34h320l-14 34z" fill="#FBEBD2"/>
+          <path d="M1224 356l14-34h320l-14 34z" fill="#DC7F72"/>
+          <path d="M1238 322l14-34h320l-14 34z" fill="#C0AEE0"/>
+          <path d="M1252 288l14-34h320l-14 34z" fill="#EFC15E"/>
+        </g>
+        <g fill="#FFFFFF" stroke="#1B365D" stroke-width="3">
+          <rect x="1288" y="362" width="62" height="18"/>
+          <rect x="1316" y="294" width="62" height="18"/>
+        </g>
+
+        <path d="M452 560L556 560L678 434L618 376Z" fill="#DC7F72"/>
+        <path d="M556 560L678 434" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+        <path d="M618 376L452 560" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+        <ellipse cx="662" cy="396" rx="48" ry="35" transform="rotate(-44 662 396)" fill="#B07B52" stroke="#1B365D" stroke-width="5.5"/>
+
+        <path d="M1188 560L1292 560L1116 404L1058 462Z" fill="#2AA5A0"/>
+        <path d="M1292 560L1116 404" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+        <path d="M1058 462L1188 560" fill="none" stroke="#1B365D" stroke-width="5.5" stroke-linecap="round"/>
+        <ellipse cx="1062" cy="412" rx="48" ry="35" transform="rotate(44 1062 412)" fill="#A9714A" stroke="#1B365D" stroke-width="5.5"/>
+      </svg>
+    </figure>
+
     <ol class="etapes">
       <li><strong>La personne appelle, ou vous appelez avec elle si elle le souhaite.</strong> On écoute ce qui bloque, on dit tout de suite si c'est pour nous ou non. Si ce n'est pas pour nous, on le dit et on l'oriente ailleurs — sans facturer quoi que ce soit.</li>
       <li><strong>Un rendez-vous est fixé à son domicile</strong>, à une date et une heure convenues avec elle. La formule et le prix sont annoncés avant la visite, jamais découverts sur place. Elle peut demander à un proche d'être présent&nbsp;; nous l'y encourageons.</li>
@@ -413,13 +899,32 @@ footer strong{color:var(--encre)}
     <h2>Nous joindre</h2>
     <div class="contact">
       <p>Pour une orientation, une question sur un cas précis, ou pour recevoir des flyers à l'accueil.</p>
-      <a class="tel" href="tel:+596696884814">06 96 88 48 14</a>
+      <a class="tel" href="tel:+596696884814">
+        <svg class="ico" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+          <path d="M8 3h7l3 8-4 3c2 5 6 9 11 11l3-4 8 3v7c0 1-1 2-2 2C17 33 1 17 1 5c0-1 1-2 2-2z" transform="translate(1 1) scale(.86)" fill="#F2A93B" stroke="#1B365D" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        06 96 88 48 14
+      </a>
       <p class="mail">Courriel&nbsp;: backoffice.martinique@gmail.com</p>
-      <p style="margin-top:1rem;margin-bottom:0">Zone d'intervention&nbsp;: Martinique.</p>
+      <!-- ⛔ TERRITOIRE — corrigé le 12/09/2026, seconde des deux occurrences.
+           La fiche annonçait « Martinique » : c'était faux. Le Président a
+           répondu « plus sud pour l'instant » à la directrice du CCAS de
+           Saint-Esprit, qui a elle-même donné la formulation à employer.
+           L'Espace Sud (CAESM) réunit douze communes, dont Sainte-Anne — siège
+           de l'EI — et Saint-Esprit. Une zone annoncée trop large se paie à
+           l'orientation : c'est la personne qui se déplace pour rien, et c'est
+           le partenaire qui l'a envoyée qui en répond. -->
+      <p style="margin-top:1rem;margin-bottom:0">Zone d'intervention&nbsp;: <strong>Territoire de l'Espace&nbsp;Sud</strong>.</p>
     </div>
 
     <div class="aditer">
-      <p><strong>Si vous cherchez quoi dire à la personne&nbsp;:</strong></p>
+      <p class="avec-ico">
+        <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M3.5 5.5h25v17h-14l-7 6v-6h-4z" fill="#FFFFFF" stroke="#1B365D" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M9 11.5h14M9 16.5h9" fill="none" stroke="#1B365D" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <strong>Si vous cherchez quoi dire à la personne&nbsp;:</strong>
+      </p>
       <p>«&nbsp;Il existe quelqu'un qui se déplace chez vous pour vos papiers et pour votre ordinateur. C'est payant&nbsp;: 90&nbsp;€ pour deux heures, et la moitié vous revient l'année suivante en crédit d'impôt, même si vous ne payez pas d'impôts. Vous pouvez l'appeler, en parler, et décider après.&nbsp;»</p>
       <p>Phrase pensée pour être lue à voix haute, ou notée sur un papier que la personne emporte.</p>
     </div>
@@ -438,6 +943,8 @@ footer strong{color:var(--encre)}
     <p>Cette activité est <strong>déclarée</strong>, elle n'est pas agréée&nbsp;: l'agrément est un régime distinct, réservé à d'autres prestations. Aucune intervention sur la personne&nbsp;: uniquement sur les papiers et sur le matériel.</p>
     <p>Intervenant à domicile&nbsp;: Nathanaël&nbsp;Anglio, assistant administratif et informatique à domicile, partenaire indépendant d'AdomSAP. Téléphone&nbsp;: 06 96 88 48 14. Courriel&nbsp;: backoffice.martinique@gmail.com</p>
     <p><strong>Droit de rétractation du client&nbsp;:</strong> 14 jours à compter de la conclusion du contrat, sans justification (articles L.221-18 et suivants du code de la consommation). Si la prestation démarre à sa demande avant la fin de ce délai, son accord exprès est recueilli par écrit avant l'intervention.</p>
+
+    <p>Les deux dessins de cette fiche ont été réalisés pour ce service&nbsp;: aucune banque d'images, aucune photographie de personne réelle.</p>
   </footer>
 
 </div>

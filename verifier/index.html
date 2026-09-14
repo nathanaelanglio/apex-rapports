@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Vérifier si votre boutique est lisible — APEX Automation</title>
+<meta name="description" content="Un contrôle gratuit et immédiat : notre outil peut-il lire les pages publiques de votre boutique ? Sans carte, sans engagement, résultat en quelques secondes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vérifier si votre boutique est lisible — APEX Automation">
+<meta property="og:description" content="Un contrôle gratuit et immédiat : notre outil peut-il lire les pages publiques de votre boutique ? Sans carte, sans engagement, résultat en quelques secondes.">
+<meta property="og:locale" content="fr_FR">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/site.css">
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     BROUILLON — agent production-ecommerce (Thomas), 14/09/2026.
+     Destination : apex-rapports/verifier/index.html
+     (les deux <link> ci-dessus sont écrits POUR cet emplacement — un niveau
+     sous la racine, comme audit-automatique/, offres/, contact/).
+
+     ⛔ NE PAS METTRE EN LIGNE TANT QU'IL RESTE UN VETO OUVERT CI-DESSOUS.
+       1. LÉA (design) — ✅ VU ET LEVÉ LE 14/09/2026, après correction.
+          Page ouverte et mesurée au navigateur avec les deux feuilles du
+          site, à 1280, 390 et 342 px, sur les quatre états rendus un par un.
+          Contrastes : tous conformes, aucun sous le plancher (détail en
+          annexe A). Cinq défauts corrigés dans ce fichier, chacun commenté
+          à l'endroit du correctif : corps de la ligne de verdict (14 px au
+          lieu de 22,4), pastilles emoji ambre, rang de bouton centré dans un
+          bloc aligné à gauche, bouton désactivé indiscernable d'un bouton
+          actif, et deux boutons pleins identiques dont un seul est gratuit.
+          ⚠️ Ce veto ne couvre QUE la version ci-dessous : toute retouche du
+          bloc .resultat ou du script de rendu repasse par design.
+       2. ALEXIS (controle-conformite) — ✅ VU ET LEVÉ LE 14/09/2026. Un défaut trouvé
+          (verdict « injoignable » suggérait que le domaine n'était plus une
+          boutique active, contredisant le §2.4 de la page) et corrigé ;
+          revérifié, conforme. Les quatre textes de verdict tiennent la
+          règle 7 (jamais un jugement sur l'état réel de la boutique).
+
+     LES DEUX VETOS SONT LEVÉS — prête à déployer en apex-rapports/verifier/index.html.
+
+     POURQUOI CETTE PAGE EXISTE. Le lien
+     https://apex-whatsapp.backoffice-martinique.workers.dev/verifier
+     répond en JSON brut. Camille (defense-consommateur) a ouvert ce lien
+     comme le ferait un prospect et a nommé le défaut : un commerçant qui
+     clique dessus lit un texte technique illisible et peut le prendre pour
+     un jugement négatif sur sa boutique. Cette page s'intercale : le
+     visiteur atterrit ICI, la page interroge l'API en arrière-plan, et
+     traduit la réponse en français.
+
+     Aucun prospect réel n'a encore reçu le lien brut — vérifié sur les 20
+     mails composés entre le 05/09 et le 14/09/2026, et sur l'ensemble du
+     site publié apex-rapports : zéro occurrence. Le composeur
+     (scripts/prospection/composer-mails-thomas.mjs) retire déjà ce
+     paragraphe depuis le 05/09, en attendant précisément cette page.
+     Détail complet : livrables/apex-automation/site/verifier-page-humaine.md
+
+     CE QUE CETTE PAGE APPELLE : GET .../verifier?url=<domaine>, en lecture
+     seule, sans jeton, CORS ouvert (Access-Control-Allow-Origin: *) —
+     conçue pour être appelée depuis le navigateur d'un inconnu. Rien n'est
+     stocké côté serveur : aucune écriture KV dans cette route.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── LE BLOC DE SAISIE — repris à l'identique de page-audit-automatique.html,
+   déjà validé par Léa le 31/08/2026. Ne pas modifier sans repasser par elle. */
+.saisie{background:var(--ink-1);border:1px solid var(--violet-300);border-radius:var(--r-md);padding:var(--space-5);box-shadow:var(--shadow-card)}
+.saisie__titre{font-size:var(--fs-h3);font-weight:var(--fw-bold);color:var(--text);margin:0 0 6px}
+.saisie__aide{font-size:var(--fs-sm);color:var(--muted);margin:0 0 var(--space-4);max-width:56ch}
+.saisie__ligne{display:grid;gap:12px}
+.saisie label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--text-strong);margin-bottom:6px}
+.saisie input{
+  width:100%;box-sizing:border-box;min-height:52px;padding:13px 16px;
+  font-family:var(--font-sans);font-size:1.05rem;
+  color:var(--text);background:var(--ink-2);
+  border:1px solid rgba(255,255,255,.36);border-radius:var(--r-sm);
+}
+.saisie input::placeholder{color:var(--muted)}
+.saisie input:focus{outline:none;border-color:var(--violet-300);box-shadow:var(--focus-ring)}
+.saisie .bouton{width:100%}
+@media (min-width:560px){
+  .saisie__ligne{grid-template-columns:minmax(0,1fr) auto;align-items:end}
+  .saisie input{min-width:0}
+  .saisie .bouton{width:auto;white-space:nowrap}
+}
+.saisie__ligne{max-width:640px}
+
+/* ── LE RÉSULTAT — nouveau composant, propre à cette page.
+   ⚠ PROPOSITION DE COULEURS, PAS UNE DÉCISION : voir annexe A en fin de
+   fichier. Le site n'a aucun jeton rouge/orange d'alarme (vérifié dans
+   assets/site.css) — je m'y suis tenu : --green-300 réservé au seul verdict
+   positif, les trois autres restent sur les tons neutres du site plus un
+   accent --cyan-300, jamais une couleur d'alerte. */
+.resultat{
+  margin-top:var(--space-4);background:var(--ink-2);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:var(--space-5);
+}
+.resultat[hidden]{display:none}
+/* ⛔ 14/09/2026 — Léa. LE SÉLECTEUR ÉTAIT `.resultat__etat` SEUL, ET IL PERDAIT.
+   Mesuré au navigateur à 1280 px : la ligne de verdict sortait à 14 px, pas à
+   22,4. `.resultat p` pèse (0,1,1), `.resultat__etat` (0,1,0) — le <p> qui porte
+   les deux classes prenait donc --fs-sm. La phrase qui porte LA RÉPONSE était au
+   même corps que le texte courant, et 38 % plus petite que le libellé du champ
+   juste au-dessus (22,4 px). `.resultat .resultat__etat` pèse (0,2,0) et gagne.
+   Ne pas réécrire ce sélecteur à une seule classe. */
+/* ⛔ 14/09/2026 — Léa, ET CELUI-CI, AUCUNE MESURE NE ME L'AURAIT DONNÉ.
+   `display:flex` sur une PHRASE fait de chacun de ses morceaux un élément de
+   rangée : la pastille, le texte, le <strong> du domaine et le point final
+   étaient QUATRE colonnes. Rendu à 342 px, capture à l'appui, la ligne sortait
+   ainsi :   ✓ Notre      maboutique.fr .
+               outil a
+               pu lire
+   La phrase était découpée en colonnes, le domaine posé à côté d'un bloc de
+   trois lignes et le point final seul à droite. Le défaut existait AVANT ma
+   correction de taille — à 14 px il ne se voyait pas sur un écran large, parce
+   que la ligne tenait d'un bloc ; il se déclenchait dès qu'elle se repliait.
+   Une grille ne compose pas une phrase : bloc, et la pastille pend dans la
+   marge (padding-left + text-indent négatif de même valeur), donc les lignes
+   suivantes s'alignent sous le TEXTE et jamais sous le signe.
+   Vérifié à 342 px avec un domaine de 40 signes : 3 lignes, premier jambage à
+   x=40,8, suite du texte à x=68,4, zéro débordement. */
+.resultat .resultat__etat{
+  display:block;font-size:var(--fs-h3);line-height:var(--lh-snug);
+  font-weight:var(--fw-bold);color:var(--text);margin:0 0 10px;
+  padding-left:1.5em;text-indent:-1.5em;
+}
+/* ⛔ 14/09/2026 — Léa. LA PASTILLE EST UN CARACTÈRE, JAMAIS UN EMOJI.
+   Le brouillon posait ✅ ⚠️ ✋ ⏳. Mesuré en rendant chaque glyphe sur un canvas
+   dans la police réellement chargée : ⚠️ est à 53 % #FFC060 et 20 % #FFA060,
+   ✋ à 70 % #FFC040 — de l'ambre, c'est-à-dire exactement la couleur d'alarme
+   que l'annexe A s'interdisait, sur l'élément que l'œil rencontre EN PREMIER.
+   Et le site publié n'affiche aucun emoji nulle part : ses seuls signes sont
+   « ✓ » et « × », monochromes, colorés par un jeton (.liste li::before).
+   La pastille hérite donc de la couleur de la ligne : elle ne peut plus
+   introduire une teinte hors palette. */
+.resultat__puce{display:inline-block;width:1.5em;text-indent:0;font-size:1em;color:inherit}
+.resultat--positif .resultat__etat{color:var(--green-300)}
+.resultat--attention .resultat__etat{color:var(--cyan-300)}
+.resultat--indetermine .resultat__etat{color:var(--text)}
+.resultat p{font-size:var(--fs-sm);color:var(--text-body);margin:0 0 12px;max-width:62ch}
+.resultat p:last-of-type{margin-bottom:0}
+/* ⛔ 14/09/2026 — Léa. `justify-content` MANQUAIT, ET `.actions` EST CENTRÉ.
+   `.resultat .actions` redéclarait display:flex sans toucher au centrage hérité
+   de `.actions` (site.css l. 449). Mesuré à 1280 px : le texte du bloc commence
+   à x=137, le premier bouton à x=375 — 238 px d'écart, dans un bloc dont chaque
+   autre ligne est alignée à gauche. C'est exactement le défaut que site.css
+   documente l. 458-465 (« l'œil lit ça comme une erreur de gabarit »). */
+.resultat .actions{margin-top:var(--space-4);display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+.resultat .actions .bouton{width:auto}
+
+/* ⛔ 14/09/2026 — Léa. LE BOUTON DÉSACTIVÉ ÉTAIT IDENTIQUE AU BOUTON ACTIF.
+   Le script pose bouton.disabled pendant l'attente (jusqu'à 12 s). Relevé avant
+   correction : même dégradé, même halo --glow-violet, opacité 1, cursor:pointer
+   — et `.bouton:hover{filter:brightness(1.12)}` s'applique AUSSI à un bouton
+   désactivé, donc il s'ÉCLAIRE sous le curseur pendant qu'il est mort. Le seul
+   signe d'activité était une ligne grise de 14 px. C'est le défaut du 12/08 :
+   un bouton qui ne peut pas marcher ne doit pas ressembler à un bouton qui
+   marche. Le site n'a aucune règle :disabled — elle est posée ici, pour cette
+   page, qui est la seule à désactiver un bouton. */
+.bouton:disabled{opacity:.55;box-shadow:none;cursor:progress;transition:none}
+.bouton:disabled:hover{filter:none;box-shadow:none}
+/* `transition:none` n'est pas un détail : `.bouton` anime box-shadow sur .18 s,
+   et l'extinction du halo doit être INSTANTANÉE — c'est le signal « je suis
+   parti chercher », il ne se fond pas. Vérifié au navigateur : halo éteint,
+   opacité .55, curseur « progress » dès la désactivation. */
+.resultat__attente{color:var(--muted);font-size:var(--fs-sm);margin:var(--space-4) 0 0}
+
+@media (max-width:559px){
+  .resultat .actions{flex-direction:column;align-items:stretch}
+  .resultat .actions .bouton{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<a class="saut-contenu" href="#contenu">Aller au contenu</a>
+
+<header class="entete">
+  <div class="entete-inner">
+    <a class="logo" href="../" aria-label="APEX Automation, accueil">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </a>
+    <details class="menu">
+      <summary class="menu__bouton">
+        <span class="menu__barres" aria-hidden="true"></span>
+        <span class="menu__mot">Menu</span>
+      </summary>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="../">Accueil</a>
+        <a href="../offres/">Offres et tarifs</a>
+        <a href="../contact/">Contact</a>
+        <a href="../mentions-legales/">Mentions légales</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<div class="bandeau">
+  <div class="enveloppe">
+    <div class="accroche">
+      <p class="surtitre">Contrôle gratuit</p>
+      <h1>Notre outil peut-il lire votre boutique ?</h1>
+      <p class="chapo">Avant de vous proposer l'Audit automatique à 29&nbsp;€, un test simple&nbsp;: est-ce que notre outil arrive à charger et à lire les pages publiques de votre boutique&nbsp;? La réponse en quelques secondes, sans carte ni engagement.</p>
+    </div>
+  </div>
+</div>
+
+<main id="contenu">
+
+  <section class="section" style="padding-top:clamp(32px,5vw,48px)">
+    <div class="enveloppe">
+      <div class="saisie">
+        <p class="saisie__titre">L'adresse de votre boutique</p>
+        <p class="saisie__aide">Le nom de domaine suffit. Rien n'est conservé après la vérification.</p>
+        <div class="saisie__ligne">
+          <div>
+            <label for="adresse">Adresse de la boutique à examiner</label>
+            <input id="adresse" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="maboutique.fr">
+          </div>
+          <button type="button" class="bouton" id="bouton-verifier">Vérifier ma boutique</button>
+        </div>
+        <p class="resultat__attente" id="attente" role="status" aria-live="polite" hidden>Nous consultons les pages publiques de <strong id="attente-domaine"></strong>… quelques secondes.</p>
+      </div>
+
+      <!-- ══ ZONE DE RÉSULTAT — un seul bloc visible à la fois, rempli par le script.
+           14/09/2026 — Léa : role="status" + aria-live posés ici. Sans eux, un
+           visiteur qui n'a pas l'écran sous les yeux clique et n'entend RIEN :
+           le verdict s'écrit sous le bouton, en silence. Le bloc de saisie déjà
+           validé sur la page à 29 € porte exactement cette paire sur son écho
+           (.saisie__echo aria-live="polite") — c'est l'usage du site, il avait
+           seulement été oublié ici. La zone existe au chargement (vide, hidden),
+           donc la région vivante est bien en place avant d'être remplie. ══ -->
+      <div class="resultat" id="resultat" role="status" aria-live="polite" hidden></div>
+    </div>
+  </section>
+
+  <!-- ══ CE QUE CE TEST N'EST PAS — même franchise que la page à 29 €. ══ -->
+  <section class="section">
+    <div class="enveloppe">
+      <p class="surtitre">Sans détour</p>
+      <h2>Ce que ce test n'est pas</h2>
+      <div class="carte" style="margin-top:24px">
+        <ul class="liste hors">
+          <li>Il ne certifie rien sur votre conformité légale ni votre référencement</li>
+          <li>Il ne corrige rien&nbsp;: c'est un test de lisibilité technique, pas un audit</li>
+          <li>Il ne conserve pas l'adresse que vous saisissez au-delà de la vérification</li>
+          <li>Un résultat « nous n'avons pas pu lire » ne veut pas dire que votre boutique est hors service pour vos visiteurs ou pour Google</li>
+        </ul>
+      </div>
+      <p class="fine" style="margin-top:20px">Pour un contrôle complet, sur six familles de vérifications&nbsp;: <a href="../audit-automatique/">l'Audit automatique</a>, 29&nbsp;€, rapport sous un jour ouvré.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied-site">
+  <div class="enveloppe">
+    <span class="logo logo--lg" style="margin-bottom:24px">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+      </span>
+      <span class="logo__word">APEX <span>Automation</span></span>
+    </span>
+    <p>Nathanaël Anglio, entreprise individuelle — SIRET 509&nbsp;715&nbsp;777&nbsp;00058. <strong>TVA non applicable, article 293 B du code général des impôts.</strong></p>
+    <p>Contact&nbsp;: <a href="mailto:contact@apexautomation.fr">contact@apexautomation.fr</a> — <a href="../contact/">Contact</a>
+      <a href="../mentions-legales/">Mentions légales</a> — <a href="../mentions-legales/#cgv">Conditions générales de vente</a></p>
+    <p class="droits">© 2026 EI Anglio Nathanaël — APEX Automation. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script>
+/* Menu — identique au reste du site. */
+(function () {
+  var m = document.querySelector('.menu');
+  if (!m) return;
+  var s = m.querySelector('summary');
+  var etat = function () { s.setAttribute('aria-expanded', m.open ? 'true' : 'false'); };
+  etat();
+  m.addEventListener('toggle', etat);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; s.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (m.open && !m.contains(e.target)) m.open = false;
+  });
+})();
+
+/* Le contrôle lui-même.
+   ⛔ RÈGLE 7 D'ALEXIS, tenue dans CE script, pas seulement dans le texte
+   fixe : chaque phrase de verdict décrit ce que L'OUTIL a obtenu, jamais
+   l'état de la boutique. Ne jamais introduire ici un adjectif sur la
+   boutique elle-même. */
+(function () {
+  var ENDPOINT = 'https://apex-whatsapp.backoffice-martinique.workers.dev/verifier';
+  var DELAI_CLIENT_MS = 12000; // marge au-delà des 8 s du worker cote serveur
+
+  var champ = document.getElementById('adresse');
+  var bouton = document.getElementById('bouton-verifier');
+  var zoneAttente = document.getElementById('attente');
+  var zoneAttenteDomaine = document.getElementById('attente-domaine');
+  var zoneResultat = document.getElementById('resultat');
+
+  function normaliserAffichage(v) {
+    return (v || '').trim()
+      .replace(/^https?:\/\//i, '')
+      .replace(/^www\./i, '')
+      .replace(/\/+$/, '');
+  }
+
+  function echapper(t) {
+    var d = document.createElement('div');
+    d.textContent = t == null ? '' : String(t);
+    return d.innerHTML;
+  }
+
+  function afficherResultat(classe, html) {
+    zoneResultat.className = 'resultat ' + classe;
+    zoneResultat.innerHTML = html;
+    zoneResultat.hidden = false;
+  }
+
+  function texteIllisible(v) {
+    var signal = v.signal || '';
+    if (signal.indexOf('http_') === 0) {
+      return 'Le serveur a répondu <strong>' + echapper(v.statut) + '</strong> à notre outil.';
+    }
+    if (signal === 'non_html') {
+      return "La réponse reçue n'était pas une page web classique.";
+    }
+    if (signal === 'corps_vide') {
+      return "La page a répondu, mais nous n'y avons trouvé aucun texte exploitable — souvent le signe d'un contenu qui se charge entièrement après coup, que notre outil ne sait pas encore attendre.";
+    }
+    return 'Notre outil a reçu une réponse qu\'il n\'a pas pu exploiter.';
+  }
+
+  function texteInjoignable(v) {
+    if (v.signal === 'timeout') return 'Notre outil a attendu une réponse sans succès.';
+    if (v.signal === 'fetch_error') return "Nous n'avons pas réussi à établir de connexion vers ce nom de domaine.";
+    return "Nous n'avons pas réussi à joindre ce domaine.";
+  }
+
+  function rendreVerdict(v, domaineAffiche) {
+    var d = '<strong>' + echapper(domaineAffiche) + '</strong>';
+
+    if (v.verdict === 'lisible') {
+      afficherResultat('resultat--positif',
+        '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">✓</span> Notre outil a pu lire ' + d + '.</p>' +
+        '<p>Nous avons chargé sa page d\'accueil publique et y avons trouvé du contenu exploitable. Cela ne dit rien de la conformité ni du référencement de votre boutique — seulement que notre outil peut l\'examiner.</p>' +
+        '<p>La suite logique&nbsp;: l\'Audit automatique passe en revue six familles de contrôles sur l\'ensemble de vos pages publiques, pour 29&nbsp;€, rapport sous un jour ouvré.</p>' +
+        /* ⛔ 14/09/2026 — Léa : .contour, PAS le bouton plein.
+           Relevé à 1280 px : « Vérifier ma boutique » (gratuit) et ce bouton-ci
+           portaient le MÊME dégradé plein et le MÊME halo, à 262 px l'un de
+           l'autre, tous deux visibles d'un seul regard. C'est le défaut du
+           24/08 qui a fait naître le troisième niveau : deux boutons
+           d'apparence identique dont l'un mène à un paiement et l'autre non.
+           Le site traite d'ailleurs ce lien-là en bouton non plein partout
+           ailleurs (accueil l. 69, offres l. 457). .contour — « l'action qui
+           encaisse, mais pas la principale » — lui rend son poids commercial
+           (bordure --violet-300, 6,30:1) sans lui donner le costume du bouton
+           gratuit que le visiteur vient d'actionner. */
+        '<div class="actions"><a class="bouton contour" href="../audit-automatique/">Commander l\'Audit automatique — 29&nbsp;€</a></div>');
+      return;
+    }
+
+    if (v.verdict === 'illisible') {
+      afficherResultat('resultat--attention',
+        '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">?</span> Notre outil n\'a pas pu lire ' + d + ' cette fois.</p>' +
+        '<p>' + texteIllisible(v) + '</p>' +
+        '<p>Ce constat porte sur ce que <strong>notre outil</strong> a obtenu, pas sur l\'état réel de votre boutique&nbsp;: un blocage anti-robot vise notre agent, pas vos visiteurs ni Google.</p>' +
+        '<div class="actions"><button type="button" class="bouton secondaire" id="bouton-reessayer">Réessayer</button> <a class="bouton secondaire" href="../offres/#audit-360">Passer par un humain — Audit 360°, 290&nbsp;€</a></div>');
+      document.getElementById('bouton-reessayer').addEventListener('click', function () { lancer(champ.value); });
+      return;
+    }
+
+    if (v.verdict === 'injoignable') {
+      afficherResultat('resultat--attention',
+        '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">?</span> Nous n\'avons pas réussi à joindre ' + d + '.</p>' +
+        '<p>' + texteInjoignable(v) + '</p>' +
+        '<p>Si votre boutique fonctionne normalement pour vos visiteurs, il peut s\'agir d\'un blocage ponctuel de notre côté&nbsp;: réessayez, ou vérifiez que l\'adresse saisie est la bonne.</p>' +
+        '<div class="actions"><button type="button" class="bouton secondaire" id="bouton-reessayer">Réessayer</button> <a class="bouton secondaire" href="mailto:contact@apexautomation.fr">Nous écrire</a></div>');
+      document.getElementById('bouton-reessayer').addEventListener('click', function () { lancer(champ.value); });
+      return;
+    }
+
+    // invalide, ou tout verdict inconnu : on redemande une adresse correcte.
+    afficherResultat('resultat--indetermine',
+      '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">×</span> Cette adresse n\'a pas pu être analysée.</p>' +
+      '<p>Vérifiez qu\'il s\'agit bien d\'un nom de domaine (par exemple <code>maboutique.fr</code>), sans espace ni caractère superflu.</p>' +
+      '<div class="actions"><button type="button" class="bouton secondaire" id="bouton-corriger">Corriger l\'adresse</button></div>');
+    document.getElementById('bouton-corriger').addEventListener('click', function () { champ.focus(); });
+  }
+
+  function rendreErreurTechnique() {
+    afficherResultat('resultat--indetermine',
+      '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">…</span> Notre outil de vérification est temporairement indisponible.</p>' +
+      '<p>Réessayez dans quelques instants, ou écrivez-nous&nbsp;: <a href="mailto:contact@apexautomation.fr">contact@apexautomation.fr</a>.</p>');
+  }
+
+  function lancer(valeurBrute) {
+    var domaine = normaliserAffichage(valeurBrute);
+    if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/i.test(domaine)) {
+      afficherResultat('resultat--indetermine',
+        '<p class="resultat__etat"><span class="resultat__puce" aria-hidden="true">×</span> Cette adresse n\'a pas pu être analysée.</p>' +
+        '<p>Vérifiez qu\'il s\'agit bien d\'un nom de domaine (par exemple <code>maboutique.fr</code>), sans espace ni caractère superflu.</p>');
+      return;
+    }
+
+    zoneResultat.hidden = true;
+    zoneAttenteDomaine.textContent = domaine;
+    zoneAttente.hidden = false;
+    bouton.disabled = true;
+
+    var controleur = new AbortController();
+    var minuteur = setTimeout(function () { controleur.abort(); }, DELAI_CLIENT_MS);
+
+    fetch(ENDPOINT + '?url=' + encodeURIComponent(domaine), { signal: controleur.signal })
+      .then(function (r) { return r.json(); })
+      .then(function (v) {
+        clearTimeout(minuteur);
+        zoneAttente.hidden = true;
+        bouton.disabled = false;
+        rendreVerdict(v, domaine);
+      })
+      .catch(function () {
+        clearTimeout(minuteur);
+        zoneAttente.hidden = true;
+        bouton.disabled = false;
+        rendreErreurTechnique();
+      });
+  }
+
+  bouton.addEventListener('click', function () { lancer(champ.value); });
+  champ.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); lancer(champ.value); } });
+
+  // Arrivée depuis un lien personnalisé (?url=maboutique.fr) : pré-remplir
+  // ET lancer tout de suite. C'est ce qui rend vraie la promesse du mail
+  // (« vous le dit en trente secondes ») — zéro geste supplémentaire.
+  var params = new URLSearchParams(window.location.search);
+  var depuisLien = params.get('url');
+  if (depuisLien) {
+    champ.value = depuisLien;
+    lancer(depuisLien);
+  }
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     ANNEXE A — CE QUI RESTE À TRANCHER PAR LÉA, ET POURQUOI CE N'EST PAS
+     UN DÉTAIL
+
+     Le site n'a AUCUN jeton rouge ou orange dans sa charte (vérifié dans
+     assets/site.css : la liste « ce que ça ne fait pas », sur la page à
+     29 €, peint ses croix en --muted, pas en couleur d'alerte). J'ai suivi
+     cette même règle ici : --green-300 pour le seul verdict positif,
+     --cyan-300 en simple accent pour les deux verdicts « on n'a pas pu
+     lire », --text pour le verdict « adresse mal saisie ». Aucun rouge nulle
+     part dans ce fichier.
+
+     C'est un choix de COHÉRENCE avec la charte existante, pas une garantie
+     de LISIBILITÉ pour autant : Léa doit vérifier les contrastes réels
+     (--cyan-300 sur --ink-2, --green-300 sur --ink-2) au navigateur, comme
+     elle l'a fait pour chaque teinte du bloc aperçu du mail le 05/09. Je n'ai
+     mesuré aucun contraste moi-même ici — ce n'est pas mon métier.
+
+     ── RÉPONSE DE LÉA, 14/09/2026. MESURÉ AU NAVIGATEUR, PAGE OUVERTE AVEC
+        tokens.css ET site.css, LES QUATRE ÉTATS RENDUS UN PAR UN ───────────
+
+     Les couleurs proposées sont justes, et elles passent toutes :
+       --green-300 #4ADE80 sur --ink-2 #131B2E ......... 9,85:1   (lisible)
+       --cyan-300  #38BDF8 sur --ink-2 ................. 8,01:1   (illisible,
+                                                                   injoignable)
+       --text      #FFFFFF sur --ink-2 ................ 17,16:1   (invalide)
+       --text-body #D6DEEC sur --ink-2 ................ 12,68:1   (corps)
+       --text-strong sur --ink-2 (le domaine en gras) . 14,48:1
+       bordure des boutons secondaires ................. 3,31:1   (1.4.11 ok)
+     Aucun élément sous le plancher. Le choix de réserver --green-300 au seul
+     verdict positif est le bon, et le refus du rouge/orange aussi.
+
+     ⛔ MAIS LA PAGE AFFICHAIT QUAND MÊME DE L'AMBRE, ET C'ÉTAIT LE PREMIER
+     ÉLÉMENT DE CHAQUE BLOC. Les pastilles étaient des emoji. Chaque glyphe
+     rendu sur un canvas dans la police réellement chargée :
+       ⚠️  53 % #FFC060 + 20 % #FFA060   → ambre franc
+       ✋  70 % #FFC040                   → jaune-orangé
+       ✅  44 % #60E080                   → (proche de --green-300, celui-là)
+     Le CSS ne contenait aucune couleur d'alarme ; le RENDU en portait une, à
+     l'endroit exact où la règle 7 interdit de suggérer un jugement. Et le site
+     publié n'affiche aucun emoji nulle part : ses seuls signes sont « ✓ » et
+     « × », monochromes, colorés par un jeton. Les quatre pastilles sont donc
+     devenues des caractères qui héritent de la couleur de leur ligne.
+     *Une couleur qu'on n'a pas écrite dans la feuille peut quand même être à
+     l'écran : un emoji est une image, pas un caractère.*
+
+     Ce qui reste, hors de ce fichier, et qui n'est pas bloquant ici :
+     --green-300 n'est pas redéfini dans le bloc @media print de site.css
+     (--violet-300 et --cyan-300 le sont). À l'impression, le verdict positif
+     sort en vert pâle sur blanc, 1,74:1 — invisible. Le défaut est celui de
+     site.css, il touche aussi les « ✓ » de toutes les listes du site : à
+     corriger là-bas, pas ici.
+
+     ANNEXE B — CE QUI N'A PAS ÉTÉ CÂBLÉ, ET POURQUOI CE N'EST PAS UN OUBLI
+
+     Le composeur de mails (composer-mails-thomas.mjs) retire encore le
+     paragraphe du contrôle gratuit. Le rétablir, avec un lien personnalisé
+     https://apexautomation.fr/verifier/?url=<domaine du prospect>, est un
+     geste séparé, sur un fichier qui n'est pas le mien à modifier sans
+     qu'Alexis et Camille n'aient revu le texte fixe qui l'entoure — la même
+     règle qui a produit trois passes de relecture sur ce gabarit début
+     septembre. Cette page rend ce rétablissement POSSIBLE ; elle ne le fait
+     pas elle-même.
+
+     La page de vente à 29 € (audit-automatique/index.html) n'appelle
+     toujours pas /verifier avant son propre bouton de paiement — intention
+     documentée le 03/09, jamais câblée. Sans lien avec cette page-ci : je le
+     signale pour que ça ne se perde pas une seconde fois.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+</body>
+</html>
